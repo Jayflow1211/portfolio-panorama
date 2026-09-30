@@ -162,13 +162,20 @@
     })).sort((a, b) => b.value - a.value);
     const cells = squarify(items, 0, 0, W, H);
     el.innerHTML = cells.map(c => {
-      const fs = Math.max(12, Math.min(42, Math.floor(Math.min(c.w, c.h) / 5)));
-      const ps = Math.max(11, Math.min(22, Math.floor(fs * 0.55)));
-      const showMv = c.w > 70 && c.h > 55;
-      return `<div class="tcell" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
-        <div class="tcell-inner">
+      const tip = `${c.ticker} · ${fmt.pct(c.pct, 1)} · ${fmt.money(c.value)}`;
+      // Small tiles: always keep ticker visible (padding + font scale with cell).
+      const tiny = c.w < 110 || c.h < 64;
+      const pad = tiny ? '4px 6px' : '10px 12px';
+      const maxFs = tiny ? 14 : 42;
+      const minFs = tiny ? 10 : 12;
+      const fs = Math.max(minFs, Math.min(maxFs, Math.floor(Math.min(c.w / (c.ticker.length * 0.72), c.h / (tiny ? 2.4 : 4.2)))));
+      const ps = Math.max(9, Math.min(tiny ? 12 : 22, Math.floor(fs * 0.72)));
+      const showMv = c.w > 90 && c.h > 72;
+      const showPct = c.h >= 28 && c.w >= 36;
+      return `<div class="tcell" title="${tip}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
+        <div class="tcell-inner" style="padding:${pad}">
           <div class="t-ticker" style="font-size:${fs}px">${c.ticker}</div>
-          <div class="t-pct" style="font-size:${ps}px">${fmt.pct(c.pct, 1)}</div>
+          ${showPct ? `<div class="t-pct" style="font-size:${ps}px">${fmt.pct(c.pct, 1)}</div>` : ''}
           ${showMv ? `<div class="t-mv">${fmt.money0(c.value)}</div>` : ''}
         </div>
       </div>`;
