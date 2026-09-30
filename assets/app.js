@@ -12,6 +12,13 @@
       const abs = Math.abs(Math.round(n));
       return (n < 0 ? '-$' : '$') + abs.toLocaleString('en-US');
     },
+    moneyCompact(n) {
+      if (n == null || Number.isNaN(n)) return '—';
+      const sign = n < 0 ? '-' : '';
+      const abs = Math.abs(n);
+      if (abs >= 1000) return sign + '$' + (abs / 1000).toFixed(abs >= 10000 ? 0 : 1) + 'k';
+      return sign + '$' + Math.round(abs);
+    },
     pct(n, dig = 2) {
       if (n == null || Number.isNaN(n)) return '—';
       return n.toFixed(dig) + '%';
@@ -163,20 +170,34 @@
     const cells = squarify(items, 0, 0, W, H);
     el.innerHTML = cells.map(c => {
       const tip = `${c.ticker} · ${fmt.pct(c.pct, 1)} · ${fmt.money(c.value)}`;
-      // Small tiles: always keep ticker visible (padding + font scale with cell).
-      const tiny = c.w < 110 || c.h < 64;
-      const pad = tiny ? '4px 6px' : '10px 12px';
-      const maxFs = tiny ? 14 : 42;
-      const minFs = tiny ? 10 : 12;
-      const fs = Math.max(minFs, Math.min(maxFs, Math.floor(Math.min(c.w / (c.ticker.length * 0.72), c.h / (tiny ? 2.4 : 4.2)))));
-      const ps = Math.max(9, Math.min(tiny ? 12 : 22, Math.floor(fs * 0.72)));
-      const showMv = c.w > 90 && c.h > 72;
-      const showPct = c.h >= 28 && c.w >= 36;
+      const pctStr = fmt.pct(c.pct, 1);
+      // Short strips: one horizontal line so ticker + % + $ all fit.
+      const bar = c.h < 52;
+      if (bar) {
+        const fs = Math.max(9, Math.min(13, Math.floor(c.h * 0.42)));
+        const padY = Math.max(1, Math.floor((c.h - fs) / 2));
+        const mv = c.w >= 160 ? fmt.money0(c.value) : fmt.moneyCompact(c.value);
+        return `<div class="tcell" title="${tip}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
+          <div class="tcell-inner tcell-bar" style="padding:${padY}px 8px;gap:6px">
+            <span class="t-ticker" style="font-size:${fs}px">${c.ticker}</span>
+            <span class="t-pct" style="font-size:${fs}px">${pctStr}</span>
+            <span class="t-mv" style="font-size:${Math.max(8, fs - 1)}px">${mv}</span>
+          </div>
+        </div>`;
+      }
+      const tiny = c.w < 110 || c.h < 80;
+      const pad = tiny ? '6px 8px' : '10px 12px';
+      const maxFs = tiny ? 18 : 42;
+      const minFs = tiny ? 11 : 12;
+      const fs = Math.max(minFs, Math.min(maxFs, Math.floor(Math.min(c.w / (c.ticker.length * 0.72), c.h / 4.5))));
+      const ps = Math.max(10, Math.min(tiny ? 14 : 22, Math.floor(fs * 0.72)));
+      const showMv = c.w >= 70 && c.h >= 56;
+      const mv = tiny ? fmt.moneyCompact(c.value) : fmt.money0(c.value);
       return `<div class="tcell" title="${tip}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
         <div class="tcell-inner" style="padding:${pad}">
           <div class="t-ticker" style="font-size:${fs}px">${c.ticker}</div>
-          ${showPct ? `<div class="t-pct" style="font-size:${ps}px">${fmt.pct(c.pct, 1)}</div>` : ''}
-          ${showMv ? `<div class="t-mv">${fmt.money0(c.value)}</div>` : ''}
+          <div class="t-pct" style="font-size:${ps}px">${pctStr}</div>
+          ${showMv ? `<div class="t-mv" style="font-size:${Math.max(9, ps - 1)}px">${mv}</div>` : ''}
         </div>
       </div>`;
     }).join('');
