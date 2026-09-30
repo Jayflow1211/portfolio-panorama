@@ -113,13 +113,13 @@
     position: absolute; border: 2px solid var(--bg); border-radius: 10px; overflow: hidden;
   }
   .tcell-inner {
-    height: 100%; padding: 12px 14px;
+    height: 100%; padding: 10px 12px; box-sizing: border-box;
     display: flex; flex-direction: column; justify-content: flex-end;
     background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.38) 100%);
   }
-  .t-ticker { font-weight: 800; letter-spacing: 0.4px; line-height: 1.1; }
-  .t-pct { opacity: 0.95; font-weight: 600; margin-top: 3px; }
-  .t-mv { opacity: 0.8; font-size: 12px; margin-top: 3px; }
+  .t-ticker { font-weight: 800; letter-spacing: 0.3px; line-height: 1.05; white-space: nowrap; overflow: hidden; text-overflow: clip; text-shadow: 0 1px 2px rgba(0,0,0,.55); }
+  .t-pct { opacity: 0.95; font-weight: 600; margin-top: 2px; line-height: 1.05; text-shadow: 0 1px 2px rgba(0,0,0,.45); }
+  .t-mv { opacity: 0.8; font-size: 12px; margin-top: 2px; }
   .note { margin-top: 8px; font-size: 11px; color: var(--dim); }
 
   .holdings-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px; }
