@@ -1,30 +1,30 @@
 {
-  "asof": "2026-09-30 18:41 CST",
+  "asof": "2026-10-01 04:39 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid)+USOptions「9月」",
+  "source": "Finance(IB/Plaid)+USOptions「9月」sheet opens after 2026-09-30 closes",
   "nav": 135343.59,
   "stock": 49709.3,
-  "opt": -2741.79,
+  "opt": -1799.59,
   "cash": 88194.11,
-  "other": 181.97,
-  "realized": 32947.85,
-  "risk": 99820,
+  "other": -760.23,
+  "realized": 33584.85,
+  "risk": 59530,
   "equity_unrealized": -12586.83,
-  "open_short_contracts": 12,
+  "open_short_contracts": 9,
   "equity_count": 5,
   "stock_pct": 36.73,
-  "opt_pct": -2.03,
+  "opt_pct": -1.33,
   "cash_pct": 65.16,
-  "other_pct": 0.13,
-  "risk_pct": 73.75,
+  "other_pct": -0.56,
+  "risk_pct": 43.98,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 140827.17,
+    "sum": 140463.23,
     "slices": [
       {
         "key": "cash",
@@ -45,17 +45,17 @@
       {
         "key": "opt",
         "label": "期权",
-        "value": 2741.79,
-        "signed": -2741.79,
-        "pct_nav": -2.03,
+        "value": 1799.59,
+        "signed": -1799.59,
+        "pct_nav": -1.33,
         "color": "#c084fc"
       },
       {
         "key": "other",
         "label": "其他",
-        "value": 181.97,
-        "signed": 181.97,
-        "pct_nav": 0.13,
+        "value": 760.23,
+        "signed": -760.23,
+        "pct_nav": -0.56,
         "color": "#64748b"
       }
     ]
@@ -192,15 +192,6 @@
   "options": {
     "short_puts": [
       {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 135,
-        "expiry": "2026-10-30",
-        "contracts": 2,
-        "mv": -481,
-        "cost": -698.6124
-      },
-      {
         "ticker": "RKLB",
         "type": "卖出看跌",
         "strike": 70,
@@ -217,15 +208,6 @@
         "contracts": 1,
         "mv": -374.99,
         "cost": -498.9561
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 145,
-        "expiry": "2026-10-16",
-        "contracts": 1,
-        "mv": -370,
-        "cost": -508.9529
       },
       {
         "ticker": "SPCX",
@@ -268,11 +250,11 @@
       {
         "ticker": "APLD",
         "type": "卖出看涨",
-        "strike": 35,
-        "expiry": "2026-10-23",
+        "strike": 32,
+        "expiry": "2026-10-30",
         "contracts": 3,
-        "mv": -91.2,
-        "cost": -147.9461
+        "mv": 0,
+        "cost": 0
       }
     ],
     "long_puts": [
@@ -286,9 +268,9 @@
         "cost": 1828.4938
       }
     ],
-    "short_put_contracts": 9,
-    "short_put_mv": -2746.64,
-    "covered_mv": -91.2,
+    "short_put_contracts": 6,
+    "short_put_mv": -1895.64,
+    "covered_mv": 0,
     "long_put_mv": 96.05
   }
 }
