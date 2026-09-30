@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>æŒä»“å…¨æ™¯å›¾ Â· Portfolio Panorama</title>
+    <title>持仓全景图 · Portfolio Panorama</title>
   <script src="assets/chart.umd.min.js"></script>
   <style>
       :root {
@@ -198,76 +198,76 @@
   <body>
       <div class="header">
             <div>
-                    <div class="title">æŒä»“å…¨æ™¯å›¾ <span>Portfolio Panorama</span></div>
-                  <div class="subtitle">æŒ‰æ¿å—å½’ç±» Â· <span id="eq-count">5</span> æ ‡çš„ Â· 3 å¤§æ¿å— Â· KPI / åœ°å›¾ / å…¨æ™¯å¯¹é½ Â· å±•ç¤ºä¸“ç”¨ï¼ˆéžäº¤æ˜“ï¼‰</div>
+                    <div class="title">持仓全景图 <span>Portfolio Panorama</span></div>
+                  <div class="subtitle">按板块归类 · <span id="eq-count">5</span> 标的 · 3 大板块 · KPI / 地图 / 全景对齐 · 展示专用（非交易）</div>
             </div>
           <div class="asof">
-                <div><strong>æ•°æ®æˆªæ­¢</strong> <span id="asof">â€”</span></div>
-                <div>æ¥æºï¼š<span id="source">â€”</span></div>
-                <div>è´¦æˆ· <span id="acct">U****6865</span> <span class="badge-live" id="acct-status">Plaid active</span></div>
-                <div class="nav-big">NAV $<span id="nav">â€”</span></div>
+                <div><strong>数据截止</strong> <span id="asof">—</span></div>
+                <div>来源：<span id="source">—</span></div>
+                <div>账户 <span id="acct">U****6865</span> <span class="badge-live" id="acct-status">Plaid active</span></div>
+                <div class="nav-big">NAV $<span id="nav">—</span></div>
           </div>
       </div>
   
-    <div class="section-label">é¡¶éƒ¨ KPI Â· ç›¸å¯¹ NAVï¼ˆæœ‰ç¬¦å·ï¼‰</div>
+    <div class="section-label">顶部 KPI · 相对 NAV（有符号）</div>
     <div class="kpis" id="kpis"></div>
   
-    <div class="section-label">è´¦æˆ·å…¨æ™¯ Â· NAV / ç›ˆäº / å¤´å¯¸æž„æˆ</div>
+    <div class="section-label">账户全景 · NAV / 盈亏 / 头寸构成</div>
     <div class="panorama">
         <div class="card">
-              <div class="card-title">è´¦æˆ·å…¨æ™¯</div>
+              <div class="card-title">账户全景</div>
               <div class="metrics" id="panorama-metrics"></div>
         </div>
         <div class="card">
-              <div class="card-title">å¤´å¯¸çŽ¯å›¾ Â· ç»å¯¹å€¼å£å¾„ï¼ˆåˆ‡ç‰‡ = |å¤´å¯¸| / Î£|å¤´å¯¸|ï¼‰</div>
+              <div class="card-title">头寸环图 · 绝对值口径（切片 = |头寸| / Σ|头寸|）</div>
               <div class="donut-wrap">
                       <div class="donut-canvas-box">
                                 <canvas id="donut"></canvas>canvas>
                                 <div class="donut-center">
-                                            <div class="c-lbl">|å¤´å¯¸|åˆè®¡</div>
-                                            <div class="c-val" id="donut-sum">â€”</div>
+                                            <div class="c-lbl">|头寸|合计</div>
+                                            <div class="c-val" id="donut-sum">—</div>
                                 </div>
                       </div>
                       <div class="legend" id="donut-legend"></div>
               </div>
-              <div class="note">é¥¼å›¾ç”¨ç»å¯¹å€¼ï¼›å³ä¾§ % ä¸ºæœ‰ç¬¦å·å  NAVã€‚æœŸæƒå‡€å€¼ä¸ºè´Ÿæ—¶ä»å åˆ‡ç‰‡ã€‚</div>
+              <div class="note">饼图用绝对值；右侧 % 为有符号占 NAV。期权净值为负时仍占切片。</div>
         </div>
     </div>
   
-    <div class="section-label">æŒä»“åœ°å›¾ Â· è‚¡ç¥¨ä»“æƒé‡ï¼ˆä¸å«çŽ°é‡‘ / æœŸæƒï¼‰</div>
+    <div class="section-label">持仓地图 · 股票仓权重（不含现金 / 期权）</div>
     <div class="card treemap-wrap">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-              <div class="card-title" style="margin:0">è‚¡ç¥¨ä»“ treemap</div>
-              <div style="font-size:12px;color:var(--muted)">è‚¡ç¥¨å¸‚å€¼åˆè®¡ $<span id="stock-total">â€”</span></div>
+              <div class="card-title" style="margin:0">股票仓 treemap</div>
+              <div style="font-size:12px;color:var(--muted)">股票市值合计 $<span id="stock-total">—</span></div>
         </div>
         <div class="treemap" id="treemap"></div>
-        <div class="note">äº¤äº’å¼ squarify treemap Â· æ•°æ® = Finance equity MV Â· å½“æ—¥ç›ˆäº = N/Aï¼ˆPlaid æœªæä¾›ï¼‰</div>
+        <div class="note">交互式 squarify treemap · 数据 = Finance equity MV · 当日盈亏 = N/A（Plaid 未提供）</div>
         <table class="holdings-table" id="holdings-table">
               <thead>
                         <tr>
-                                    <th>ä»£ç </th><th class="r">æ•°é‡</th><th class="r">çŽ°ä»·</th><th class="r">å¸‚å€¼</th>
-                        <th class="r">å è‚¡ç¥¨%</th><th class="r">å NAV%</th><th class="r">æˆæœ¬(Plaid)</th>
-                        <th class="r">ç›ˆäº</th><th class="r">å½“æ—¥ç›ˆäº</th><th>æ¿å—</th>
+                                    <th>代码</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th>
+                        <th class="r">占股票%</th><th class="r">占NAV%</th><th class="r">成本(Plaid)</th>
+                        <th class="r">盈亏</th><th class="r">当日盈亏</th><th>板块</th>
                         </tr>
               </thead>
               <tbody></tbody>
         </table>table>
     </div>
   
-    <div class="section-label">æ¿å—é…ç½® Â· å è‚¡ç¥¨ä»“</div>
+    <div class="section-label">板块配置 · 占股票仓</div>
     <div class="card">
         <div class="sector-bar" id="sector-bar"></div>
         <div class="sector-cards" id="sector-cards"></div>
     </div>
   
-    <div class="section-label">æœŸæƒåˆ†åŒº Â· å–å‡ºçœ‹è·Œ / å¤‡å…‘ / ä¹°å…¥çœ‹è·Œ</div>
+    <div class="section-label">期权分区 · 卖出看跌 / 备兑 / 买入看跌</div>
     <div class="opt-grid" id="options"></div>
   
     <div class="footer">
-        <div><b>è´¦æˆ·</b> Interactive Brokers Â· <span id="ft-acct">U****6865</span> Â· å±•ç¤ºä¸“ç”¨ï¼Œéžäº¤æ˜“ç»ˆç«¯</div>
-        <div><b>å£å¾„</b> KPI ç›¸å¯¹ NAVï¼›çŽ¯å›¾ç»å¯¹å€¼ï¼›å·²å®žçŽ° = æœŸæƒè´¦æœ¬ performance rank åˆè®¡ï¼ˆéžç»„åˆæ”¶ç›ŠçŽ‡ï¼‰ï¼›æˆæœ¬ = Plaid cost_basisï¼›é£Žé™©æ•žå£ = USOptionsã€Œ9æœˆã€å‡€é£Žé™©æ•žå£</div>
-        <div><b>è„šæ³¨</b> å½“æ—¥ç›ˆäºä¸å¯å¾— â€” Finance/Plaid holdings ä¸æš´éœ² daily P/Lï¼Œåˆ—ç•™ N/Aï¼Œä¸ç¼–é€ ã€‚ç«™ç‚¹ä¸å« Flex/Plaid tokenã€‚</div>
-        <div><b>åˆ·æ–°</b> æ›¿æ¢åŒç›®å½• <code>data.json</code> åŽåˆ·æ–°é¡µé¢å³å¯ï¼›å¯é€‰æ—¥åŽæŽ¥ Finance MCP / Plaid è„šæœ¬å†™å›ž data.jsonã€‚</div>
+        <div><b>账户</b> Interactive Brokers · <span id="ft-acct">U****6865</span> · 展示专用，非交易终端</div>
+        <div><b>口径</b> KPI 相对 NAV；环图绝对值；已实现 = 期权账本 performance rank 合计（非组合收益率）；成本 = Plaid cost_basis；风险敞口 = USOptions「9月」净风险敞口</div>
+        <div><b>脚注</b> 当日盈亏不可得 — Finance/Plaid holdings 不暴露 daily P/L，列留 N/A，不编造。站点不含 Flex/Plaid token。</div>
+        <div><b>刷新</b> 替换同目录 <code>data.json</code> 后刷新页面即可；可选日后接 Finance MCP / Plaid 脚本写回 data.json。</div>
     </div>
   
   <script src="assets/app.js"></script>
