@@ -1,11 +1,11 @@
 {
-  "asof": "2026-10-01 04:39 CST",
+  "asof": "2026-10-01 10:10 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid)+USOptions「9月」sheet opens after 2026-09-30 closes",
+  "source": "Finance(IB/Plaid)+USOptions「9月」sheet opens after 2026-09-30 closes+USOptions sheet premiums",
   "nav": 135343.59,
   "stock": 49709.3,
   "opt": -1799.59,
@@ -198,7 +198,12 @@
         "expiry": "2026-10-16",
         "contracts": 1,
         "mv": -430.02,
-        "cost": -448.9541
+        "cost": -448.9541,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 4.5,
+        "premium_total": -450,
+        "plaid_cost": -448.9541,
+        "premium_source": "USOptions「9月」H×100×K"
       },
       {
         "ticker": "SPCX",
@@ -207,7 +212,12 @@
         "expiry": "2026-10-30",
         "contracts": 1,
         "mv": -374.99,
-        "cost": -498.9561
+        "cost": -498.9561,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 5.0,
+        "premium_total": -500,
+        "plaid_cost": -498.9561,
+        "premium_source": "USOptions「9月」H×100×K"
       },
       {
         "ticker": "SPCX",
@@ -216,7 +226,12 @@
         "expiry": "2026-10-30",
         "contracts": 1,
         "mv": -315.01,
-        "cost": -418.9548
+        "cost": -418.9548,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 4.2,
+        "premium_total": -420,
+        "plaid_cost": -418.9548,
+        "premium_source": "USOptions「9月」H×100×K"
       },
       {
         "ticker": "SPCX",
@@ -225,7 +240,12 @@
         "expiry": "2026-10-23",
         "contracts": 1,
         "mv": -289.53,
-        "cost": -298.9572
+        "cost": -298.9572,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3.0,
+        "premium_total": -300,
+        "plaid_cost": -298.9572,
+        "premium_source": "USOptions「9月」H×100×K"
       },
       {
         "ticker": "RKLB",
@@ -234,7 +254,12 @@
         "expiry": "2026-10-23",
         "contracts": 1,
         "mv": -255.66,
-        "cost": -199.3753
+        "cost": -199.3753,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2.0,
+        "premium_total": -200,
+        "plaid_cost": -199.3753,
+        "premium_source": "USOptions「9月」H×100×K"
       },
       {
         "ticker": "RKLB",
@@ -243,7 +268,12 @@
         "expiry": "2026-10-30",
         "contracts": 1,
         "mv": -230.43,
-        "cost": -198.9593
+        "cost": -198.9593,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2.0,
+        "premium_total": -200,
+        "plaid_cost": -198.9593,
+        "premium_source": "USOptions「9月」H×100×K"
       }
     ],
     "covered_calls": [
@@ -254,7 +284,12 @@
         "expiry": "2026-10-30",
         "contracts": 3,
         "mv": 0,
-        "cost": 0
+        "cost": 0.0,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 0.6,
+        "premium_total": -180,
+        "plaid_cost": 0.0,
+        "premium_source": "USOptions「9月」H×100×K"
       }
     ],
     "long_puts": [
@@ -265,7 +300,9 @@
         "expiry": "2027-01-15",
         "contracts": 5,
         "mv": 96.05,
-        "cost": 1828.4938
+        "cost": 1828.4938,
+        "cost_source": "Finance holdings cost_basis",
+        "plaid_cost": 1828.4938
       }
     ],
     "short_put_contracts": 6,
