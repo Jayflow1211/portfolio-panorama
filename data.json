@@ -1,61 +1,61 @@
 {
-  "asof": "2026-10-01 10:10 CST",
+  "asof": "2026-10-02 09:22 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid)+USOptions「9月」sheet opens after 2026-09-30 closes+USOptions sheet premiums",
-  "nav": 135343.59,
-  "stock": 49709.3,
-  "opt": -1799.59,
-  "cash": 88194.11,
-  "other": -760.23,
-  "realized": 33584.85,
-  "risk": 59530,
-  "equity_unrealized": -12586.83,
-  "open_short_contracts": 9,
+  "source": "Finance(IB/Plaid)+USOptions「9月/10月」sheet opens after 2026-10-02 refresh+USOptions sheet premiums",
+  "nav": 135491.85,
+  "stock": 49443.49,
+  "opt": -1536.72,
+  "cash": 87646.27,
+  "other": -61.19,
+  "realized": 33799.85,
+  "risk": 125430,
+  "equity_unrealized": -12852.64,
+  "open_short_contracts": 14,
   "equity_count": 5,
-  "stock_pct": 36.73,
-  "opt_pct": -1.33,
-  "cash_pct": 65.16,
-  "other_pct": -0.56,
-  "risk_pct": 43.98,
+  "stock_pct": 36.49,
+  "opt_pct": -1.13,
+  "cash_pct": 64.69,
+  "other_pct": -0.05,
+  "risk_pct": 92.57,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 140463.23,
+    "sum": 138687.67,
     "slices": [
       {
         "key": "cash",
         "label": "现金",
-        "value": 88194.11,
-        "signed": 88194.11,
-        "pct_nav": 65.16,
+        "value": 87646.27,
+        "signed": 87646.27,
+        "pct_nav": 64.69,
         "color": "#22c55e"
       },
       {
         "key": "stock",
         "label": "股票",
-        "value": 49709.3,
-        "signed": 49709.3,
-        "pct_nav": 36.73,
+        "value": 49443.49,
+        "signed": 49443.49,
+        "pct_nav": 36.49,
         "color": "#38bdf8"
       },
       {
         "key": "opt",
         "label": "期权",
-        "value": 1799.59,
-        "signed": -1799.59,
-        "pct_nav": -1.33,
+        "value": 1536.72,
+        "signed": -1536.72,
+        "pct_nav": -1.13,
         "color": "#c084fc"
       },
       {
         "key": "other",
         "label": "其他",
-        "value": 760.23,
-        "signed": -760.23,
-        "pct_nav": -0.56,
+        "value": 61.19,
+        "signed": -61.19,
+        "pct_nav": -0.05,
         "color": "#64748b"
       }
     ]
@@ -65,125 +65,125 @@
       "ticker": "RKLB",
       "name": "Rocket Lab",
       "qty": 450,
-      "price": 69.7,
-      "mv": 31365,
+      "price": 69.68,
+      "mv": 31356,
       "cost": 37984.8395,
       "sector": "太空",
       "color": "#2563eb",
-      "pl": -6619.84,
-      "pct_stock": 63.1,
-      "pct_nav": 23.17,
+      "pl": -6628.84,
+      "pct_stock": 63.42,
+      "pct_nav": 23.14,
       "daily_pl": null
     },
     {
       "ticker": "APLD",
       "name": "Applied Digital",
       "qty": 300,
-      "price": 25.41,
-      "mv": 7623,
+      "price": 24.37,
+      "mv": 7311,
       "cost": 10412.8888,
       "sector": "AI基建",
       "color": "#9333ea",
-      "pl": -2789.89,
-      "pct_stock": 15.34,
-      "pct_nav": 5.63,
+      "pl": -3101.89,
+      "pct_stock": 14.79,
+      "pct_nav": 5.4,
       "daily_pl": null
     },
     {
       "ticker": "ECHO",
       "name": "EchoStar",
       "qty": 80,
-      "price": 89.89,
-      "mv": 7191.2,
+      "price": 89.41,
+      "mv": 7152.8,
       "cost": 9393.0002,
       "sector": "太空",
       "color": "#60a5fa",
-      "pl": -2201.8,
+      "pl": -2240.2,
       "pct_stock": 14.47,
-      "pct_nav": 5.31,
+      "pct_nav": 5.28,
       "daily_pl": null
     },
     {
       "ticker": "HIMS",
       "name": "Hims & Hers",
       "qty": 71,
-      "price": 28.7,
-      "mv": 2037.7,
+      "price": 29.79,
+      "mv": 2115.09,
       "cost": 3004.4017,
       "sector": "医疗",
       "color": "#22c55e",
-      "pl": -966.7,
-      "pct_stock": 4.1,
-      "pct_nav": 1.51,
+      "pl": -889.31,
+      "pct_stock": 4.28,
+      "pct_nav": 1.56,
       "daily_pl": null
     },
     {
       "ticker": "SPCX",
       "name": "SpaceX Class A",
       "qty": 10,
-      "price": 149.24,
-      "mv": 1492.4,
+      "price": 150.86,
+      "mv": 1508.6,
       "cost": 1501,
       "sector": "AI基建",
       "color": "#c084fc",
-      "pl": -8.6,
-      "pct_stock": 3,
-      "pct_nav": 1.1,
+      "pl": 7.6,
+      "pct_stock": 3.05,
+      "pct_nav": 1.11,
       "daily_pl": null
     }
   ],
-  "stock_total": 49709.3,
+  "stock_total": 49443.49,
   "sectors": [
     {
       "name": "太空",
-      "amount": 38556.2,
-      "pct_stock": 77.56,
+      "amount": 38508.8,
+      "pct_stock": 77.88,
       "color": "#2563eb",
       "holdings": [
         {
           "ticker": "RKLB",
-          "amount": 31365,
-          "pct_stock": 63.1,
-          "pct_sector": 81.35
+          "amount": 31356,
+          "pct_stock": 63.42,
+          "pct_sector": 81.43
         },
         {
           "ticker": "ECHO",
-          "amount": 7191.2,
+          "amount": 7152.8,
           "pct_stock": 14.47,
-          "pct_sector": 18.65
+          "pct_sector": 18.57
         }
       ]
     },
     {
       "name": "AI基建",
-      "amount": 9115.4,
-      "pct_stock": 18.34,
+      "amount": 8819.6,
+      "pct_stock": 17.84,
       "color": "#9333ea",
       "holdings": [
         {
           "ticker": "APLD",
-          "amount": 7623,
-          "pct_stock": 15.34,
-          "pct_sector": 83.63
+          "amount": 7311,
+          "pct_stock": 14.79,
+          "pct_sector": 82.89
         },
         {
           "ticker": "SPCX",
-          "amount": 1492.4,
-          "pct_stock": 3,
-          "pct_sector": 16.37
+          "amount": 1508.6,
+          "pct_stock": 3.05,
+          "pct_sector": 17.11
         }
       ]
     },
     {
       "name": "医疗",
-      "amount": 2037.7,
-      "pct_stock": 4.1,
+      "amount": 2115.09,
+      "pct_stock": 4.28,
       "color": "#22c55e",
       "holdings": [
         {
           "ticker": "HIMS",
-          "amount": 2037.7,
-          "pct_stock": 4.1,
+          "amount": 2115.09,
+          "pct_stock": 4.28,
           "pct_sector": 100
         }
       ]
@@ -197,12 +197,12 @@
         "strike": 70,
         "expiry": "2026-10-16",
         "contracts": 1,
-        "mv": -430.02,
+        "mv": -407.49,
         "cost": -448.9541,
+        "plaid_cost": -448.9541,
         "cost_source": "Finance holdings cost_basis",
         "premium": 4.5,
         "premium_total": -450,
-        "plaid_cost": -448.9541,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -211,40 +211,12 @@
         "strike": 140,
         "expiry": "2026-10-30",
         "contracts": 1,
-        "mv": -374.99,
+        "mv": -301.5,
         "cost": -498.9561,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 5.0,
-        "premium_total": -500,
         "plaid_cost": -498.9561,
-        "premium_source": "USOptions「9月」H×100×K"
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 138,
-        "expiry": "2026-10-30",
-        "contracts": 1,
-        "mv": -315.01,
-        "cost": -418.9548,
         "cost_source": "Finance holdings cost_basis",
-        "premium": 4.2,
-        "premium_total": -420,
-        "plaid_cost": -418.9548,
-        "premium_source": "USOptions「9月」H×100×K"
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 140,
-        "expiry": "2026-10-23",
-        "contracts": 1,
-        "mv": -289.53,
-        "cost": -298.9572,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 3.0,
-        "premium_total": -300,
-        "plaid_cost": -298.9572,
+        "premium": 5,
+        "premium_total": -500,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -253,12 +225,12 @@
         "strike": 65,
         "expiry": "2026-10-23",
         "contracts": 1,
-        "mv": -255.66,
+        "mv": -251.9,
         "cost": -199.3753,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 2.0,
-        "premium_total": -200,
         "plaid_cost": -199.3753,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2,
+        "premium_total": -200,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -267,12 +239,54 @@
         "strike": 63,
         "expiry": "2026-10-30",
         "contracts": 1,
-        "mv": -230.43,
+        "mv": -223.96,
         "cost": -198.9593,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 2.0,
-        "premium_total": -200,
         "plaid_cost": -198.9593,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2,
+        "premium_total": -200,
+        "premium_source": "USOptions「9月」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 140,
+        "expiry": "2026-10-23",
+        "contracts": 1,
+        "mv": -222.5,
+        "cost": -298.9572,
+        "plaid_cost": -298.9572,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3,
+        "premium_total": -300,
+        "premium_source": "USOptions「9月」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 135,
+        "expiry": "2026-10-30",
+        "contracts": 1,
+        "mv": 0,
+        "cost": 0,
+        "plaid_cost": 0,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2.2,
+        "premium_total": -220,
+        "premium_source": "USOptions「9月」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 135,
+        "expiry": "2026-11-06",
+        "contracts": 5,
+        "mv": 0,
+        "cost": 0,
+        "plaid_cost": 0,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3,
+        "premium_total": -1500,
         "premium_source": "USOptions「9月」H×100×K"
       }
     ],
@@ -283,12 +297,12 @@
         "strike": 32,
         "expiry": "2026-10-30",
         "contracts": 3,
-        "mv": 0,
-        "cost": 0.0,
+        "mv": -179.37,
+        "cost": -179.3705,
+        "plaid_cost": -179.3705,
         "cost_source": "Finance holdings cost_basis",
         "premium": 0.6,
         "premium_total": -180,
-        "plaid_cost": 0.0,
         "premium_source": "USOptions「9月」H×100×K"
       }
     ],
@@ -299,15 +313,15 @@
         "strike": 13,
         "expiry": "2027-01-15",
         "contracts": 5,
-        "mv": 96.05,
+        "mv": 50,
         "cost": 1828.4938,
-        "cost_source": "Finance holdings cost_basis",
-        "plaid_cost": 1828.4938
+        "plaid_cost": 1828.4938,
+        "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 6,
-    "short_put_mv": -1895.64,
-    "covered_mv": 0,
-    "long_put_mv": 96.05
+    "short_put_contracts": 11,
+    "short_put_mv": -1407.35,
+    "covered_mv": -179.37,
+    "long_put_mv": 50
   }
 }
