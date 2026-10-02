@@ -30,13 +30,16 @@
             line-height: 1.45;
       }
       .header {
-            display: flex; justify-content: space-between; align-items: flex-end;
+            display: flex; justify-content: space-between; align-items: flex-start;
             gap: 24px; margin-bottom: 22px; flex-wrap: wrap;
       }
       .title { font-size: 30px; font-weight: 700; letter-spacing: 0.5px; }
       .title span { color: var(--muted); font-weight: 500; font-size: 16px; margin-left: 10px; }
       .subtitle { color: var(--muted); font-size: 13px; margin-top: 6px; }
-      .asof { text-align: right; color: var(--dim); font-size: 12px; line-height: 1.7; }
+      .asof {
+            text-align: right; color: var(--dim); font-size: 12px; line-height: 1.7;
+            margin-left: auto; max-width: 22rem; overflow-wrap: anywhere;
+      }
       .asof strong { color: var(--muted); font-weight: 600; }
       .asof .nav-big { color: var(--text); font-size: 18px; font-weight: 700; margin-top: 4px; }
       .badge-live {
@@ -86,9 +89,9 @@
       .m-val.na { color: var(--dim); }
 
       .donut-wrap {
-            display: grid; grid-template-columns: 200px 1fr; gap: 16px; align-items: center;
+            display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 12px; align-items: center;
       }
-      .donut-canvas-box { position: relative; width: 200px; height: 200px; }
+      .donut-canvas-box { position: relative; width: 180px; height: 180px; }
       .donut-center {
             position: absolute; inset: 0; display: flex; flex-direction: column;
             align-items: center; justify-content: center; pointer-events: none;
@@ -97,13 +100,13 @@
       .donut-center .c-val { font-size: 18px; font-weight: 700; }
       .legend { display: flex; flex-direction: column; gap: 8px; }
       .leg-item {
-            display: grid; grid-template-columns: 12px 56px 1fr auto; gap: 8px; align-items: center;
+            display: grid; grid-template-columns: 10px 2.6em auto minmax(0, 1fr); gap: 6px 8px; align-items: baseline;
             font-size: 12px; color: #cbd5e1;
       }
       .swatch { width: 10px; height: 10px; border-radius: 3px; }
       .leg-name { font-weight: 600; color: #f1f5f9; }
-      .leg-amt { font-variant-numeric: tabular-nums; text-align: right; }
-      .leg-pct { color: var(--dim); font-size: 11px; text-align: right; min-width: 72px; }
+      .leg-amt { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+      .leg-pct { color: var(--dim); font-size: 11px; text-align: right; white-space: nowrap; justify-self: end; }
 
       .treemap-wrap { padding: 14px; }
       .treemap {
