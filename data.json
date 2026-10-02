@@ -1,11 +1,11 @@
 {
-  "asof": "2026-10-02 09:22 CST",
+  "asof": "2026-10-02 09:46 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid)+USOptions「9月/10月」sheet opens after 2026-10-02 refresh+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid)+USOptions「9月/10月」sheet opens after 2026-10-02 reconcile+USOptions sheet premiums",
   "nav": 135491.85,
   "stock": 49443.49,
   "opt": -1536.72,
@@ -202,7 +202,7 @@
         "plaid_cost": -448.9541,
         "cost_source": "Finance holdings cost_basis",
         "premium": 4.5,
-        "premium_total": -450,
+        "premium_total": 450,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -216,7 +216,7 @@
         "plaid_cost": -498.9561,
         "cost_source": "Finance holdings cost_basis",
         "premium": 5,
-        "premium_total": -500,
+        "premium_total": 500,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -230,7 +230,7 @@
         "plaid_cost": -199.3753,
         "cost_source": "Finance holdings cost_basis",
         "premium": 2,
-        "premium_total": -200,
+        "premium_total": 200,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -244,7 +244,7 @@
         "plaid_cost": -198.9593,
         "cost_source": "Finance holdings cost_basis",
         "premium": 2,
-        "premium_total": -200,
+        "premium_total": 200,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -258,21 +258,7 @@
         "plaid_cost": -298.9572,
         "cost_source": "Finance holdings cost_basis",
         "premium": 3,
-        "premium_total": -300,
-        "premium_source": "USOptions「9月」H×100×K"
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 135,
-        "expiry": "2026-10-30",
-        "contracts": 1,
-        "mv": 0,
-        "cost": 0,
-        "plaid_cost": 0,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 2.2,
-        "premium_total": -220,
+        "premium_total": 300,
         "premium_source": "USOptions「9月」H×100×K"
       },
       {
@@ -286,7 +272,21 @@
         "plaid_cost": 0,
         "cost_source": "Finance holdings cost_basis",
         "premium": 3,
-        "premium_total": -1500,
+        "premium_total": 1500,
+        "premium_source": "USOptions「9月」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 135,
+        "expiry": "2026-10-30",
+        "contracts": 1,
+        "mv": 0,
+        "cost": 0,
+        "plaid_cost": 0,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2.2,
+        "premium_total": 220,
         "premium_source": "USOptions「9月」H×100×K"
       }
     ],
@@ -302,7 +302,7 @@
         "plaid_cost": -179.3705,
         "cost_source": "Finance holdings cost_basis",
         "premium": 0.6,
-        "premium_total": -180,
+        "premium_total": 180,
         "premium_source": "USOptions「9月」H×100×K"
       }
     ],
