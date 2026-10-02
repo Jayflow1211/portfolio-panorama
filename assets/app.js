@@ -264,10 +264,11 @@
     if (!rows.length) return '<div class="note">\u65e0\u6301\u4ed3</div>';
     const body = rows.map(r => {
       const plaid = r.plaid_cost ?? r.cost;
-      const prem = r.premium_total;
+      // 权利金 = collected premium (always display as non-negative); Cost(Plaid) stays signed
+      const prem = r.premium_total == null ? null : Math.abs(r.premium_total);
       return `<tr>
       <td><b>${r.ticker}</b></td>
-      <td>${r.type}</td>
+      <td class="opt-type">${r.type}</td>
       <td class="r">${r.strike}</td>
       <td>${r.expiry}</td>
       <td class="r">${r.contracts}</td>
