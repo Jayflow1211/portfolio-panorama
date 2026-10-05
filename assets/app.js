@@ -86,7 +86,7 @@
 
   function renderKpis(d) {
     const items = [
-      { lbl: '\u5df2\u5b9e\u73b0\u6536\u76ca(\u8d26\u672c)', val: fmt.money0(d.realized), sub: 'performance rank \u5408\u8ba1', cls: 'green' },
+      { lbl: '\u671f\u6743\u5df2\u5b9e\u73b0\u6536\u76ca', val: fmt.money0(d.realized), sub: '\u671f\u6743\u8d26\u672c performance rank', cls: 'green' },
       { lbl: '\u80a1\u7968%', val: fmt.pct(d.stock_pct), sub: fmt.money(d.stock) + ' / NAV', cls: 'blue' },
       { lbl: '\u671f\u6743%', val: fmt.pct(d.opt_pct), sub: '\u51c0\u503c ' + fmt.money(d.opt) + ' \u00b7 \u5356\u51fa\u770b\u8dcc\u00b7\u6760\u6746', cls: 'purple' },
       { lbl: '\u73b0\u91d1%', val: fmt.pct(d.cash_pct), sub: fmt.money(d.cash) + ' CUR:USD', cls: 'green' },
@@ -104,7 +104,7 @@
       { lbl: 'NAV', val: fmt.money(d.nav), cls: '' },
       { lbl: '\u5f53\u65e5\u76c8\u4e8f', val: 'N/A', cls: 'na' },
       { lbl: '\u603b\u76c8\u4e8f(\u80a1\u7968\u672a\u5b9e\u73b0)', val: fmt.money(d.equity_unrealized), cls: d.equity_unrealized < 0 ? 'neg' : 'pos' },
-      { lbl: '\u5df2\u5b9e\u73b0(\u8d26\u672c)', val: fmt.money(d.realized), cls: 'pos' },
+      { lbl: '\u671f\u6743\u5df2\u5b9e\u73b0', val: fmt.money(d.realized), cls: 'pos' },
       { lbl: '\u80a1\u7968\u5360\u6bd4', val: fmt.pct(d.stock_pct), cls: '' },
       { lbl: '\u671f\u6743\u5360\u6bd4', val: fmt.pct(d.opt_pct), cls: d.opt_pct < 0 ? 'neg' : '' },
       { lbl: '\u73b0\u91d1\u5360\u6bd4', val: fmt.pct(d.cash_pct), cls: '' },
