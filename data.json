@@ -1,30 +1,30 @@
 {
-  "asof": "2026-10-06 04:43 CST",
+  "asof": "2026-10-06 04:46 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) 2026-10-06 ~04:45 CST for 2026-10-05 session + USOptions「9月/10月」open rows + rank 合计+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid) holdings fetched 2026-10-06 ~04:45 CST for session 2026-10-05 (Flex stale toDate=20261002) + USOptions month-tab open rows + rank 合计 (recomputed post-close)+USOptions sheet premiums",
   "nav": 139390.95,
   "stock": 52066.6,
-  "opt": -608.86,
+  "opt": -274.1,
   "cash": 87728.96,
-  "other": 204.25,
-  "realized": 34949.85,
-  "risk": 32500,
+  "other": -130.51,
+  "realized": 35249.85,
+  "risk": 6100,
   "equity_unrealized": -10229.53,
-  "open_short_contracts": 6,
+  "open_short_contracts": 4,
   "equity_count": 5,
   "stock_pct": 37.35,
-  "opt_pct": -0.44,
+  "opt_pct": -0.2,
   "cash_pct": 62.94,
-  "other_pct": 0.15,
-  "risk_pct": 23.32,
+  "other_pct": -0.09,
+  "risk_pct": 4.38,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 140608.67,
+    "sum": 140200.17,
     "slices": [
       {
         "key": "cash",
@@ -45,17 +45,17 @@
       {
         "key": "opt",
         "label": "期权",
-        "value": 608.86,
-        "signed": -608.86,
-        "pct_nav": -0.44,
+        "value": 274.1,
+        "signed": -274.1,
+        "pct_nav": -0.2,
         "color": "#c084fc"
       },
       {
         "key": "other",
         "label": "其他",
-        "value": 204.25,
-        "signed": 204.25,
-        "pct_nav": 0.15,
+        "value": 130.51,
+        "signed": -130.51,
+        "pct_nav": -0.09,
         "color": "#64748b"
       }
     ]
@@ -192,20 +192,6 @@
   "options": {
     "short_puts": [
       {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 135,
-        "expiry": "2026-11-06",
-        "contracts": 2,
-        "mv": -334.76,
-        "cost": -598.621,
-        "plaid_cost": -598.621,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 3,
-        "premium_total": 600,
-        "premium_source": "USOptions「9月」H×100×K"
-      },
-      {
         "ticker": "RKLB",
         "type": "卖出看跌",
         "strike": 63,
@@ -249,8 +235,8 @@
         "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 3,
-    "short_put_mv": -470.28,
+    "short_put_contracts": 1,
+    "short_put_mv": -135.52,
     "covered_mv": -194.13,
     "long_put_mv": 55.55
   }
