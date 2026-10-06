@@ -1,61 +1,61 @@
 {
-  "asof": "2026-10-06 04:46 CST",
+  "asof": "2026-10-07 04:38 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) holdings fetched 2026-10-06 ~04:45 CST for session 2026-10-05 (Flex stale toDate=20261002) + USOptions month-tab open rows + rank 合计 (recomputed post-close)+USOptions sheet premiums",
-  "nav": 139390.95,
-  "stock": 52066.6,
-  "opt": -274.1,
-  "cash": 87728.96,
-  "other": -130.51,
-  "realized": 35249.85,
-  "risk": 6100,
-  "equity_unrealized": -10229.53,
-  "open_short_contracts": 4,
+  "source": "Finance(IB/Plaid) holdings fetched 2026-10-07 ~04:40 CST for session 2026-10-06 (Flex toDate=20261005) + USOptions month-tab open rows + rank 合计+USOptions sheet premiums",
+  "nav": 139400.26,
+  "stock": 51943.27,
+  "opt": -80.19,
+  "cash": 87625.05,
+  "other": -87.87,
+  "realized": 35349.85,
+  "risk": 0,
+  "equity_unrealized": -10352.86,
+  "open_short_contracts": 3,
   "equity_count": 5,
-  "stock_pct": 37.35,
-  "opt_pct": -0.2,
-  "cash_pct": 62.94,
-  "other_pct": -0.09,
-  "risk_pct": 4.38,
+  "stock_pct": 37.26,
+  "opt_pct": -0.06,
+  "cash_pct": 62.86,
+  "other_pct": -0.06,
+  "risk_pct": 0,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 140200.17,
+    "sum": 139736.38,
     "slices": [
       {
         "key": "cash",
         "label": "现金",
-        "value": 87728.96,
-        "signed": 87728.96,
-        "pct_nav": 62.94,
+        "value": 87625.05,
+        "signed": 87625.05,
+        "pct_nav": 62.86,
         "color": "#22c55e"
       },
       {
         "key": "stock",
         "label": "股票",
-        "value": 52066.6,
-        "signed": 52066.6,
-        "pct_nav": 37.35,
+        "value": 51943.27,
+        "signed": 51943.27,
+        "pct_nav": 37.26,
         "color": "#38bdf8"
       },
       {
         "key": "opt",
         "label": "期权",
-        "value": 274.1,
-        "signed": -274.1,
-        "pct_nav": -0.2,
+        "value": 80.19,
+        "signed": -80.19,
+        "pct_nav": -0.06,
         "color": "#c084fc"
       },
       {
         "key": "other",
         "label": "其他",
-        "value": 130.51,
-        "signed": -130.51,
-        "pct_nav": -0.09,
+        "value": 87.87,
+        "signed": -87.87,
+        "pct_nav": -0.06,
         "color": "#64748b"
       }
     ]
@@ -65,147 +65,132 @@
       "ticker": "RKLB",
       "name": "Rocket Lab",
       "qty": 450,
-      "price": 73.92,
-      "mv": 33264,
+      "price": 73.02,
+      "mv": 32859,
       "cost": 37984.8395,
       "sector": "太空",
       "color": "#2563eb",
-      "pl": -4720.84,
-      "pct_stock": 63.89,
-      "pct_nav": 23.86,
-      "daily_pl": null
-    },
-    {
-      "ticker": "APLD",
-      "name": "Applied Digital",
-      "qty": 300,
-      "price": 25.38,
-      "mv": 7614,
-      "cost": 10412.8888,
-      "sector": "AI基建",
-      "color": "#9333ea",
-      "pl": -2798.89,
-      "pct_stock": 14.62,
-      "pct_nav": 5.46,
+      "pl": -5125.84,
+      "pct_stock": 63.26,
+      "pct_nav": 23.57,
       "daily_pl": null
     },
     {
       "ticker": "ECHO",
       "name": "EchoStar",
       "qty": 80,
-      "price": 94.25,
-      "mv": 7540,
+      "price": 98.21,
+      "mv": 7856.8,
       "cost": 9393.0002,
       "sector": "太空",
       "color": "#60a5fa",
-      "pl": -1853,
-      "pct_stock": 14.48,
-      "pct_nav": 5.41,
+      "pl": -1536.2,
+      "pct_stock": 15.13,
+      "pct_nav": 5.64,
+      "daily_pl": null
+    },
+    {
+      "ticker": "APLD",
+      "name": "Applied Digital",
+      "qty": 300,
+      "price": 24.7,
+      "mv": 7410,
+      "cost": 10412.8888,
+      "sector": "AI基建",
+      "color": "#9333ea",
+      "pl": -3002.89,
+      "pct_stock": 14.27,
+      "pct_nav": 5.32,
       "daily_pl": null
     },
     {
       "ticker": "HIMS",
       "name": "Hims & Hers",
       "qty": 71,
-      "price": 29,
-      "mv": 2059,
+      "price": 29.67,
+      "mv": 2106.57,
       "cost": 3004.4017,
       "sector": "医疗",
       "color": "#22c55e",
-      "pl": -945.4,
-      "pct_stock": 3.95,
-      "pct_nav": 1.48,
+      "pl": -897.83,
+      "pct_stock": 4.06,
+      "pct_nav": 1.51,
       "daily_pl": null
     },
     {
       "ticker": "SPCX",
       "name": "SpaceX Class A",
       "qty": 10,
-      "price": 158.96,
-      "mv": 1589.6,
+      "price": 171.09,
+      "mv": 1710.9,
       "cost": 1501,
       "sector": "AI基建",
       "color": "#c084fc",
-      "pl": 88.6,
-      "pct_stock": 3.05,
-      "pct_nav": 1.14,
+      "pl": 209.9,
+      "pct_stock": 3.29,
+      "pct_nav": 1.23,
       "daily_pl": null
     }
   ],
-  "stock_total": 52066.6,
+  "stock_total": 51943.27,
   "sectors": [
     {
       "name": "太空",
-      "amount": 40804,
-      "pct_stock": 78.37,
+      "amount": 40715.8,
+      "pct_stock": 78.39,
       "color": "#2563eb",
       "holdings": [
         {
           "ticker": "RKLB",
-          "amount": 33264,
-          "pct_stock": 63.89,
-          "pct_sector": 81.52
+          "amount": 32859,
+          "pct_stock": 63.26,
+          "pct_sector": 80.7
         },
         {
           "ticker": "ECHO",
-          "amount": 7540,
-          "pct_stock": 14.48,
-          "pct_sector": 18.48
+          "amount": 7856.8,
+          "pct_stock": 15.13,
+          "pct_sector": 19.3
         }
       ]
     },
     {
       "name": "AI基建",
-      "amount": 9203.6,
-      "pct_stock": 17.68,
+      "amount": 9120.9,
+      "pct_stock": 17.56,
       "color": "#9333ea",
       "holdings": [
         {
           "ticker": "APLD",
-          "amount": 7614,
-          "pct_stock": 14.62,
-          "pct_sector": 82.73
+          "amount": 7410,
+          "pct_stock": 14.27,
+          "pct_sector": 81.24
         },
         {
           "ticker": "SPCX",
-          "amount": 1589.6,
-          "pct_stock": 3.05,
-          "pct_sector": 17.27
+          "amount": 1710.9,
+          "pct_stock": 3.29,
+          "pct_sector": 18.76
         }
       ]
     },
     {
       "name": "医疗",
-      "amount": 2059,
-      "pct_stock": 3.95,
+      "amount": 2106.57,
+      "pct_stock": 4.06,
       "color": "#22c55e",
       "holdings": [
         {
           "ticker": "HIMS",
-          "amount": 2059,
-          "pct_stock": 3.95,
+          "amount": 2106.57,
+          "pct_stock": 4.06,
           "pct_sector": 100
         }
       ]
     }
   ],
   "options": {
-    "short_puts": [
-      {
-        "ticker": "RKLB",
-        "type": "卖出看跌",
-        "strike": 63,
-        "expiry": "2026-10-30",
-        "contracts": 1,
-        "mv": -135.52,
-        "cost": -198.9593,
-        "plaid_cost": -198.9593,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 2,
-        "premium_total": 200,
-        "premium_source": "USOptions「9月」H×100×K"
-      }
-    ],
+    "short_puts": [],
     "covered_calls": [
       {
         "ticker": "APLD",
@@ -213,7 +198,7 @@
         "strike": 32,
         "expiry": "2026-10-30",
         "contracts": 3,
-        "mv": -194.13,
+        "mv": -135.84,
         "cost": -179.3705,
         "plaid_cost": -179.3705,
         "cost_source": "Finance holdings cost_basis",
@@ -229,15 +214,15 @@
         "strike": 13,
         "expiry": "2027-01-15",
         "contracts": 5,
-        "mv": 55.55,
+        "mv": 55.65,
         "cost": 1828.4938,
         "plaid_cost": 1828.4938,
         "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 1,
-    "short_put_mv": -135.52,
-    "covered_mv": -194.13,
-    "long_put_mv": 55.55
+    "short_put_contracts": 0,
+    "short_put_mv": 0,
+    "covered_mv": -135.84,
+    "long_put_mv": 55.65
   }
 }
