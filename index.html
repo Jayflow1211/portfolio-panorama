@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <title>持仓全景图 · Portfolio Panorama</title>
+    <title>Portfolio Panorama</title>
   <script src="assets/chart.umd.min.js"></script>
   <style>
       :root {
@@ -34,7 +34,7 @@
             gap: 24px; margin-bottom: 22px; flex-wrap: wrap;
       }
       .title { font-size: 30px; font-weight: 700; letter-spacing: 0.5px; }
-      .title span { color: var(--muted); font-weight: 500; font-size: 16px; margin-left: 10px; }
+      .title-alt { color: var(--muted); font-weight: 500; font-size: 16px; margin-left: 10px; }
       .subtitle { color: var(--muted); font-size: 13px; margin-top: 6px; }
       .asof {
             text-align: right; color: var(--dim); font-size: 12px; line-height: 1.7;
@@ -96,17 +96,22 @@
             position: absolute; inset: 0; display: flex; flex-direction: column;
             align-items: center; justify-content: center; pointer-events: none;
       }
-      .donut-center .c-lbl { font-size: 11px; color: var(--dim); }
+      .donut-center .c-lbl {
+            font-size: 11px; color: var(--dim); max-width: 92px; text-align: center; line-height: 1.2;
+      }
       .donut-center .c-val { font-size: 18px; font-weight: 700; }
-      .legend { display: flex; flex-direction: column; gap: 8px; }
+      .legend { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
       .leg-item {
-            display: grid; grid-template-columns: 10px 2.6em auto minmax(0, 1fr); gap: 6px 8px; align-items: baseline;
+            display: grid;
+            grid-template-columns: 10px minmax(0, 1fr) auto;
+            grid-template-areas: "sw name amt" "sw pct pct";
+            column-gap: 8px; row-gap: 2px; align-items: baseline;
             font-size: 12px; color: #cbd5e1;
       }
-      .swatch { width: 10px; height: 10px; border-radius: 3px; }
-      .leg-name { font-weight: 600; color: #f1f5f9; }
-      .leg-amt { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
-      .leg-pct { color: var(--dim); font-size: 11px; text-align: right; white-space: nowrap; justify-self: end; }
+      .swatch { grid-area: sw; width: 10px; height: 10px; border-radius: 3px; align-self: center; }
+      .leg-name { grid-area: name; font-weight: 600; color: #f1f5f9; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      .leg-amt { grid-area: amt; font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+      .leg-pct { grid-area: pct; color: var(--dim); font-size: 11px; white-space: nowrap; }
 
       .treemap-wrap { padding: 14px; }
       .treemap {
@@ -209,83 +214,95 @@
             font-size: 11px; color: #475569; line-height: 1.75;
       }
       .footer b { color: var(--dim); }
+      .lang-switch { display: flex; gap: 4px; justify-content: flex-start; margin-bottom: 10px; }
+      .lang-switch button {
+            background: transparent; color: var(--dim); border: 1px solid var(--border);
+            border-radius: 999px; padding: 2px 10px; font-size: 11px; cursor: pointer;
+            font-family: inherit;
+      }
+      .lang-switch button.on { color: var(--text); border-color: var(--muted); }
     </style>
   </head>
   <body>
       <div class="header">
             <div>
-                    <div class="title">持仓全景图 <span>Portfolio Panorama</span></div>
-                  <div class="subtitle">按板块归类 · <span id="eq-count">5</span> 标的 · 3 大板块 · KPI / 地图 / 全景对齐 · 展示专用（非交易）</div>
+                    <div class="lang-switch" role="group" aria-label="Language">
+                          <button type="button" data-set-lang="en" class="on" aria-pressed="true">EN</button>
+                          <button type="button" data-set-lang="zh" aria-pressed="false" lang="zh-CN">中文</button>
+                    </div>
+                    <div class="title"><span class="title-main" data-i18n="title">Portfolio Panorama</span><span class="title-alt" data-i18n="titleAlt">持仓全景图</span></div>
+                  <div class="subtitle" id="subtitle">By sector · 5 names · 3 sectors · KPI / map / panorama · display only (not for trading)</div>
             </div>
           <div class="asof">
-                <div><strong>数据截止</strong> <span id="asof">—</span></div>
-                <div>来源：<span id="source">—</span></div>
-                <div>账户 <span id="acct">U****6865</span> <span class="badge-live" id="acct-status">Plaid active</span></div>
+                <div><strong data-i18n="asofLabel">As of</strong> <span id="asof">—</span></div>
+                <div><span data-i18n="sourceLabel">Source: </span><span id="source">—</span></div>
+                <div><span data-i18n="accountLabel">Account</span> <span id="acct">U****6865</span> <span class="badge-live" id="acct-status">Plaid active</span></div>
                 <div class="nav-big">NAV $<span id="nav">—</span></div>
           </div>
       </div>
   
-    <div class="section-label">顶部 KPI · 相对 NAV（有符号）</div>
+    <div class="section-label" data-i18n="secKpi">Top KPIs · vs NAV (signed)</div>
     <div class="kpis" id="kpis"></div>
   
-    <div class="section-label">账户全景 · NAV / 盈亏 / 头寸构成</div>
+    <div class="section-label" data-i18n="secPanorama">Account panorama · NAV / P&amp;L / position mix</div>
     <div class="panorama">
         <div class="card">
-              <div class="card-title">账户全景</div>
+              <div class="card-title" data-i18n="panoramaTitle">Account panorama</div>
               <div class="metrics" id="panorama-metrics"></div>
         </div>
         <div class="card">
-              <div class="card-title">头寸环图 · 绝对值口径（切片 = |头寸| / Σ|头寸|）</div>
+              <div class="card-title" data-i18n="donutTitle">Position ring · absolute value (slice = |position| / Σ|position|)</div>
               <div class="donut-wrap">
                       <div class="donut-canvas-box">
                                 <canvas id="donut"></canvas>
                                 <div class="donut-center">
-                                            <div class="c-lbl">|头寸|合计</div>
+                                            <div class="c-lbl" data-i18n="donutSum">|Position| total</div>
                                             <div class="c-val" id="donut-sum">—</div>
                                 </div>
                       </div>
                       <div class="legend" id="donut-legend"></div>
               </div>
-              <div class="note">饼图用绝对值；右侧 % 为有符号占 NAV。期权净值为负时仍占切片。</div>
+              <div class="note" data-i18n="donutNote">The ring uses absolute value. The % on the right is signed vs NAV. A negative option value still takes a slice.</div>
         </div>
     </div>
   
-    <div class="section-label">持仓地图 · 股票仓权重（不含现金 / 期权）</div>
+    <div class="section-label" data-i18n="secMap">Holdings map · equity weight (excludes cash / options)</div>
     <div class="card treemap-wrap">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
-              <div class="card-title" style="margin:0">股票仓 treemap</div>
-              <div style="font-size:12px;color:var(--muted)">股票市值合计 $<span id="stock-total">—</span></div>
+              <div class="card-title" style="margin:0" data-i18n="treemapTitle">Equity treemap</div>
+              <div style="font-size:12px;color:var(--muted)"><span data-i18n="stockTotal">Equity market value $</span><span id="stock-total">—</span></div>
         </div>
         <div class="treemap" id="treemap"></div>
-        <div class="note">交互式 squarify treemap · 数据 = Finance equity MV · 当日盈亏 = N/A（Plaid 未提供）</div>
+        <div class="note" data-i18n="treemapNote">Interactive squarify treemap · data = Finance equity MV · day P/L = N/A (not in Plaid)</div>
         <table class="holdings-table" id="holdings-table">
               <thead>
                         <tr>
-                                    <th>代码</th><th class="r">数量</th><th class="r">现价</th><th class="r">市值</th>
-                        <th class="r">占股票%</th><th class="r">占NAV%</th><th class="r">成本(Plaid)</th>
-                        <th class="r">盈亏</th><th class="r">当日盈亏</th><th>板块</th>
+                                    <th data-i18n="thTicker">Ticker</th><th class="r" data-i18n="thQty">Qty</th><th class="r" data-i18n="thPrice">Price</th><th class="r" data-i18n="thMv">Mkt value</th>
+                        <th class="r" data-i18n="thPctStock">% of equity</th><th class="r" data-i18n="thPctNav">% of NAV</th><th class="r" data-i18n="thCost">Cost (Plaid)</th>
+                        <th class="r" data-i18n="thPl">P/L</th><th class="r" data-i18n="thDay">Day P/L</th><th data-i18n="thSector">Sector</th>
                         </tr>
               </thead>
               <tbody></tbody>
         </table>
     </div>
   
-    <div class="section-label">板块配置 · 占股票仓</div>
+    <div class="section-label" data-i18n="secSector">Sector mix · share of equities</div>
     <div class="card">
         <div class="sector-bar" id="sector-bar"></div>
         <div class="sector-cards" id="sector-cards"></div>
     </div>
   
-    <div class="section-label">期权分区 · 卖出看跌 / 备兑 / 买入看跌</div>
+    <div class="section-label" data-i18n="secOpt">Options · short puts / covered / long puts</div>
     <div class="opt-grid" id="options"></div>
   
     <div class="footer">
-        <div><b>账户</b> Interactive Brokers · <span id="ft-acct">U****6865</span> · 展示专用，非交易终端</div>
-        <div><b>口径</b> KPI 相对 NAV；环图绝对值；期权已实现收益 = 期权账本 performance rank 合计（非组合收益率，也不是未平仓期权市值）；成本 = Plaid cost_basis；风险敞口 = USOptions「9月」净风险敞口</div>
-        <div><b>脚注</b> 当日盈亏不可得 — Finance/Plaid holdings 不暴露 daily P/L，列留 N/A，不编造。站点不含 Flex/Plaid token。</div>
-        <div><b>刷新</b> 替换同目录 <code>data.json</code> 后刷新页面即可；可选日后接 Finance MCP / Plaid 脚本写回 data.json。</div>
+        <div><b data-i18n="ftAccount">Account</b> <span id="ft-account-rest">Interactive Brokers · U****6865 · display only, not a trading terminal</span></div>
+        <div><b data-i18n="ftBasis">Basis</b> <span id="ft-basis-rest">KPIs are vs NAV; the ring is absolute value; options realized = sum of options-ledger performance rank (not portfolio return, and not open option market value); cost = Plaid cost_basis; risk = USOptions September net risk.</span></div>
+        <div><b data-i18n="ftNote">Note</b> <span id="ft-note-rest">Day P/L is unavailable — Finance/Plaid holdings do not expose daily P/L, so the column stays N/A. This site has no Flex/Plaid token.</span></div>
+        <div><b data-i18n="ftRefresh">Refresh</b> <span id="ft-refresh-rest">Replace data.json in this folder and reload. A Finance MCP / Plaid script can write that file later.</span></div>
     </div>
   
+  <script src="assets/i18n.js"></script>
   <script src="assets/app.js"></script>
   </body>
 </html>
