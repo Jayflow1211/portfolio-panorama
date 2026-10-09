@@ -1,11 +1,11 @@
 {
-  "asof": "2026-10-09 18:53 CST",
+  "asof": "2026-10-10 04:48 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) full re-fetch 2026-10-09 ~18:51 CST: Plaid caught up (conn updated_at 2026-10-09T10:09:47Z). RKLB 500 settled; Oct30 65P now in Plaid. Cleared pending_plaid / pending_fills. USOptions「10月」premium overlay for 权利金 + prior rank/risk kept.+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid) full re-fetch 2026-10-10 ~04:50 CST for session 2026-10-09 close. Pure Plaid (RKLB 500 + Oct30 65P settled). Flex FAIL 1001 both hosts. No Gmail option confirms 2026-10-09.",
   "nav": 136488.97,
   "stock": 52421.76,
   "opt": -163.7,
@@ -200,10 +200,7 @@
         "mv": -248.55,
         "cost": -248.9526,
         "plaid_cost": -248.9526,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 2.5,
-        "premium_total": 250,
-        "premium_source": "USOptions「10月」H×100×K"
+        "cost_source": "Finance holdings cost_basis"
       }
     ],
     "covered_calls": [],
