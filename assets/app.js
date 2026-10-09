@@ -7,6 +7,14 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[ch]));
   }
+  /** IB email fill overlay ahead of Plaid, or qty_source describing that disagreement. */
+  function isPendingPlaid(e) {
+    if (!e) return false;
+    if (e.pending_plaid === true || e.pending_plaid === 'true') return true;
+    const src = String(e.qty_source || '');
+    if (!src) return false;
+    return /pending/i.test(src) && /ib|plaid|overlay|confirm|disagree/i.test(src);
+  }
   let donutChart = null;
   let snapshot = null;
   const fmt = {
@@ -219,7 +227,10 @@
     const tb = document.querySelector('#holdings-table tbody');
     const rows = d.equities.map(e => {
       const plCls = e.pl < 0 ? 'neg' : 'pos';
-      return `<tr>
+      const pending = isPendingPlaid(e);
+      const rowCls = pending ? ' class="pending-plaid"' : '';
+      const rowTitle = pending ? ` title="${esc(t('pendingPlaidTip'))}"` : '';
+      return `<tr${rowCls}${rowTitle}>
         <td><b>${esc(e.ticker)}</b></td>
         <td class="r">${fmt.num(e.qty, 0)}</td>
         <td class="r">${fmt.num(e.price, 2)}</td>
@@ -243,6 +254,8 @@
       <td class="r na">N/A</td><td></td>
     </tr>`);
     tb.innerHTML = rows.join('');
+    const note = document.getElementById('pending-plaid-note');
+    if (note) note.hidden = !d.equities.some(isPendingPlaid);
   }
 
   function renderSectors(d) {

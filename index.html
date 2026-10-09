@@ -149,6 +149,12 @@
       .holdings-table .neg { color: var(--red); }
       .holdings-table .pos { color: var(--green); }
       .holdings-table .na { color: var(--dim); }
+      .holdings-table tr.pending-plaid td {
+            background: rgba(251, 191, 36, 0.14);
+      }
+      .holdings-table tr.pending-plaid td:first-child {
+            box-shadow: inset 3px 0 0 var(--amber);
+      }
 
       .sector-bar {
             display: flex; height: 40px; border-radius: 10px; overflow: hidden; width: 100%;
@@ -284,6 +290,7 @@
               </thead>
               <tbody></tbody>
         </table>
+        <div class="note" id="pending-plaid-note" hidden data-i18n="pendingPlaidNote">Yellow rows use an IB email fill while Plaid still shows an older quantity. The highlight clears when Plaid catches up.</div>
     </div>
   
     <div class="section-label" data-i18n="secSector">Sector mix · share of equities</div>
