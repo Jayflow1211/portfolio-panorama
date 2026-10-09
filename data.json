@@ -5,7 +5,7 @@
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) full re-fetch 2026-10-09 CST: Plaid = settled base (Plaid IB conn last synced 2026-10-08 14:53 CST — ~1 day LAG) + IB confirm-email overlay: RKLB +50 @70 (BOUGHT, 10/08 22:52 CST, MRN 5-17914711624240689-790774) PENDING Plaid → RKLB 500 (Plaid 450), cash est. −$3,500 (commission unknown), NAV = Plaid 138,626.17 + fill MTM $96 at Plaid px 71.92 + synth RKLB Oct30 65P short (missing in Plaid; MTM 0) + USOptions「10月」premium overlay + rank 110笔/$35,439.85 + 10月 risk $6,250+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid) base 2026-10-09 CST (Plaid IB last synced 2026-10-08 14:53 CST, ~1d lag) + IB confirm-email/USOptions overlay PENDING Plaid: RKLB equity +50 @70 → qty 500 (Plaid 450); synth RKLB Oct30 65P short (missing in Plaid; premium $250 from USOptions「10月」); cash est. −$3,500 (commission unknown); NAV = Plaid 138,626.17 + fill MTM $96 @71.92 + synth opt MTM 0 + rank 110笔/$35,439.85 + 10月 risk $6,250",
   "nav": 138722.17,
   "stock": 54691.54,
   "opt": 54.95,
@@ -215,7 +215,11 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 2.5,
         "premium_total": 250,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「10月」H×100×K",
+        "pending_plaid": true,
+        "plaid_present": false,
+        "qty_source": "IB confirm+USOptions sheet (missing in Plaid)",
+        "pending_note": "Synth short put from email/USOptions overlay; not in Plaid holdings yet"
       }
     ],
     "covered_calls": [],
