@@ -149,11 +149,9 @@
       .holdings-table .neg { color: var(--red); }
       .holdings-table .pos { color: var(--green); }
       .holdings-table .na { color: var(--dim); }
-      .holdings-table tr.pending-plaid td {
-            background: rgba(251, 191, 36, 0.14);
-      }
-      .holdings-table tr.pending-plaid td:first-child {
-            box-shadow: inset 3px 0 0 var(--amber);
+      .holdings-table tr.pending-plaid td.pending-cell,
+      .opt-table tr.pending-plaid td.pending-cell {
+            background: rgba(74, 128, 196, 0.36);
       }
 
       .sector-bar {
@@ -290,7 +288,7 @@
               </thead>
               <tbody></tbody>
         </table>
-        <div class="note" id="pending-plaid-note" hidden data-i18n="pendingPlaidNote">Yellow rows use an IB email fill while Plaid still shows an older quantity. The highlight clears when Plaid catches up.</div>
+        <div class="note" id="pending-plaid-note" hidden data-i18n="pendingPlaidNote">Blue highlight marks IB email fills or synth overlays still ahead of Plaid. It clears when Plaid catches up.</div>
     </div>
   
     <div class="section-label" data-i18n="secSector">Sector mix · share of equities</div>
@@ -301,6 +299,7 @@
   
     <div class="section-label" data-i18n="secOpt">Options · short puts / covered / long puts</div>
     <div class="opt-grid" id="options"></div>
+    <div class="note" id="pending-plaid-opt-note" hidden data-i18n="pendingPlaidNote">Blue highlight marks IB email fills or synth overlays still ahead of Plaid. It clears when Plaid catches up.</div>
   
     <div class="footer">
         <div><b data-i18n="ftAccount">Account</b> <span id="ft-account-rest">Interactive Brokers · U****6865 · display only, not a trading terminal</span></div>

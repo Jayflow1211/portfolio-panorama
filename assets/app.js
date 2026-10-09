@@ -7,13 +7,31 @@
       '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
     }[ch]));
   }
-  /** IB email fill overlay ahead of Plaid, or qty_source describing that disagreement. */
-  function isPendingPlaid(e) {
-    if (!e) return false;
-    if (e.pending_plaid === true || e.pending_plaid === 'true') return true;
-    const src = String(e.qty_source || '');
-    if (!src) return false;
-    return /pending/i.test(src) && /ib|plaid|overlay|confirm|disagree/i.test(src);
+  /** IB email fill / synth overlay ahead of Plaid (equity qty or option row). */
+  function isPendingPlaid(row, ctx) {
+    if (!row) return false;
+    if (row.pending_plaid === false || row.pending_plaid === 'false') return false;
+    if (row.pending_plaid === true || row.pending_plaid === 'true') return true;
+    if (row.synth === true || row.synth === 'true') return true;
+    const bits = [row.qty_source, row.premium_source, row.cost_source, row.source]
+      .map((v) => String(v || '')).join(' ');
+    if (/pending/i.test(bits) && /ib|plaid|overlay|confirm|disagree/i.test(bits)) return true;
+    if (/\bsynth\b/i.test(bits)) return true;
+    if (/email/i.test(bits) && /ib|fill|overlay|plaid/i.test(bits)) return true;
+    if (/missing in plaid|ahead of plaid/i.test(bits)) return true;
+    if (/usoptions/i.test(bits) && /overlay|synth|email|missing|pending/i.test(bits)) return true;
+    if (ctx && ctx.kind === 'option' && row.ticker && ctx.source) {
+      const ticker = String(row.ticker).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      if (new RegExp('synth\\s+' + ticker + '\\b', 'i').test(String(ctx.source))) return true;
+    }
+    return false;
+  }
+  function optionRows(d) {
+    const o = (d && d.options) || {};
+    return [].concat(o.short_puts || [], o.covered_calls || [], o.long_puts || []);
+  }
+  function pendingCell(on) {
+    return on ? ' pending-cell' : '';
   }
   let donutChart = null;
   let snapshot = null;
@@ -228,17 +246,18 @@
     const rows = d.equities.map(e => {
       const plCls = e.pl < 0 ? 'neg' : 'pos';
       const pending = isPendingPlaid(e);
+      const mid = pendingCell(pending);
       const rowCls = pending ? ' class="pending-plaid"' : '';
       const rowTitle = pending ? ` title="${esc(t('pendingPlaidTip'))}"` : '';
       return `<tr${rowCls}${rowTitle}>
         <td><b>${esc(e.ticker)}</b></td>
-        <td class="r">${fmt.num(e.qty, 0)}</td>
-        <td class="r">${fmt.num(e.price, 2)}</td>
-        <td class="r">${fmt.money(e.mv)}</td>
-        <td class="r">${fmt.pct(e.pct_stock)}</td>
-        <td class="r">${fmt.pct(e.pct_nav)}</td>
-        <td class="r">${fmt.money(e.cost)}</td>
-        <td class="r ${plCls}">${fmt.money(e.pl)}</td>
+        <td class="r${mid}">${fmt.num(e.qty, 0)}</td>
+        <td class="r${mid}">${fmt.num(e.price, 2)}</td>
+        <td class="r${mid}">${fmt.money(e.mv)}</td>
+        <td class="r${mid}">${fmt.pct(e.pct_stock)}</td>
+        <td class="r${mid}">${fmt.pct(e.pct_nav)}</td>
+        <td class="r${mid}">${fmt.money(e.cost)}</td>
+        <td class="r ${plCls}${mid}">${fmt.money(e.pl)}</td>
         <td class="r na">N/A</td>
         <td>${esc(dataLabel('sector', e.sector))}</td>
       </tr>`;
@@ -254,8 +273,6 @@
       <td class="r na">N/A</td><td></td>
     </tr>`);
     tb.innerHTML = rows.join('');
-    const note = document.getElementById('pending-plaid-note');
-    if (note) note.hidden = !d.equities.some(isPendingPlaid);
   }
 
   function renderSectors(d) {
@@ -286,21 +303,25 @@
     }).join('');
   }
 
-  function optTable(rows) {
+  function optTable(rows, d) {
     if (!rows.length) return `<div class="note">${t('optNone')}</div>`;
     const body = rows.map(r => {
       const plaid = r.plaid_cost ?? r.cost;
       // 权利金 = collected premium (always display as non-negative); Cost(Plaid) stays signed
       const prem = r.premium_total == null ? null : Math.abs(r.premium_total);
-      return `<tr>
+      const pending = isPendingPlaid(r, { kind: 'option', source: d && d.source });
+      const mid = pendingCell(pending);
+      const rowCls = pending ? ' class="pending-plaid"' : '';
+      const rowTitle = pending ? ` title="${esc(t('pendingPlaidTip'))}"` : '';
+      return `<tr${rowCls}${rowTitle}>
       <td><b>${esc(r.ticker)}</b></td>
       <td class="opt-type">${esc(dataLabel('optType', r.type))}</td>
-      <td class="r">${r.strike}</td>
-      <td>${r.expiry}</td>
-      <td class="r">${r.contracts}</td>
-      <td class="r">${fmt.money(r.mv)}</td>
-      <td class="r">${fmt.money(plaid)}</td>
-      <td class="r">${fmt.money(prem)}</td>
+      <td class="r${mid}">${r.strike}</td>
+      <td${pending ? ' class="pending-cell"' : ''}>${r.expiry}</td>
+      <td class="r${mid}">${r.contracts}</td>
+      <td class="r${mid}">${fmt.money(r.mv)}</td>
+      <td class="r${mid}">${fmt.money(plaid)}</td>
+      <td class="r${mid}">${fmt.money(prem)}</td>
     </tr>`;
     }).join('');
     return `<table class="opt-table">
@@ -318,7 +339,7 @@
       <div class="card opt-card">
         <h3>${t('optShortTitle')}</h3>
         <div class="hint">${t('optShortHint')}</div>
-        ${optTable(o.short_puts)}
+        ${optTable(o.short_puts, d)}
         <div class="opt-foot">
           <span>${t('optContractSum')} <b>${o.short_put_contracts}</b></span>
           <span>${t('optMvSum')} <b>${fmt.money(o.short_put_mv)}</b></span>
@@ -327,13 +348,13 @@
       <div class="card opt-card">
         <h3>${t('optCoveredTitle')}</h3>
         <div class="hint">${t('optCoveredHint')}</div>
-        ${optTable(o.covered_calls)}
+        ${optTable(o.covered_calls, d)}
         <div class="opt-foot"><span>${t('optMvSum')} <b>${fmt.money(o.covered_mv)}</b></span></div>
       </div>
       <div class="card opt-card">
         <h3>${t('optLongTitle')}</h3>
         <div class="hint">${t('optLongHint')}</div>
-        ${optTable(o.long_puts)}
+        ${optTable(o.long_puts, d)}
         <div class="opt-foot"><span>${t('optMvSum')} <b>${fmt.money(o.long_put_mv)}</b></span></div>
       </div>`;
   }
@@ -365,6 +386,12 @@
     renderHoldingsTable(d);
     renderSectors(d);
     renderOptions(d);
+    const eqPend = (d.equities || []).some((e) => isPendingPlaid(e));
+    const optPend = optionRows(d).some((r) => isPendingPlaid(r, { kind: 'option', source: d.source }));
+    const eqNote = document.getElementById('pending-plaid-note');
+    const optNote = document.getElementById('pending-plaid-opt-note');
+    if (eqNote) eqNote.hidden = !eqPend;
+    if (optNote) optNote.hidden = !optPend;
   }
 
   async function main() {
