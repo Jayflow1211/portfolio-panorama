@@ -1,37 +1,37 @@
 {
-  "asof": "2026-10-12 09:59 CST",
+  "asof": "2026-10-13 04:51 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) full re-fetch 2026-10-12 ~10:00 CST catch-up for session 2026-10-10. Pure Plaid (RKLB 500 + Oct30 65P). Flex live FAIL 1001; prior Flex stmt whenGenerated=20261011 toDate=20261009 shows no Oct9 trades beyond known Oct8. Gmail no TradingAssistant confirms 2026-10-09/10. No pending overlays.+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid) 2026-10-13 CST for session 2026-10-12 + IB email synth Oct12 RKLB Oct23 65P + VSAT Nov20 60P (Plaid lag) + USOptions 10月 opens risk 18150 + rank 110/35439.85+USOptions sheet premiums",
   "nav": 136643.19,
   "stock": 52617.22,
-  "opt": -212.21,
-  "cash": 84179.45,
+  "opt": -812.21,
+  "cash": 84779.45,
   "other": 58.73,
   "realized": 35439.85,
-  "risk": 6250,
+  "risk": 18150,
   "equity_unrealized": -13179.91,
-  "open_short_contracts": 1,
+  "open_short_contracts": 3,
   "equity_count": 5,
   "stock_pct": 38.51,
-  "opt_pct": -0.16,
-  "cash_pct": 61.61,
+  "opt_pct": -0.59,
+  "cash_pct": 62.04,
   "other_pct": 0.04,
-  "risk_pct": 4.57,
+  "risk_pct": 13.28,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 137067.61,
+    "sum": 138267.61,
     "slices": [
       {
         "key": "cash",
         "label": "现金",
-        "value": 84179.45,
-        "signed": 84179.45,
-        "pct_nav": 61.61,
+        "value": 84779.45,
+        "signed": 84779.45,
+        "pct_nav": 62.04,
         "color": "#22c55e"
       },
       {
@@ -45,9 +45,9 @@
       {
         "key": "opt",
         "label": "期权",
-        "value": 212.21,
-        "signed": -212.21,
-        "pct_nav": -0.16,
+        "value": 812.21,
+        "signed": -812.21,
+        "pct_nav": -0.59,
         "color": "#c084fc"
       },
       {
@@ -192,6 +192,34 @@
   "options": {
     "short_puts": [
       {
+        "ticker": "VSAT",
+        "type": "卖出看跌",
+        "strike": 60,
+        "expiry": "2026-11-20",
+        "contracts": 1,
+        "mv": -350,
+        "cost": -350,
+        "plaid_cost": -350,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3.5,
+        "premium_total": 350,
+        "premium_source": "USOptions「10月」H×100×K"
+      },
+      {
+        "ticker": "RKLB",
+        "type": "卖出看跌",
+        "strike": 65,
+        "expiry": "2026-10-23",
+        "contracts": 1,
+        "mv": -250,
+        "cost": -250,
+        "plaid_cost": -250,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 2.5,
+        "premium_total": 250,
+        "premium_source": "USOptions「10月」H×100×K"
+      },
+      {
         "ticker": "RKLB",
         "type": "卖出看跌",
         "strike": 65,
@@ -220,8 +248,8 @@
         "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 1,
-    "short_put_mv": -249.81,
+    "short_put_contracts": 3,
+    "short_put_mv": -849.81,
     "covered_mv": 0,
     "long_put_mv": 37.6
   }
