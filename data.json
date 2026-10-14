@@ -1,26 +1,26 @@
 {
-  "asof": "2026-10-14 22:17 CST",
+  "asof": "2026-10-15 04:45 CST",
   "account": {
     "name": "Interactive Brokers - US",
     "masked": "U****6865",
     "status": "Plaid active"
   },
-  "source": "Finance(IB/Plaid) 2026-10-14 CST + sheet/IB synth Oct14 SPCX Nov20 145P @6.41 + VSAT Nov20 60P@5 + VSAT Nov20 55P@3 (Plaid lag; prior Oct13 ASTS/RKLB/VSAT#2 absorbed) + USOptions 10月 opens risk 58204 + rank 110/35439.85+USOptions sheet premiums",
+  "source": "Finance(IB/Plaid) 2026-10-14 close-session CST + sheet-open MTM0 synth (SPCX 145/135/140 + VSAT60#3 + VSAT55×3 + CRWV55; no IB-email overlay) + USOptions 10月 opens risk 100354 + rank 110/35439.85+USOptions sheet premiums",
   "nav": 133734.39,
   "stock": 49841.61,
   "opt": -1972.96,
   "cash": 85779.17,
   "other": 86.57,
   "realized": 35439.85,
-  "risk": 58204,
+  "risk": 100354,
   "equity_unrealized": -15955.52,
-  "open_short_contracts": 9,
+  "open_short_contracts": 14,
   "equity_count": 5,
   "stock_pct": 37.27,
   "opt_pct": -1.48,
   "cash_pct": 64.14,
   "other_pct": 0.06,
-  "risk_pct": 43.52,
+  "risk_pct": 75.04,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
@@ -203,7 +203,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 3.795,
         "premium_total": 759,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "RKLB",
@@ -217,7 +217,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 2.5,
         "premium_total": 250,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "RKLB",
@@ -231,7 +231,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 4,
         "premium_total": 400,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "RKLB",
@@ -245,7 +245,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 2.5,
         "premium_total": 250,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "ASTS",
@@ -259,21 +259,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 1.96,
         "premium_total": 196,
-        "premium_source": "USOptions「10月」H×100×K"
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
-        "strike": 145,
-        "expiry": "2026-11-20",
-        "contracts": 1,
-        "mv": 0,
-        "cost": -641,
-        "plaid_cost": -641,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 6.41,
-        "premium_total": 641,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "VSAT",
@@ -287,10 +273,66 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 5,
         "premium_total": 500,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       },
       {
         "ticker": "VSAT",
+        "type": "卖出看跌",
+        "strike": 55,
+        "expiry": "2026-11-20",
+        "contracts": 3,
+        "mv": 0,
+        "cost": -1000,
+        "plaid_cost": -1000,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3.3333,
+        "premium_total": 1000,
+        "premium_source": "USOptions「月表」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 145,
+        "expiry": "2026-11-20",
+        "contracts": 1,
+        "mv": 0,
+        "cost": -641,
+        "plaid_cost": -641,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 6.41,
+        "premium_total": 641,
+        "premium_source": "USOptions「月表」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 135,
+        "expiry": "2026-11-20",
+        "contracts": 1,
+        "mv": 0,
+        "cost": -350,
+        "plaid_cost": -350,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 3.5,
+        "premium_total": 350,
+        "premium_source": "USOptions「月表」H×100×K"
+      },
+      {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 140,
+        "expiry": "2026-11-20",
+        "contracts": 1,
+        "mv": 0,
+        "cost": -500,
+        "plaid_cost": -500,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 5,
+        "premium_total": 500,
+        "premium_source": "USOptions「月表」H×100×K"
+      },
+      {
+        "ticker": "CRWV",
         "type": "卖出看跌",
         "strike": 55,
         "expiry": "2026-11-20",
@@ -301,7 +343,7 @@
         "cost_source": "Finance holdings cost_basis",
         "premium": 3,
         "premium_total": 300,
-        "premium_source": "USOptions「10月」H×100×K"
+        "premium_source": "USOptions「月表」H×100×K"
       }
     ],
     "covered_calls": [],
@@ -318,7 +360,7 @@
         "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 9,
+    "short_put_contracts": 14,
     "short_put_mv": -2050.86,
     "covered_mv": 0,
     "long_put_mv": 77.9
