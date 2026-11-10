@@ -295,6 +295,14 @@ describe('qty and as-of join guards', () => {
     assert.equal(costs.observedPeriod && costs.observedPeriod.strategyCostPerShare, 105.52);
     assert.equal(sc.formatCostPair(costs), '(36.72, \u2014)');
     assert.notEqual(sc.displayedStrategyPerShare(costs), 105.52);
+    assert.equal(costs.displayBookTotal, 3672.401787);
+    assert.equal(costs.bookSource, 'confirmed_post_plaid_fill_bridge');
+    assert.equal(costs.displayUnrealized, -1072.4);
+    assert.equal(costs.rawOverlayBook, 3671.4017);
+    assert.equal(costs.plaidOfficial.shares, 71);
+    assert.equal(costs.plaidOfficial.bookCostTotal, 3004.4017);
+    assert.equal(costs.brokerCostPerShare, sc.round2(costs.displayBookTotal / 100));
+    assert.notEqual(costs.bookSource, 'plaid_holdings');
   });
 
   it('applies the same 71-share book when display qty matches 71', () => {
@@ -483,11 +491,23 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(hims.qty, 100);
     assert.equal(hims.mv, 2600);
     assert.equal(hims.cost, 3671.4017);
+    assert.equal(hims.pl, -1071.4);
     assert.equal(hims.costs.status, 'partial');
     assert.equal(hims.costs.brokerCostPerShare, 36.72);
     assert.equal(hims.costs.strategyCostPerShare, null);
     assert.equal(hims.costs.join.snapshotKind, 'confirmed_post_plaid_fill_bridge');
     assert.equal(hims.costs.join.plaidShares, 71);
+    assert.equal(sc.rowBookTotal(hims), 3672.401787);
+    assert.equal(sc.rowUnrealized(hims), -1072.4);
+    assert.equal(sc.rowBookSource(hims), 'confirmed_post_plaid_fill_bridge');
+    assert.equal(hims.costs.brokerCostPerShare, sc.round2(sc.rowBookTotal(hims) / hims.qty));
+    assert.equal(sc.rowUnrealized(hims), sc.round2(hims.mv - sc.rowBookTotal(hims)));
+    assert.notEqual(sc.rowBookTotal(hims), hims.cost);
+    assert.notEqual(sc.rowUnrealized(hims), hims.pl);
+    assert.notEqual(sc.rowBookSource(hims), 'plaid_holdings');
+    const tableBookSum = data.equities.reduce((s, e) => s + sc.rowBookTotal(e), 0);
+    const overlaySum = data.equities.reduce((s, e) => s + e.cost, 0);
+    assert.ok(Math.abs(tableBookSum - overlaySum - (3672.401787 - 3671.4017)) < 1e-6);
     assert.equal(
       sc.parseDecimal(hims.costs.knownComponents.realized_option_net_in_covered_period
         || hims.costs.knownComponents.realized_option_net_excluding_embedded_puts_in_covered_period),
@@ -517,6 +537,35 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     const costs = data.equities.find((e) => e.ticker === 'RKLB').costs;
     assert.equal(costs.strategyCostPerShare, null);
     assert.notEqual(costs.strategyCostPerShare, wouldBeWrong);
+  });
+
+  it('HIMS table book, red pair, and unrealized use the same 100-share bridge (not Plaid 71 or overlay 3671.40)', () => {
+    const data = loadJson('data.json');
+    const inputs = loadJson('cost-inputs.json');
+    sc.applyCostsToSnapshot(data, inputs);
+    const hims = data.equities.find((e) => e.ticker === 'HIMS');
+    const pair = sc.formatCostPair(hims.costs);
+    assert.equal(hims.qty, 100);
+    assert.equal(hims.mv, 2600);
+    assert.match(pair, /^\(36\.72, /);
+    assert.equal(sc.rowBookTotal(hims), 3672.401787);
+    assert.equal(sc.round2(sc.rowBookTotal(hims) / hims.qty), 36.72);
+    assert.equal(hims.costs.brokerCostPerShare, 36.72);
+    assert.equal(sc.rowUnrealized(hims), sc.round2(2600 - 3672.401787));
+    assert.equal(sc.rowUnrealized(hims), -1072.4);
+    assert.equal(sc.rowBookSource(hims), 'confirmed_post_plaid_fill_bridge');
+    assert.notEqual(sc.rowBookSource(hims), 'plaid_holdings');
+    assert.equal(hims.costs.plaidOfficial.shares, 71);
+    assert.equal(hims.costs.plaidOfficial.bookCostTotal, 3004.4017);
+    assert.equal(hims.cost, 3671.4017);
+    assert.notEqual(sc.rowBookTotal(hims), 3671.4017);
+    assert.notEqual(sc.rowBookTotal(hims), 3004.4017);
+    assert.notEqual(sc.rowUnrealized(hims), -1071.4);
+    const others = data.equities.filter((e) => e.ticker !== 'HIMS');
+    others.forEach((e) => {
+      assert.equal(sc.rowBookSource(e), 'plaid_holdings');
+      assert.equal(sc.rowBookTotal(e), e.cost);
+    });
   });
 
   it('cost-inputs.json has no account PII / raw trades / credentials', () => {

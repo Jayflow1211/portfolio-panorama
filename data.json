@@ -76,6 +76,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 134.43,
+        "displayBookTotal": 59150.1687,
+        "displayUnrealized": -71.37,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 59150.1687,
+        "plaidOfficial": {
+          "shares": 440,
+          "bookCostTotal": 59150.1687,
+          "bookCostPerShare": 134.43
+        },
         "strategyCostPerShare": 121.25,
         "strategyApproximatePerShare": 121.25,
         "status": "approximate",
@@ -159,6 +168,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 79.56,
+        "displayBookTotal": 47736.8781,
+        "displayUnrealized": -15894.88,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 47736.8781,
+        "plaidOfficial": {
+          "shares": 600,
+          "bookCostTotal": 47736.8781,
+          "bookCostPerShare": 79.56
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -240,6 +258,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 117.41,
+        "displayBookTotal": 9393.0002,
+        "displayUnrealized": -1823.4,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 9393.0002,
+        "plaidOfficial": {
+          "shares": 80,
+          "bookCostTotal": 9393.0002,
+          "bookCostPerShare": 117.41
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -321,6 +348,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 34.71,
+        "displayBookTotal": 10412.8888,
+        "displayUnrealized": -5747.89,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 10412.8888,
+        "plaidOfficial": {
+          "shares": 300,
+          "bookCostTotal": 10412.8888,
+          "bookCostPerShare": 34.71
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -402,6 +438,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 43.05,
+        "displayBookTotal": 4305.1013,
+        "displayUnrealized": -1072.1,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 4305.1013,
+        "plaidOfficial": {
+          "shares": 100,
+          "bookCostTotal": 4305.1013,
+          "bookCostPerShare": 43.05
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -495,6 +540,15 @@
       ],
       "costs": {
         "brokerCostPerShare": 36.72,
+        "displayBookTotal": 3672.401787,
+        "displayUnrealized": -1072.4,
+        "bookSource": "confirmed_post_plaid_fill_bridge",
+        "rawOverlayBook": 3671.4017,
+        "plaidOfficial": {
+          "shares": 71,
+          "bookCostTotal": 3004.4017,
+          "bookCostPerShare": 42.32
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -508,15 +562,15 @@
           "asofJoin": "matched",
           "fullHistoryComplete": false,
           "sinceInceptionVerified": false,
-          "queriedHistoryFrom": null,
-          "queriedHistoryTo": null
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
         },
         "join": {
           "qtyMatched": true,
           "bookMatched": false,
           "displayShares": 100,
           "inputShares": 100,
-          "displayBook": 3671.4017,
+          "displayBook": 3672.401787,
           "inputBook": 3672.401787,
           "plaidQty": 71,
           "plaidShares": 71,
@@ -530,8 +584,8 @@
         },
         "observedPeriod": {
           "strategyCostPerShare": 105.52,
-          "from": null,
-          "to": null,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
           "lifetime": false
         },
         "strategyDisplayMode": "pending",
@@ -551,7 +605,7 @@
         "holdingsSyncWarning": null,
         "methodology": "economic-attribution-v1",
         "components": {
-          "remainingStockBookCost": 3671.4017,
+          "remainingStockBookCost": 3672.401787,
           "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
           "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
           "currentShares": 100
@@ -573,6 +627,15 @@
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 80.1,
+        "displayBookTotal": 801,
+        "displayUnrealized": -341.3,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 801,
+        "plaidOfficial": {
+          "shares": 10,
+          "bookCostTotal": 801,
+          "bookCostPerShare": 80.1
+        },
         "strategyCostPerShare": null,
         "strategyApproximatePerShare": null,
         "status": "partial",
@@ -890,7 +953,8 @@
       "known_components period figures are observed-window estimates, not lifetime strategy cost.",
       "Open option premium is excluded. Assigned premium already in broker book is excluded.",
       "Cost-input strategy applies only when display quantity and as-of date match.",
-      "HIMS 100-share bridge applies only when qty, as-of, and snapshot_kind flags match; Plaid 71 is kept separately.",
+      "HIMS 100-share bridge applies only when qty, as-of, and snapshot_kind flags match; Plaid 71 is kept separately and is never labeled as the 100-share book.",
+      "Table book/unrealized use displayBookTotal (bridge or Plaid holdings), not a mixed overlay.",
       "Do not claim whole-account full-history verified while pre-2025 evidence is still open."
     ]
   }

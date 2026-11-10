@@ -52,6 +52,15 @@
       t('costHistorical') + ': ' + strategyDetailText(c),
       t('costMethodNote')
     ];
+    if (c.bookSource === 'confirmed_post_plaid_fill_bridge' || c.bookSource === 'fill_bridge') {
+      lines.push(t('bookSourceBridge') + ': ' + (c.displayBookTotal == null ? '\u2014' : fmt.money(c.displayBookTotal)));
+      if (c.plaidOfficial && c.plaidOfficial.bookCostTotal != null) {
+        lines.push(t('costPlaidOfficial', {
+          shares: c.plaidOfficial.shares,
+          book: fmt.money(c.plaidOfficial.bookCostTotal)
+        }));
+      }
+    }
     if (c.status === 'qty_mismatch' && c.join) {
       lines.push(t('costMismatchTip', {
         display: c.join.displayShares,
@@ -304,10 +313,20 @@
     if (legend) legend.textContent = t('costPairLegend');
   }
 
+  function bookSourceLabel(e) {
+    const src = sc() ? sc().rowBookSource(e) : '';
+    if (src === 'confirmed_post_plaid_fill_bridge' || src === 'fill_bridge') return t('bookSourceBridge');
+    if (src === 'qty_mismatch') return t('costStatusQtyMismatch');
+    return t('bookSourcePlaid');
+  }
   function renderHoldingsTable(d) {
     const tb = document.querySelector('#holdings-table tbody');
+    const bookOf = (e) => (sc() ? sc().rowBookTotal(e) : e.cost);
+    const plOf = (e) => (sc() ? sc().rowUnrealized(e) : e.pl);
     const rows = d.equities.map(e => {
-      const plCls = e.pl < 0 ? 'neg' : 'pos';
+      const book = bookOf(e);
+      const pl = plOf(e);
+      const plCls = pl < 0 ? 'neg' : 'pos';
       const pending = isPendingPlaid(e);
       const rowCls = pending ? ' class="pending-plaid"' : '';
       const rowTitle = pending ? ` title="${esc(t('pendingPlaidTip'))}"` : '';
@@ -321,20 +340,21 @@
         <td class="r">${fmt.money(e.mv)}</td>
         <td class="r">${fmt.pct(e.pct_stock)}</td>
         <td class="r">${fmt.pct(e.pct_nav)}</td>
-        <td class="r">${fmt.money(e.cost)}</td>
+        <td class="r" title="${costTip}">${fmt.money(book)} <span class="cost-status">${esc(bookSourceLabel(e))}</span></td>
         <td class="r" title="${costTip}"><span class="t-cost">${esc(pair)}</span> <span class="cost-status">${esc(st)}</span></td>
-        <td class="r ${plCls}">${fmt.money(e.pl)}</td>
+        <td class="r ${plCls}">${fmt.money(pl)}</td>
         <td class="r na">N/A</td>
         <td>${esc(dataLabel('sector', e.sector))}</td>
       </tr>`;
     });
-    const sumPl = d.equities.reduce((s, e) => s + e.pl, 0);
+    const sumPl = d.equities.reduce((s, e) => s + (plOf(e) || 0), 0);
+    const sumBook = d.equities.reduce((s, e) => s + (bookOf(e) || 0), 0);
     rows.push(`<tr>
       <td>${t('total')}</td><td></td><td></td>
       <td class="r">${fmt.money(d.stock_total)}</td>
       <td class="r">100.00%</td>
       <td class="r">${fmt.pct(d.stock_pct)}</td>
-      <td class="r">${fmt.money(d.equities.reduce((s, e) => s + e.cost, 0))}</td>
+      <td class="r">${fmt.money(sumBook)}</td>
       <td></td>
       <td class="r ${sumPl < 0 ? 'neg' : 'pos'}">${fmt.money(sumPl)}</td>
       <td class="r na">N/A</td><td></td>
