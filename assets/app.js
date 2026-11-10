@@ -319,6 +319,13 @@
     }).join('');
     const legend = document.getElementById('cost-legend');
     if (legend) legend.textContent = t('costPairLegend');
+    const diag = document.getElementById('cost-diag');
+    if (diag) {
+      const rklb = (d.equities || []).find((e) => e.ticker === 'RKLB');
+      const pair = rklb ? costPairText(rklb.costs) : '(\u2014, \u2014)';
+      const asof = (d.equity_costs && d.equity_costs.asof) || d.asof || '';
+      diag.textContent = 'RKLB ' + pair + ' \u00b7 inputs ' + asof;
+    }
     renderCostRoster(d);
   }
 

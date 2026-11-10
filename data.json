@@ -116,6 +116,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -213,6 +214,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -308,6 +310,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -402,6 +405,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -496,6 +500,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -602,6 +607,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -696,6 +702,7 @@
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
           "holdingsAsOf": "2026-11-10 05:45 CST",
           "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
@@ -985,8 +992,9 @@
       "Lifetime strategy_cost_per_share stays null unless inception/pre-2025 history is confirmed.",
       "known_components period figures are observed-window estimates, not lifetime strategy cost.",
       "Open option premium is excluded. Assigned premium already in broker book is excluded.",
-      "Cost-input strategy applies only when display quantity and as-of date match.",
-      "HIMS official Plaid 100-share book 3672.4018 joins on qty and as-of; overlay 3671.4017 is not the displayed row book.",
+      "Daily holdings refresh reattaches last audited costs when qty and remaining book still match; coverage dates are not restamped to today.",
+      "New trades (qty or remaining-book change) need a new audited cost-inputs record. Do not bump old asof to today to bypass.",
+      "HIMS official Plaid 100-share book 3672.4018 joins on qty; overlay 3671.4017 is not the displayed row book.",
       "RKLB 35.60 is covered-period audited history (not since inception). Embedded put 1846.12243 is not subtracted again.",
       "Table book/unrealized use displayBookTotal (joined Plaid or overlay), not a mixed source.",
       "Do not claim whole-account full-history verified while pre-2025 evidence is still open."

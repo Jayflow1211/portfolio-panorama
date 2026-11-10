@@ -300,7 +300,10 @@
     <div class="card treemap-wrap">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;">
               <div class="card-title" style="margin:0" data-i18n="treemapTitle">Equity treemap</div>
-              <div style="font-size:12px;color:var(--muted)"><span data-i18n="stockTotal">Equity market value $</span><span id="stock-total">—</span></div>
+              <div style="font-size:12px;color:var(--muted);text-align:right">
+                <div><span data-i18n="stockTotal">Equity market value $</span><span id="stock-total">—</span></div>
+                <div id="cost-diag" style="font-size:11px;color:var(--dim);margin-top:2px"></div>
+              </div>
         </div>
         <div class="treemap" id="treemap"></div>
         <div class="note" data-i18n="treemapNote">Interactive squarify treemap · data = Finance equity MV · red pair = per-share cost (current, historical) · day P/L = N/A (not in Plaid)</div>

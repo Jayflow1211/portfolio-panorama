@@ -326,7 +326,7 @@ describe('qty and as-of join guards', () => {
     assert.equal(costs.strategyCostPerShare, null);
   });
 
-  it('withholds strategy inputs when as-of dates do not match', () => {
+  it('carries last audited historical cost when as-of moved but qty and remaining book match', () => {
     const costs = sc.computeEquityCosts(
       { ticker: 'SPCX', qty: 440, cost: 59150.1687, mv: 59078.8, price: 134.27 },
       {
@@ -336,24 +336,98 @@ describe('qty and as-of join guards', () => {
           shares: '440',
           book_cost_total: '59150.1687',
           unembedded_realized_stock_pnl: '527.25',
-          unembedded_realized_option_pnl: null,
+          unembedded_realized_option_pnl: '5275.06',
           strategy_cost_per_share: null,
           status: 'approximate',
           asof: '2026-11-01T00:00:00+08:00',
+          coverage: {
+            queried_history_from: '2025-01-01',
+            queried_history_to: '2026-11-09',
+            since_inception_verified: false,
+            full_history_complete: false
+          },
           display: {
             validate_shares_before_join: true,
-            strategy_display_mode: 'approximate_known_components',
-            strategy_approximate_per_share: '121.2434015627'
+            strategy_display_mode: 'approximate_audited_history',
+            strategy_approximate_per_share: '121.2451170438'
           }
         }]
       },
-      { holdingsAsOf: '2026-11-10 05:45 CST' }
+      { holdingsAsOf: '2026-11-11 05:45 CST' }
     );
-    assert.equal(costs.status, 'asof_mismatch');
     assert.equal(costs.brokerCostPerShare, 134.43);
-    assert.equal(costs.strategyCostPerShare, null);
+    assert.equal(costs.strategyApproximatePerShare, 121.25);
+    assert.equal(costs.status, 'approximate');
+    assert.equal(costs.coverage.asofJoin, 'carried');
+    assert.equal(costs.coverage.queriedHistoryTo, '2026-11-09');
+    assert.equal(costs.coverage.sinceInceptionVerified, false);
+    assert.equal(costs.join.carryForward, true);
+  });
+
+  it('withholds strategy when remaining book changed; restamping as-of to today does not bypass', () => {
+    const costs = sc.computeEquityCosts(
+      { ticker: 'RKLB', qty: 600, cost: 50000, mv: 31842, price: 53.07 },
+      {
+        asof: '2026-11-11T20:00:00+08:00',
+        records: [{
+          ticker: 'RKLB',
+          shares: '600',
+          book_cost_total: '47736.8781',
+          unembedded_realized_stock_pnl: null,
+          unembedded_realized_option_pnl: null,
+          status: 'approximate',
+          asof: '2026-11-11T20:00:00+08:00',
+          coverage: {
+            queried_history_from: '2025-01-01',
+            queried_history_to: '2026-11-09',
+            since_inception_verified: false
+          },
+          known_components: {
+            realized_stock_net_in_covered_period: '15068.98268',
+            realized_option_net_excluding_embedded_puts_in_covered_period: '11306.7092296',
+            strategy_cost_per_share_if_no_earlier_unembedded_pnl: '35.601976984'
+          },
+          display: {
+            validate_shares_before_join: true,
+            strategy_display_mode: 'approximate_audited_history',
+            strategy_approximate_per_share: '35.601976984'
+          }
+        }]
+      },
+      { holdingsAsOf: '2026-11-11 05:45 CST' }
+    );
+    assert.equal(costs.brokerCostPerShare, sc.round2(50000 / 600));
     assert.equal(costs.strategyApproximatePerShare, null);
-    assert.equal(costs.coverage.asofJoin, 'mismatched');
+    assert.equal(costs.strategyCostPerShare, null);
+    assert.equal(sc.displayedStrategyPerShare(costs), null);
+    assert.equal(costs.coverage.queriedHistoryTo, '2026-11-09');
+    assert.notEqual(costs.coverage.queriedHistoryTo, '2026-11-11');
+  });
+
+  it('qty change withholds historical even if old cost-inputs as-of is rewritten to today', () => {
+    const costs = sc.computeEquityCosts(
+      { ticker: 'RKLB', qty: 750, cost: 47736.8781, mv: 39000, price: 52 },
+      {
+        asof: '2026-11-11T20:00:00+08:00',
+        records: [{
+          ticker: 'RKLB',
+          shares: '600',
+          book_cost_total: '47736.8781',
+          status: 'approximate',
+          asof: '2026-11-11T20:00:00+08:00',
+          coverage: { queried_history_to: '2026-11-09', since_inception_verified: false },
+          display: {
+            validate_shares_before_join: true,
+            strategy_display_mode: 'approximate_audited_history',
+            strategy_approximate_per_share: '35.601976984'
+          }
+        }]
+      },
+      { holdingsAsOf: '2026-11-11 05:45 CST' }
+    );
+    assert.equal(costs.status, 'qty_mismatch');
+    assert.equal(costs.strategyApproximatePerShare, null);
+    assert.equal(sc.displayedStrategyPerShare(costs), null);
   });
 });
 
@@ -672,6 +746,99 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(rklb.costs.observedPeriod.to, '2026-11-09');
   });
 
+  it('pending RKLB display_mode still shows 35.60; ECHO stays —', () => {
+    const data = loadJson('data.json');
+    const inputs = loadJson('cost-inputs.json');
+    const rklbIn = inputs.records.find((r) => r.ticker === 'RKLB');
+    rklbIn.status = 'partial';
+    rklbIn.display.strategy_display_mode = 'pending';
+    delete rklbIn.display.strategy_approximate_per_share;
+    const echoIn = inputs.records.find((r) => r.ticker === 'ECHO');
+    echoIn.display.strategy_display_mode = 'pending';
+    echoIn.status = 'partial';
+    sc.applyCostsToSnapshot(data, inputs);
+    const rklb = data.equities.find((e) => e.ticker === 'RKLB').costs;
+    const echo = data.equities.find((e) => e.ticker === 'ECHO').costs;
+    assert.equal(sc.formatCostPair(rklb), '(79.56, 35.60)');
+    assert.equal(rklb.coverage.sinceInceptionVerified, false);
+    assert.equal(sc.displayedStrategyPerShare(echo), null);
+    assert.match(sc.formatCostPair(echo), /^\(117\.41, \u2014\)$/);
+  });
+
+  it('daily refresh of a main-style snapshot reattaches costs without restamping coverage', () => {
+    const data = loadJson('data.json');
+    const inputs = loadJson('cost-inputs.json');
+    const overlay = data.equities.map((e) => [e.ticker, e.qty, e.mv, e.cost, e.price]);
+    data.equities.forEach((e) => { delete e.costs; });
+    delete data.equity_costs;
+    data.asof = '2026-11-11 05:45 CST';
+    sc.applyCostsToSnapshot(data, inputs);
+    overlay.forEach(([ticker, qty, mv, cost, price], i) => {
+      assert.equal(data.equities[i].ticker, ticker);
+      assert.equal(data.equities[i].qty, qty);
+      assert.equal(data.equities[i].mv, mv);
+      assert.equal(data.equities[i].cost, cost);
+      assert.equal(data.equities[i].price, price);
+    });
+    const rklb = data.equities.find((e) => e.ticker === 'RKLB').costs;
+    const spcx = data.equities.find((e) => e.ticker === 'SPCX').costs;
+    const echo = data.equities.find((e) => e.ticker === 'ECHO').costs;
+    assert.equal(sc.formatCostPair(spcx), '(134.43, 121.25)');
+    assert.equal(sc.formatCostPair(rklb), '(79.56, 35.60)');
+    assert.equal(sc.displayedStrategyPerShare(echo), null);
+    assert.equal(rklb.coverage.asofJoin, 'carried');
+    assert.equal(rklb.coverage.queriedHistoryFrom, '2025-01-01');
+    assert.equal(rklb.coverage.queriedHistoryTo, '2026-11-09');
+    assert.notEqual(rklb.coverage.queriedHistoryTo, '2026-11-11');
+    assert.equal(rklb.coverage.sinceInceptionVerified, false);
+    assert.equal(data.equity_costs.asof, inputs.asof);
+    data.equities.forEach((e) => {
+      assert.ok(e.costs, e.ticker);
+      assert.ok(sc.isFiniteNumber(e.costs.brokerCostPerShare), e.ticker + ' broker');
+    });
+  });
+
+  it('apply-strategy-costs.js does not hardcode realized profit totals', () => {
+    const src = fs.readFileSync(path.join(root, 'scripts/apply-strategy-costs.js'), 'utf8');
+    assert.doesNotMatch(src, /15068\.98268/);
+    assert.doesNotMatch(src, /11306\.7092296/);
+    assert.doesNotMatch(src, /5275\.0625634/);
+    assert.doesNotMatch(src, /35\.60/);
+    assert.match(src, /cost-inputs\.json/);
+  });
+});
+
+describe('runtime apply does not demote RKLB', () => {
+  it('keeps 35.60 when snapshot already has it and inputs would pending-wipe', () => {
+    const data = loadJson('data.json');
+    const pending = {
+      schema_version: '2.1',
+      asof: '2026-11-01T00:00:00+08:00',
+      records: [{
+        ticker: 'RKLB',
+        shares: '600',
+        book_cost_total: '47736.8781',
+        unembedded_realized_stock_pnl: null,
+        unembedded_realized_option_pnl: null,
+        status: 'partial',
+        asof: '2026-11-01T00:00:00+08:00',
+        coverage: {
+          queried_history_from: '2025-01-01',
+          queried_history_to: '2026-11-09',
+          since_inception_verified: false
+        },
+        display: { validate_shares_before_join: true, strategy_display_mode: 'pending' }
+      }]
+    };
+    const before = data.equities.find((e) => e.ticker === 'RKLB').costs.strategyApproximatePerShare;
+    assert.equal(before, 35.6);
+    sc.applyCostsToSnapshot(data, pending);
+    const after = data.equities.find((e) => e.ticker === 'RKLB').costs;
+    assert.equal(sc.formatCostPair(after), '(79.56, 35.60)');
+  });
+});
+
+describe('cost-inputs hygiene', () => {
   it('cost-inputs.json has no account PII / raw trades / credentials', () => {
     const raw = fs.readFileSync(path.join(root, 'cost-inputs.json'), 'utf8');
     assert.match(raw, /unembedded_realized_stock_pnl/);
@@ -684,3 +851,4 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.doesNotMatch(raw, /gmail/i);
   });
 });
+

@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Merge economic per-share costs into data.json after a holdings refresh.
- * Reads cost-inputs.json (persistent ticker aggregates) and does not
- * rewrite NAV, MV, options, or other unrelated snapshot fields.
+ * In-repo post-holdings-refresh hook. Merge economic per-share costs into
+ * data.json from cost-inputs.json. Does not rewrite NAV, MV, options, qty,
+ * or overlay cost. Does not restamp cost-inputs as-of. Does not ingest raw
+ * Flex/private ledgers. The GitHub "Daily refresh" authoring job lives
+ * outside this repo; run this script after that job writes data.json.
  *
  * Usage: node scripts/apply-strategy-costs.js
  */
@@ -10,7 +12,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { applyCostsToSnapshot } = require('../lib/strategyCost');
+const { applyCostsToSnapshot, formatCostPair } = require('../lib/strategyCost');
 
 const root = path.join(__dirname, '..');
 const dataPath = path.join(root, 'data.json');
@@ -28,11 +30,23 @@ function main() {
   } else {
     console.warn('cost-inputs.json missing; applying with empty realized-P&L inputs (null, not 0).');
   }
+  const qtyMv = (snapshot.equities || []).map((e) => [e.ticker, e.qty, e.mv, e.cost, e.price]);
   applyCostsToSnapshot(snapshot, inputs);
+  (snapshot.equities || []).forEach((e, i) => {
+    const [ticker, qty, mv, cost, price] = qtyMv[i];
+    if (e.ticker !== ticker || e.qty !== qty || e.mv !== mv || e.cost !== cost || e.price !== price) {
+      throw new Error('apply-strategy-costs rewrote overlay fields for ' + ticker);
+    }
+  });
+  if (!fs.existsSync(inputsPath)) {
+    throw new Error('cost-inputs.json missing after apply');
+  }
   fs.writeFileSync(dataPath, JSON.stringify(snapshot, null, 2) + '\n');
   const cov = snapshot.equity_costs && snapshot.equity_costs.coverage;
   const n = (snapshot.equities || []).length;
+  const pairs = (snapshot.equities || []).map((e) => e.ticker + ' ' + formatCostPair(e.costs));
   console.log('Applied strategy costs to', n, 'equities.', cov || {});
+  console.log(pairs.join(' | '));
 }
 
 main();

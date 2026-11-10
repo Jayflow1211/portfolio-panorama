@@ -24,13 +24,15 @@ strategyCostPerShare =
 - `known_components` **observed-period** figures (Flex 2025-01-01 through 2026-11-09) are **not** lifetime strategy cost and are **not** promoted to the main tile number. If shown, they are labeled with coverage dates.
 - Authoritative lifetime `strategy_cost_per_share` stays null for the six partial names.
 
-## Join guards (quantity + as-of + source flags)
+## Join guards (quantity + remaining book + as-of)
 
-Match `cost-inputs.json` to the live snapshot **only when**:
+Match `cost-inputs.json` strategy numbers to the live snapshot when:
 
 1. Display `qty` equals the chosen record `shares`.
-2. Snapshot as-of **date** equals record as-of **date** (when both are present).
-3. Alternative snapshots (HIMS `confirmed_post_plaid_fill_bridge`) apply only with `snapshot_kind` set, matching qty, and matching as-of. The Plaid 71-share snapshot is preserved separately and is never mixed into a 100-share denominator.
+2. Remaining book still matches (within $0.05), **or** it is the same calendar as-of (official book may differ from a same-day overlay, e.g. HIMS).
+3. A later **daily holdings refresh** with the same qty and remaining book **carries** last audited historical cost. Coverage dates stay on the audit window; they are **not** restamped to today. `asofJoin` is `carried`.
+4. Changing old `cost-inputs.asof` to today does **not** apply old realized totals to a new qty or a new remaining book. New trades need a new audited record.
+5. Alternative snapshots still need `snapshot_kind` plus matching qty.
 
 Status values: `verified` | `approximate` | `provisional` | `partial` | `missing` | `qty0` | `qty_mismatch` | `asof_mismatch`.
 
@@ -69,13 +71,15 @@ RKLB: `(47736.8781 − 15068.98268 − 11306.7092296) / 600 = 35.601976984` → 
 
 ## Persistence
 
-Daily holdings refresh must **not** delete `cost-inputs.json`. After writing `data.json`:
+Daily holdings refresh must **not** delete `cost-inputs.json` and must **not** drop `equities[].costs` / `equity_costs.coverage`. After an external job writes `data.json`:
 
 ```
 node scripts/apply-strategy-costs.js
 ```
 
-The dashboard also loads `cost-inputs.json` at runtime. Sanitized ticker aggregates only: no account IDs, emails, raw trades, broker source reports, or credentials. Do not commit `audit_detail/` or raw Flex/PDF.
+That script is the **in-repo** hook. GitHub `Daily refresh YYYY-MM-DD` commits on `main` are authored outside this repository (they historically wrote only `data.json`). This repo cannot verify that private routine; it can only keep `apply-strategy-costs.js`, runtime recompute, and tests so a refresh that keeps `cost-inputs.json` reattaches broker cost, strategy cost, and coverage.
+
+Do not hardcode yesterday’s realized totals as if they were re-audited today. Do not commit raw Flex/private ledgers. Sanitized ticker aggregates only.
 
 ## UI
 

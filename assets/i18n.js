@@ -108,7 +108,7 @@
       ftNote: '脚注',
       ftNoteRest: '当日盈亏不可得 — Finance/Plaid holdings 不暴露 daily P/L，列留 N/A，不编造。站点不含 Flex/Plaid token。',
       ftRefresh: '刷新',
-      ftRefreshRest: '替换同目录 data.json 后须运行 node scripts/apply-strategy-costs.js（保留 cost-inputs.json）；页面也会在运行时重算。',
+      ftRefreshRest: '替换同目录 data.json 后须运行 node scripts/apply-strategy-costs.js（保留 cost-inputs.json，不把旧 asof 改成今天）。页面也会在运行时按 qty/剩余账面重算；新成交需要新的已审计输入。',
       loadFail: '加载 data.json 失败: '
     },
     en: {
@@ -217,7 +217,7 @@
       ftNote: 'Note',
       ftNoteRest: 'Day P/L is unavailable — Finance/Plaid holdings do not expose daily P/L, so the column stays N/A. This site has no Flex/Plaid token.',
       ftRefresh: 'Refresh',
-      ftRefreshRest: 'After replacing data.json, run node scripts/apply-strategy-costs.js (keep cost-inputs.json). The page also recomputes at runtime.',
+      ftRefreshRest: 'After replacing data.json, run node scripts/apply-strategy-costs.js (keep cost-inputs.json; do not restamp old as-of to today). The page also recomputes at runtime when qty and remaining book still match. New trades need a new audited input.',
       loadFail: 'Failed to load data.json: '
     }
   };
