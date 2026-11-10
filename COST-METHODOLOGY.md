@@ -2,10 +2,10 @@
 
 Two numbers on each equity treemap tile, immediately after market value:
 
-1. **当前成本 / Current cost** — broker remaining book cost per share (`equity.cost / equity.qty`). Live Plaid/Finance remaining stock book, **not** last price.
+1. **当前成本 / Current cost** — broker remaining book cost per share. Live snapshot book / qty, or a matching alternative snapshot (HIMS 100-share bridge). **Not** last price.
 2. **历史成本 / Historical cost** — strategy effective cost per share. Economic attribution, **not** tax basis.
 
-The same formula applies to **every** held equity once that ticker’s full unembedded realized history is in `cost-inputs.json`. This dataset does **not** claim all-ticker history is complete. Six names are **interim pending** until the deeper audit returns; do not invent their unembedded totals.
+The same formula applies to **every** held equity once that ticker’s **lifetime** unembedded realized history is confirmed. This dataset does **not** claim whole-account history since inception. Pre-2025 evidence is still open. Six names stay **待核实** on the main strategy figure.
 
 ## Formula
 
@@ -20,49 +20,52 @@ strategyCostPerShare =
 - Include the **sign** of realized net P&L (losses raise economic cost).
 - Round **display** to two decimals. Negative costs are allowed.
 - `currentShares = 0` → both per-share fields are `null`. Status `qty0`.
-- **Unknown is `null`, never `0`.** Incomplete names render as `—` / 待核实. Labeled estimates use `≈`.
-- Authoritative `strategy_cost_per_share` may be null while `display.strategy_approximate_per_share` still exists. Do not treat that null as “no estimate.”
-- `known_components` subtotals are **not** full unembedded totals and must not be fed into the formula.
+- **Unknown is `null`, never `0`.**
+- `known_components` **observed-period** figures (Flex 2025-01-01 through 2026-11-09) are **not** lifetime strategy cost and are **not** promoted to the main tile number. If shown, they are labeled with coverage dates.
+- Authoritative lifetime `strategy_cost_per_share` stays null for the six partial names.
 
-## Join guards (quantity + as-of)
+## Join guards (quantity + as-of + source flags)
 
-Match `cost-inputs.json` records to the live snapshot **only when**:
+Match `cost-inputs.json` to the live snapshot **only when**:
 
-1. Display `qty` equals record `shares` (numeric).
-2. Snapshot as-of **date** equals record/file as-of **date** (when both are present).
-
-Otherwise do not apply that record’s book or strategy figures to the displayed line. Preserve live `qty` / `mv` / snapshot `cost`. A 71-share Plaid basis must not be applied to a 100-share overlay.
+1. Display `qty` equals the chosen record `shares`.
+2. Snapshot as-of **date** equals record as-of **date** (when both are present).
+3. Alternative snapshots (HIMS `confirmed_post_plaid_fill_bridge`) apply only with `snapshot_kind` set, matching qty, and matching as-of. The Plaid 71-share snapshot is preserved separately and is never mixed into a 100-share denominator.
 
 Status values: `verified` | `approximate` | `provisional` | `partial` | `missing` | `qty0` | `qty_mismatch` | `asof_mismatch`.
+
+`verified` requires `full_history_complete` **and** `since_inception_verified`. Neither is true in this file.
 
 ## What is excluded (no double counting)
 
 | Item | Treatment |
 | --- | --- |
 | Open option premium | Excluded. Do not subtract `options.*.premium_total`. |
-| Assigned premium already in broker remaining book | Excluded (`assignment_adjustment_excluded` / alreadyEmbedded). |
-| Realized stock P&L already in broker remaining book | Excluded via alreadyEmbedded. |
+| Assigned premium already in broker remaining book | Excluded (`assignment_adjustment_excluded`). RKLB 1846.12243; SPCX 161.6220216; ASTS 194.8986624; APLD 687.111166. |
 | Performance-list / options-table premiums received | **Not** realized profit. |
-| Last / mark price | Not a cost. Tile `%` and `$` stay market value. |
-| Older SPCX option-only print (~122.44) | **Not final.** Omitted historical stock profit 527.25. |
+| Last / mark price | Not a cost. |
+| Older SPCX prints 122.44 and 121.24 | **Superseded.** 122.44 omitted stock profit; 121.24 used a missing close-fee placeholder. |
+| Observed-period conditionals | Tooltip/details only; not the main 历史成本. |
 
-## Current honest dataset (2026-11-10)
+## Current honest dataset (asof 2026-11-10)
 
-| Ticker | Display qty | 当前成本 | 历史成本 | Status |
+Queried Flex executions **2025-01-01 through 2026-11-09**. First returned account trade 2025-02-24. Pre-2025 / account inception **not** confirmed.
+
+| Ticker | Display qty | 当前成本 | Main 历史成本 | Status |
 | --- | ---: | --- | --- | --- |
-| SPCX | 440 | 134.43 | ≈121.24 (missing Nov-09 close fee `c`; exact field null) | `approximate` |
-| RKLB | 600 | 79.56 | — 待核实 | `partial` (interim) |
-| ECHO | 80 | 117.41 | — 待核实 | `partial` (interim) |
-| APLD | 300 | 34.71 | — 待核实 | `partial` (interim) |
-| ASTS | 100 | 43.05 | — 待核实 | `partial` (interim) |
-| HIMS | 100 vs input 71 | — (qty mismatch) | — 待核实 | `qty_mismatch` |
-| SOXL | 10 | 80.10 | — 待核实 | `partial` (interim) |
+| SPCX | 440 | 134.43 | ≈121.25 (audited history; not since inception) | `approximate` |
+| RKLB | 600 | 79.56 | — 待核实 | `partial` |
+| ECHO | 80 | 117.41 | — 待核实 | `partial` |
+| APLD | 300 | 34.71 | — 待核实 | `partial` |
+| ASTS | 100 | 43.05 | — 待核实 | `partial` |
+| HIMS | 100 (Plaid 71 kept) | 36.72 (100-share bridge) | — 待核实 | `partial` |
+| SOXL | 10 | 80.10 | — 待核实 | `partial` |
 
-SPCX known components (not the exact field): unembedded stock 527.25; unembedded option 5275.8220124 − `c`; embedded assignment 161.6220216 excluded. Estimate = 121.2434015627 + `c`/440 → display ≈121.24 with 待补平仓费.
+SPCX: stock 527.2546373 + option 5275.0625634; last close commission verified 0.7653; assignment 161.6220216 excluded; total 53347.8514993 / 440 = 121.24511704 → display **≈121.25**.
 
-HIMS known option subtotal **−7003.88** retains its sign and is **not** a definitive strategy cost.
+HIMS: Plaid 71 / 3004.4017 retained. Confirmed 29-share buy commission 1.000087. 100-share bridge 3672.401787 (36.72401787/share) used only because display qty is 100 and as-of matches. Option period subtotal **−6879.67275** keeps its sign and is not the lifetime strategy cost.
 
-Replace `cost-inputs.json` with the next sanitized audit file when it arrives, then `node scripts/apply-strategy-costs.js`. No formula change.
+RKLB period stock net 15068.98268 and embedded assignment 1846.12243 stay in JSON metadata; they are not the main 历史成本.
 
 ## Persistence
 
@@ -72,13 +75,11 @@ Daily holdings refresh must **not** delete `cost-inputs.json`. After writing `da
 node scripts/apply-strategy-costs.js
 ```
 
-The dashboard also loads `cost-inputs.json` at runtime and recomputes, so a holdings-only rewrite still shows costs.
-
-Sanitized ticker aggregates only: no account IDs, emails, raw trades, broker source reports, or credentials.
+The dashboard also loads `cost-inputs.json` at runtime. Sanitized ticker aggregates only: no account IDs, emails, raw trades, broker source reports, or credentials. Do not commit `audit_detail/` or raw Flex/PDF.
 
 ## UI
 
 - Preserve tile area, percent, market value, and colors.
 - Append a compact **red** `(当前成本, 历史成本)` pair immediately after market value.
-- Small tiles may truncate the inline pair; `title` + `aria-label` always include both costs and status.
+- Small tiles may truncate the inline pair; `title` + `aria-label` always include both costs, status, and (where present) the dated observed-period estimate.
 - Legend names the pair; it is not last price.

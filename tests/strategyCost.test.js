@@ -234,11 +234,67 @@ describe('qty and as-of join guards', () => {
     assert.equal(costs.strategyApproximatePerShare, null);
     assert.notEqual(costs.brokerCostPerShare, sc.round2(3004.4017 / 71));
     assert.notEqual(costs.brokerCostPerShare, sc.round2(3671.4017 / 100));
-    assert.equal(
-      sc.parseDecimal(costs.knownComponents.realized_option_pnl_subtotal_excluding_detected_assignment_candidates),
-      -7003.88
-    );
     assert.equal(sc.formatCostPair(costs), '(\u2014, \u2014)');
+  });
+
+  it('uses the HIMS 100-share bridge only when qty, as-of, and snapshot_kind match', () => {
+    const costs = sc.computeEquityCosts(
+      {
+        ticker: 'HIMS',
+        qty: 100,
+        cost: 3671.4017,
+        mv: 2600,
+        price: 26,
+        pending_plaid: true,
+        plaid_qty: 71
+      },
+      {
+        asof: '2026-11-10T14:27:43+08:00',
+        records: [{
+          ticker: 'HIMS',
+          shares: '71',
+          book_cost_total: '3004.4017',
+          unembedded_realized_stock_pnl: null,
+          unembedded_realized_option_pnl: null,
+          strategy_cost_per_share: null,
+          status: 'partial',
+          asof: '2026-11-10T14:27:43+08:00',
+          display: { validate_shares_before_join: true, strategy_display_mode: 'pending' },
+          known_components: {
+            realized_option_net_excluding_embedded_puts_in_covered_period: '-6879.67275',
+            strategy_cost_per_share_if_no_earlier_unembedded_pnl: '139.2123161972'
+          },
+          alternative_snapshots: [{
+            snapshot_kind: 'confirmed_post_plaid_fill_bridge',
+            shares: '100',
+            book_cost_total: '3672.401787',
+            book_cost_per_share: '36.72401787',
+            unembedded_realized_stock_pnl: null,
+            unembedded_realized_option_pnl: null,
+            strategy_cost_per_share: null,
+            status: 'partial',
+            asof: '2026-11-10T14:27:43+08:00',
+            display: { validate_shares_before_join: true, strategy_display_mode: 'pending' },
+            known_components: {
+              realized_option_net_in_covered_period: '-6879.67275',
+              strategy_cost_per_share_if_no_earlier_unembedded_pnl: '105.52074537'
+            }
+          }]
+        }]
+      },
+      { holdingsAsOf: '2026-11-10 05:45 CST' }
+    );
+    assert.equal(costs.status, 'partial');
+    assert.equal(costs.brokerCostPerShare, 36.72);
+    assert.equal(costs.strategyCostPerShare, null);
+    assert.equal(costs.strategyApproximatePerShare, null);
+    assert.equal(costs.join.snapshotKind, 'confirmed_post_plaid_fill_bridge');
+    assert.equal(costs.join.plaidShares, 71);
+    assert.equal(costs.join.plaidBook, 3004.4017);
+    assert.equal(sc.parseDecimal(costs.knownComponents.realized_option_net_in_covered_period), -6879.67275);
+    assert.equal(costs.observedPeriod && costs.observedPeriod.strategyCostPerShare, 105.52);
+    assert.equal(sc.formatCostPair(costs), '(36.72, \u2014)');
+    assert.notEqual(sc.displayedStrategyPerShare(costs), 105.52);
   });
 
   it('applies the same 71-share book when display qty matches 71', () => {
@@ -379,19 +435,22 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
 
     const spcx = byTicker.SPCX.costs;
     assert.equal(spcx.brokerCostPerShare, 134.43);
-    assert.equal(spcx.strategyCostPerShare, null);
-    assert.equal(spcx.strategyApproximatePerShare, 121.24);
     assert.equal(spcx.status, 'approximate');
+    assert.equal(spcx.strategyApproximatePerShare, 121.25);
     assert.notEqual(spcx.strategyApproximatePerShare, sc.DEPRECATED_SPCX_OPTION_ONLY);
-    assert.notEqual(spcx.strategyCostPerShare, sc.DEPRECATED_SPCX_OPTION_ONLY);
-    assert.equal(sc.formatCostPair(spcx), '(134.43, \u2248121.24)');
+    assert.notEqual(spcx.strategyApproximatePerShare, sc.DEPRECATED_SPCX_MISSING_FEE);
+    assert.equal(sc.formatCostPair(spcx), '(134.43, \u2248121.25)');
     assert.equal(spcx.assignmentExcluded, 161.6220216);
-    const knownStock = sc.parseDecimal(spcx.knownComponents.unembedded_realized_stock_pnl_verified);
-    const knownOpt = sc.parseDecimal(spcx.knownComponents.unembedded_realized_option_pnl_before_missing_close_fee);
-    assert.equal(knownStock, 527.25);
-    assert.ok(Math.abs((59150.1687 - 527.25 - 5275.8220124) / 440 - 121.2434015627) < 1e-8);
-    assert.equal(sc.round2((59150.1687 - knownStock - knownOpt) / 440), 121.24);
-    assert.ok(spcx.feesMissing.length > 0);
+    assert.equal(spcx.feesMissing.length, 0);
+    const stock = sc.parseDecimal(spcx.knownComponents.realized_stock_net_in_covered_period);
+    const opt = sc.parseDecimal(spcx.knownComponents.realized_option_net_excluding_embedded_puts_in_covered_period);
+    assert.equal(stock, 527.2546373);
+    assert.equal(opt, 5275.0625634);
+    assert.ok(Math.abs((59150.1687 - 527.2546373 - 5275.0625634) / 440 - 121.24511704) < 1e-8);
+    assert.equal(sc.round2((59150.1687 - stock - opt) / 440), 121.25);
+    assert.equal(spcx.knownComponents.last_close_commission_verified, '0.7653');
+    assert.equal(spcx.coverage.sinceInceptionVerified, false);
+    assert.equal(spcx.coverage.fullHistoryComplete, false);
     assert.equal(byTicker.SPCX.price, 134.27);
     assert.notEqual(spcx.brokerCostPerShare, byTicker.SPCX.price);
 
@@ -402,27 +461,43 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
       assert.equal(c.strategyCostPerShare, null, t + ' exact strategy');
       assert.equal(c.strategyApproximatePerShare, null, t + ' must not invent approx');
       assert.equal(c.status, 'partial', t);
-      assert.notEqual(c.brokerCostPerShare, c.strategyCostPerShare);
       assert.equal(sc.displayedStrategyPerShare(c), null);
       assert.match(sc.formatCostPair(c), /^\([\d.]+, \u2014\)$/);
-      assert.equal(c.knownComponents && c.knownComponents.is_complete_unembedded_total, false);
+      assert.equal(c.coverage.sinceInceptionVerified, false);
+      assert.equal(c.coverage.fullHistoryComplete, false);
+      if (c.observedPeriod) {
+        assert.notEqual(sc.displayedStrategyPerShare(c), c.observedPeriod.strategyCostPerShare);
+        assert.equal(c.observedPeriod.lifetime, false);
+        assert.equal(c.observedPeriod.from, '2025-01-01');
+        assert.equal(c.observedPeriod.to, '2026-11-09');
+      }
     });
+
+    const rklb = byTicker.RKLB.costs;
+    assert.equal(sc.parseDecimal(rklb.knownComponents.realized_stock_net_in_covered_period), 15068.98268);
+    assert.equal(rklb.assignmentExcluded, 1846.12243);
+    assert.notEqual(sc.displayedStrategyPerShare(rklb), 35.60);
+    assert.notEqual(rklb.strategyCostPerShare, 35.60);
 
     const hims = byTicker.HIMS;
     assert.equal(hims.qty, 100);
     assert.equal(hims.mv, 2600);
-    assert.equal(hims.costs.status, 'qty_mismatch');
-    assert.equal(hims.costs.brokerCostPerShare, null);
+    assert.equal(hims.cost, 3671.4017);
+    assert.equal(hims.costs.status, 'partial');
+    assert.equal(hims.costs.brokerCostPerShare, 36.72);
     assert.equal(hims.costs.strategyCostPerShare, null);
+    assert.equal(hims.costs.join.snapshotKind, 'confirmed_post_plaid_fill_bridge');
+    assert.equal(hims.costs.join.plaidShares, 71);
     assert.equal(
-      sc.parseDecimal(hims.costs.knownComponents.realized_option_pnl_subtotal_excluding_detected_assignment_candidates),
-      -7003.88
+      sc.parseDecimal(hims.costs.knownComponents.realized_option_net_in_covered_period
+        || hims.costs.knownComponents.realized_option_net_excluding_embedded_puts_in_covered_period),
+      -6879.67275
     );
 
     assert.equal(data.equity_costs.coverage.held, 7);
     assert.equal(data.equity_costs.coverage.approximate, 1);
-    assert.equal(data.equity_costs.coverage.qty_mismatch, 1);
-    assert.equal(data.equity_costs.coverage.partial, 5);
+    assert.equal(data.equity_costs.coverage.qty_mismatch, 0);
+    assert.equal(data.equity_costs.coverage.partial, 6);
     assert.equal(data.equity_costs.coverage.verified, 0);
     assert.notEqual(data.equity_costs.coverage.status, 'verified');
   });
@@ -433,8 +508,10 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(rklb.unembedded_realized_stock_pnl, null);
     assert.equal(rklb.unembedded_realized_option_pnl, null);
     assert.equal(rklb.strategy_cost_per_share, null);
-    assert.equal(rklb.known_components.is_complete_unembedded_total, false);
-    const wouldBeWrong = sc.round2((47736.8781 - 198.90 - 5925.502724) / 600);
+    assert.equal(rklb.coverage.since_inception_verified, false);
+    assert.equal(rklb.coverage.full_history_complete, false);
+    const period = sc.parseDecimal(rklb.known_components.strategy_cost_per_share_if_no_earlier_unembedded_pnl);
+    const wouldBeWrong = sc.round2(period);
     const data = loadJson('data.json');
     sc.applyCostsToSnapshot(data, inputs);
     const costs = data.equities.find((e) => e.ticker === 'RKLB').costs;
@@ -450,5 +527,7 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.doesNotMatch(raw, /password|secret|token|credential/i);
     assert.doesNotMatch(raw, /"trades"/);
     assert.doesNotMatch(raw, /122\.44/);
+    assert.doesNotMatch(raw, /待补平仓费/);
+    assert.doesNotMatch(raw, /gmail/i);
   });
 });

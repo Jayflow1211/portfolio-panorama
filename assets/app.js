@@ -25,17 +25,17 @@
     const status = costs && costs.status;
     const key = sc() ? sc().displayStatusKey(status) : 'costStatusMissing';
     let label = t(key);
-    if (costs && (status === 'approximate' || costs.strategyDisplayMode === 'approximate_known_components')) {
-      label = t('costMissingFee');
+    if (costs && (status === 'approximate' || (sc() && sc().isApproxMode(costs.strategyDisplayMode, status)))) {
+      label = (costs.feesMissing && costs.feesMissing.length) ? t('costMissingFee') : t('costAuditedHistory');
     }
     return label;
   }
   function strategyDetailText(c) {
     c = c || {};
     if (c.strategyApproximatePerShare != null
-      && (c.strategyDisplayMode === 'approximate_known_components' || c.status === 'approximate')) {
-      return '\u2248' + Number(c.strategyApproximatePerShare).toFixed(2)
-        + ' ' + t('costMissingFee');
+      && (sc() && sc().isApproxMode(c.strategyDisplayMode, c.status))) {
+      const suffix = (c.feesMissing && c.feesMissing.length) ? t('costMissingFee') : t('costAuditedHistory');
+      return '\u2248' + Number(c.strategyApproximatePerShare).toFixed(2) + ' ' + suffix;
     }
     if (c.strategyCostPerShare != null) {
       const n = Number(c.strategyCostPerShare).toFixed(2);
@@ -59,9 +59,21 @@
       }));
     }
     if (c.status === 'asof_mismatch') lines.push(t('costAsofTip'));
+    if (c.observedPeriod && c.observedPeriod.strategyCostPerShare != null
+      && c.status !== 'verified' && c.status !== 'approximate') {
+      lines.push(t('costPeriodEstimate', {
+        from: c.observedPeriod.from || '\u2014',
+        to: c.observedPeriod.to || '\u2014',
+        n: '\u2248' + Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
+      }));
+    }
     const known = c.knownComponents || {};
-    const optSub = sc() && sc().parseDecimal(known.realized_option_pnl_subtotal_excluding_detected_assignment_candidates);
-    if (optSub != null && c.status !== 'verified') {
+    const optSub = sc() && sc().parseDecimal(
+      known.realized_option_net_excluding_embedded_puts_in_covered_period
+      || known.realized_option_net_in_covered_period
+      || known.realized_option_pnl_subtotal_excluding_detected_assignment_candidates
+    );
+    if (optSub != null && c.status !== 'verified' && c.status !== 'approximate') {
       lines.push(t('costKnownOptNote', { n: optSub.toFixed(2) }));
     }
     if (c.holdingsSyncWarning) lines.push(c.holdingsSyncWarning);
