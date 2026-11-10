@@ -35,11 +35,10 @@
     if (c.strategyApproximatePerShare != null
       && (sc() && sc().isApproxMode(c.strategyDisplayMode, c.status))) {
       const suffix = (c.feesMissing && c.feesMissing.length) ? t('costMissingFee') : t('costAuditedHistory');
-      return '\u2248' + Number(c.strategyApproximatePerShare).toFixed(2) + ' ' + suffix;
+      return Number(c.strategyApproximatePerShare).toFixed(2) + ' ' + suffix;
     }
     if (c.strategyCostPerShare != null) {
-      const n = Number(c.strategyCostPerShare).toFixed(2);
-      return (c.status === 'provisional' ? '\u2248' : '') + n;
+      return Number(c.strategyCostPerShare).toFixed(2);
     }
     return '\u2014 ' + t('costUnverified');
   }
@@ -52,6 +51,12 @@
       t('costHistorical') + ': ' + strategyDetailText(c),
       t('costMethodNote')
     ];
+    if (c.coverage && (c.coverage.queriedHistoryFrom || c.coverage.queriedHistoryTo)) {
+      lines.push(t('costCoverage', {
+        from: c.coverage.queriedHistoryFrom || '\u2014',
+        to: c.coverage.queriedHistoryTo || '\u2014'
+      }));
+    }
     if (c.bookSource === 'confirmed_post_plaid_fill_bridge' || c.bookSource === 'fill_bridge') {
       lines.push(t('bookSourceBridge') + ': ' + (c.displayBookTotal == null ? '\u2014' : fmt.money(c.displayBookTotal)));
       if (c.plaidOfficial && c.plaidOfficial.bookCostTotal != null) {
@@ -73,7 +78,7 @@
       lines.push(t('costPeriodEstimate', {
         from: c.observedPeriod.from || '\u2014',
         to: c.observedPeriod.to || '\u2014',
-        n: '\u2248' + Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
+        n: Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
       }));
     }
     const known = c.knownComponents || {};

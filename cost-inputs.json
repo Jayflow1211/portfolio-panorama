@@ -74,7 +74,7 @@
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true,
         "strategy_approximate_per_share": "121.24511704386363636363636363636363636",
-        "strategy_prefix": "≈",
+        "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
       }
     },

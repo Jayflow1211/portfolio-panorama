@@ -125,7 +125,7 @@
           "lifetime": false
         },
         "strategyDisplayMode": "approximate_audited_history",
-        "strategyPrefix": "≈",
+        "strategyPrefix": null,
         "strategySuffix": "已审计历史口径",
         "strategyFallback": null,
         "feesMissing": [],

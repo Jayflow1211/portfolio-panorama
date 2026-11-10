@@ -447,7 +447,8 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(spcx.strategyApproximatePerShare, 121.25);
     assert.notEqual(spcx.strategyApproximatePerShare, sc.DEPRECATED_SPCX_OPTION_ONLY);
     assert.notEqual(spcx.strategyApproximatePerShare, sc.DEPRECATED_SPCX_MISSING_FEE);
-    assert.equal(sc.formatCostPair(spcx), '(134.43, \u2248121.25)');
+    assert.equal(sc.formatCostPair(spcx), '(134.43, 121.25)');
+    assert.doesNotMatch(sc.formatCostPair(spcx), /\u2248/);
     assert.equal(spcx.assignmentExcluded, 161.6220216);
     assert.equal(spcx.feesMissing.length, 0);
     const stock = sc.parseDecimal(spcx.knownComponents.realized_stock_net_in_covered_period);
@@ -565,6 +566,46 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     others.forEach((e) => {
       assert.equal(sc.rowBookSource(e), 'plaid_holdings');
       assert.equal(sc.rowBookTotal(e), e.cost);
+    });
+  });
+
+  it('held-ticker completion matrix: current cost shown for all; lifetime strategy only SPCX; six remain pending', () => {
+    const data = loadJson('data.json');
+    const inputs = loadJson('cost-inputs.json');
+    sc.applyCostsToSnapshot(data, inputs);
+    const expected = {
+      SPCX: { qty: 440, mv: 59078.8, broker: 134.43, hist: 121.25, status: 'approximate', pair: '(134.43, 121.25)' },
+      RKLB: { qty: 600, mv: 31842, broker: 79.56, hist: null, status: 'partial', pair: '(79.56, \u2014)' },
+      ECHO: { qty: 80, mv: 7569.6, broker: 117.41, hist: null, status: 'partial', pair: '(117.41, \u2014)' },
+      APLD: { qty: 300, mv: 4665, broker: 34.71, hist: null, status: 'partial', pair: '(34.71, \u2014)' },
+      ASTS: { qty: 100, mv: 3233, broker: 43.05, hist: null, status: 'partial', pair: '(43.05, \u2014)' },
+      HIMS: { qty: 100, mv: 2600, broker: 36.72, hist: null, status: 'partial', pair: '(36.72, \u2014)' },
+      SOXL: { qty: 10, mv: 459.7, broker: 80.1, hist: null, status: 'partial', pair: '(80.10, \u2014)' }
+    };
+    assert.equal(data.equities.length, 7);
+    data.equities.forEach((e) => {
+      const exp = expected[e.ticker];
+      assert.ok(exp, e.ticker);
+      assert.equal(e.qty, exp.qty);
+      assert.equal(e.mv, exp.mv);
+      assert.equal(e.costs.brokerCostPerShare, exp.broker);
+      assert.equal(sc.displayedStrategyPerShare(e.costs), exp.hist);
+      assert.equal(e.costs.status, exp.status);
+      assert.equal(sc.formatCostPair(e.costs), exp.pair);
+      assert.doesNotMatch(sc.formatCostPair(e.costs), /\u2248/);
+      assert.equal(e.costs.coverage.sinceInceptionVerified, false);
+      assert.equal(e.costs.coverage.fullHistoryComplete, false);
+      assert.equal(e.costs.join.asofMatched, true);
+      assert.equal(e.costs.join.qtyMatched, true);
+    });
+    const hims = data.equities.find((e) => e.ticker === 'HIMS');
+    assert.equal(sc.rowBookTotal(hims), 3672.401787);
+    const periodStillPending = ['RKLB', 'ECHO', 'APLD', 'ASTS', 'HIMS', 'SOXL'];
+    periodStillPending.forEach((t) => {
+      const e = data.equities.find((row) => row.ticker === t);
+      assert.ok(e.costs.observedPeriod);
+      assert.equal(e.costs.observedPeriod.lifetime, false);
+      assert.notEqual(sc.displayedStrategyPerShare(e.costs), e.costs.observedPeriod.strategyCostPerShare);
     });
   });
 
