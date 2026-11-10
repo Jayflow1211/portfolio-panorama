@@ -1,0 +1,365 @@
+{
+  "schema_version": "1.0",
+  "asof": "2026-11-10T14:11:47.698631+08:00",
+  "timezone": "Asia/Shanghai",
+  "currency": "USD",
+  "formula": "strategy_cost_per_share = (book_cost_total - unembedded_realized_stock_pnl - unembedded_realized_option_pnl) / shares",
+  "definition": "Economic allocation of historical realized gains/losses to remaining shares; not tax basis. Only amounts not already embedded in remaining broker basis may be subtracted. Negative realized P&L raises effective cost; negative cost is not floored.",
+  "decimal_representation": "decimal strings for exact aggregates; null means unknown/incomplete, never zero",
+  "unknown_policy": "Authoritative strategy fields are null unless all inputs known. Approximate SPCX display uses explicitly labelled known_components/approximate display field, not a false exact value.",
+  "public_data_scope": "aggregated holdings/cost fields and generic source labels only; no account IDs, email addresses, raw fills, statement attachments or filesystem evidence paths",
+  "holdings_source_connection_updated_asia_shanghai": "2026-11-07T18:39:35.140661+08:00",
+  "records": [
+    {
+      "ticker": "SPCX",
+      "shares": "440.0000000000",
+      "book_cost_total": "59150.1687",
+      "book_cost_per_share": "134.4322015909090909090909091",
+      "unembedded_realized_stock_pnl": "527.25",
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": "161.6220216",
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "approximate",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "first available SPCX stock activity 2026-06-12 through latest stock fills; closed June roundtrip and remaining 440-share basis reconciled",
+        "option_history": "all currently audited SPCX closed lots Aug05-Nov09; nonassignment net only; unknown last closing commission; no earlier options found in available official statements or workbook history",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": true
+      },
+      "fees_missing": [
+        "2026-11-09 option buy-to-close commission/charges not yet available"
+      ],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots",
+        "Independent SPCX audited contract reconciliation",
+        "Reconciled remaining-share basis confirms historical stock profit not embedded and assigned option premium already embedded."
+      ],
+      "known_components": {
+        "unembedded_realized_stock_pnl_verified": "527.25",
+        "unembedded_realized_option_pnl_before_missing_close_fee": "5275.8220124",
+        "strategy_cost_total_before_missing_close_fee": "53347.0966876",
+        "strategy_cost_per_share_before_missing_close_fee": "121.2434015627272727272727273",
+        "missing_fee_symbol": "c",
+        "true_unembedded_option_pnl_formula": "5275.8220124 - c",
+        "true_strategy_cost_total_formula": "53347.0966876 + c",
+        "true_strategy_cost_per_share_formula": "121.2434015627272727272727273 + c/440",
+        "is_complete_unembedded_total": false,
+        "precision": "early official monthly statement values rounded to cents; Flex values have more decimals"
+      },
+      "gaps": [
+        "Only remaining monetary gap in audited option series is Nov9 closing commission c; do not treat c as zero. No claim of coverage outside available statements."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "approximate_known_components",
+        "strategy_fallback_text": null,
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true,
+        "strategy_approximate_per_share": "121.2434015627272727272727273",
+        "strategy_prefix": "≈",
+        "strategy_suffix": "待补平仓费",
+        "precision_note": "not tax basis"
+      }
+    },
+    {
+      "ticker": "RKLB",
+      "shares": "600.0000000000",
+      "book_cost_total": "47736.8781",
+      "book_cost_per_share": "79.5614635",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": null,
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": false
+      },
+      "fees_missing": [
+        "2026-11-09 option buy-to-close commission/charges not yet available"
+      ],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": "198.90",
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": "5925.502724",
+        "detected_assignment_credit_not_deducted": "248.96155",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Full historical option and stock-lot coverage, corporate actions and cost embedding not fully reconciled for this ticker; unknowns are not zero.",
+        "Detected assigned put net credit248.96155 withheld from adjustment; current 600-share remaining-basis bridge not fully reconciled.",
+        "Known March realized stock profit198.90 verified by official statement; full historical stock P&L remains incomplete."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      }
+    },
+    {
+      "ticker": "ECHO",
+      "shares": "80.0000000000",
+      "book_cost_total": "9393.0002",
+      "book_cost_per_share": "117.4125025",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": null,
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": false
+      },
+      "fees_missing": [],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": "0.00",
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": null,
+        "detected_assignment_credit_not_deducted": "0",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Full historical option and stock-lot coverage, corporate actions and cost embedding not fully reconciled for this ticker; unknowns are not zero.",
+        "ECHX is a different leveraged product; its trades are not silently merged into ECHO history."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      }
+    },
+    {
+      "ticker": "APLD",
+      "shares": "300.0000000000",
+      "book_cost_total": "10412.8888",
+      "book_cost_per_share": "34.70962933333333333333333333",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": null,
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": false
+      },
+      "fees_missing": [],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": "0.00",
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": "3318.381102",
+        "detected_assignment_credit_not_deducted": "0",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Full historical option and stock-lot coverage, corporate actions and cost embedding not fully reconciled for this ticker; unknowns are not zero.",
+        "Known net option subtotal includes short call profits and short put activity; no complete proof that all historical adjustments are outside remaining stock basis. ALPD typo rows are not silently merged with APLD."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      }
+    },
+    {
+      "ticker": "ASTS",
+      "shares": "100.0000000000",
+      "book_cost_total": "4305.1013",
+      "book_cost_per_share": "43.051013",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": "194.8986624",
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": true,
+        "basis_embedding_evidence": "Observed assigned option net premium matches reduction already present in institutional share basis within rounding."
+      },
+      "fees_missing": [],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": null,
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": "0",
+        "detected_assignment_credit_not_deducted": "194.8986624",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Only observed assigned put net credit194.8986624 is already in share basis; excluded. Nov9 short call remains open, so its received premium is NOT realized. Full stock/option lifetime completeness not established."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      }
+    },
+    {
+      "ticker": "HIMS",
+      "shares": "71.0000000000",
+      "book_cost_total": "3004.4017",
+      "book_cost_per_share": "42.31551690140845070422535211",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": null,
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": false
+      },
+      "fees_missing": [],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": "0.00",
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": "-7003.88",
+        "detected_assignment_credit_not_deducted": "0",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Full historical option and stock-lot coverage, corporate actions and cost embedding not fully reconciled for this ticker; unknowns are not zero.",
+        "Known historical option loss subtotal is negative; do not use option rank table that omits these losses as a net-income substitute.",
+        "Plaid shares71 and basis3004.4017 lag previously confirmed Nov9 purchase of29 shares; do not attach this basis to a displayed100-share position."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      },
+      "holdings_sync_warning": "Plaid71 shares; later confirmed29-share purchase not yet in this holdings response. Require quantity match before display."
+    },
+    {
+      "ticker": "SOXL",
+      "shares": "10.0000000000",
+      "book_cost_total": "801.0000",
+      "book_cost_per_share": "80.1",
+      "unembedded_realized_stock_pnl": null,
+      "unembedded_realized_option_pnl": null,
+      "assignment_adjustment_excluded": null,
+      "strategy_cost_total": null,
+      "strategy_cost_per_share": null,
+      "status": "partial",
+      "asof": "2026-11-10T14:11:47.698631+08:00",
+      "currency": "USD",
+      "coverage": {
+        "holdings": "latest Plaid response; broker valuation timestamp not provided",
+        "stock_history": "official monthly statements 2026-02 through 2026-08 plus available Flex stock trades through 2026-11-06; incomplete full-life lots",
+        "option_history": "official monthly statements through 2026-08 plus independently matched original Flex closes after 2026-09-01; later confirmations where known; monthly table used as cross-check, not added again",
+        "full_history_complete": false,
+        "remaining_basis_embedding_verified": false
+      },
+      "fees_missing": [],
+      "provenance": [
+        "Plaid institutional holdings",
+        "IB official monthly statement realized summaries",
+        "IB original Flex matched signed opening/closing lots"
+      ],
+      "known_components": {
+        "realized_stock_pnl_subtotal": null,
+        "realized_option_pnl_subtotal_excluding_detected_assignment_candidates": null,
+        "detected_assignment_credit_not_deducted": "0",
+        "option_summary_period": "2026-02 through 2026-11-06, with known Nov9 closing legs; gaps may remain",
+        "includes_positive_and_negative_option_pnl": true,
+        "includes_calls_and_long_option_losses_where_present": true,
+        "is_complete_unembedded_total": false
+      },
+      "gaps": [
+        "Full historical option and stock-lot coverage, corporate actions and cost embedding not fully reconciled for this ticker; unknowns are not zero.",
+        "ETF included as an equity treemap holding. No verified lifetime absence of older option/stock roundtrips; observed absence is not treated as verified zero."
+      ],
+      "display": {
+        "book_cost_label": "当前成本（账面/股）",
+        "strategy_cost_label": "历史成本（策略有效/股）",
+        "strategy_display_mode": "pending",
+        "strategy_fallback_text": "待核实",
+        "do_not_coerce_null_to_zero": true,
+        "validate_shares_before_join": true
+      }
+    }
+  ]
+}
