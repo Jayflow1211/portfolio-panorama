@@ -73,7 +73,91 @@
       "pl": -71.37,
       "pct_stock": 53.98,
       "pct_nav": 48.37,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 134.43,
+        "displayBookTotal": 59150.1687,
+        "displayUnrealized": -71.37,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 59150.1687,
+        "plaidOfficial": {
+          "shares": 440,
+          "bookCostTotal": 59150.1687,
+          "bookCostPerShare": 134.43
+        },
+        "strategyCostPerShare": 121.25,
+        "strategyApproximatePerShare": 121.25,
+        "status": "approximate",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "present",
+          "historicalRealizedOptionNetProfit": "present",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 440,
+          "inputShares": 440,
+          "displayBook": 59150.1687,
+          "inputBook": 59150.1687,
+          "plaidQty": null,
+          "plaidShares": 440,
+          "plaidBook": 59150.1687,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 121.25,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "approximate_audited_history",
+        "strategyPrefix": null,
+        "strategySuffix": "已审计历史口径",
+        "strategyFallback": null,
+        "feesMissing": [],
+        "assignmentExcluded": 161.6220216,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "527.2546373",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "5275.0625634",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "53347.8514993",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "121.24511704386363636363636363636363636",
+          "reconstructed_current_quantity": "440",
+          "reconstructed_broker_basis": "59150.1686984",
+          "broker_basis_minus_reconstruction": "0.000001600000000000000000000000000",
+          "last_close_commission_verified": "0.7653",
+          "previous_missing_fee_now_resolved": true
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
+          "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 59150.1687,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": 527.2546373,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": 5275.0625634,
+          "currentShares": 440
+        }
+      }
     },
     {
       "ticker": "RKLB",
@@ -87,7 +171,89 @@
       "pl": -15894.88,
       "pct_stock": 29.09,
       "pct_nav": 26.07,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 79.56,
+        "displayBookTotal": 47736.8781,
+        "displayUnrealized": -15894.88,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 47736.8781,
+        "plaidOfficial": {
+          "shares": 600,
+          "bookCostTotal": 47736.8781,
+          "bookCostPerShare": 79.56
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": 35.6,
+        "status": "approximate",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 600,
+          "inputShares": 600,
+          "displayBook": 47736.8781,
+          "inputBook": 47736.8781,
+          "plaidQty": null,
+          "plaidShares": 600,
+          "plaidBook": 47736.8781,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 35.6,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "approximate_audited_history",
+        "strategyPrefix": null,
+        "strategySuffix": "已审计历史口径",
+        "strategyFallback": null,
+        "feesMissing": [],
+        "assignmentExcluded": 1846.12243,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "15068.98268",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "11306.7092296",
+          "assigned_call_credit_included_once_in_option_pnl": "418.94388",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "21361.186190400000000000000000000000000",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.60197698400000000000000",
+          "reconstructed_current_quantity": "600",
+          "reconstructed_broker_basis": "47736.87806",
+          "broker_basis_minus_reconstruction": "0.000040"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
+          "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 47736.8781,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 600
+        }
+      }
     },
     {
       "ticker": "ECHO",
@@ -101,7 +267,88 @@
       "pl": -1823.4,
       "pct_stock": 6.92,
       "pct_nav": 6.2,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 117.41,
+        "displayBookTotal": 9393.0002,
+        "displayUnrealized": -1823.4,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 9393.0002,
+        "plaidOfficial": {
+          "shares": 80,
+          "bookCostTotal": 9393.0002,
+          "bookCostPerShare": 117.41
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": null,
+        "status": "partial",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 80,
+          "inputShares": 80,
+          "displayBook": 9393.0002,
+          "inputBook": 9393.0002,
+          "plaidQty": null,
+          "plaidShares": 80,
+          "plaidBook": 9393.0002,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 136.42,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "pending",
+        "strategyPrefix": null,
+        "strategySuffix": null,
+        "strategyFallback": "全历史待核实",
+        "feesMissing": [],
+        "assignmentExcluded": 0,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "0",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "-1520.4379132",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "10913.4381132",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "136.417976415",
+          "reconstructed_current_quantity": "80",
+          "reconstructed_broker_basis": "9393.00024",
+          "broker_basis_minus_reconstruction": "-0.000040"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 9393.0002,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 80
+        }
+      }
     },
     {
       "ticker": "APLD",
@@ -115,7 +362,88 @@
       "pl": -5747.89,
       "pct_stock": 4.26,
       "pct_nav": 3.82,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 34.71,
+        "displayBookTotal": 10412.8888,
+        "displayUnrealized": -5747.89,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 10412.8888,
+        "plaidOfficial": {
+          "shares": 300,
+          "bookCostTotal": 10412.8888,
+          "bookCostPerShare": 34.71
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": null,
+        "status": "partial",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 300,
+          "inputShares": 300,
+          "displayBook": 10412.8888,
+          "inputBook": 10412.8888,
+          "plaidQty": null,
+          "plaidShares": 300,
+          "plaidBook": 10412.8888,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 23.65,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "pending",
+        "strategyPrefix": null,
+        "strategySuffix": null,
+        "strategyFallback": "全历史待核实",
+        "feesMissing": [],
+        "assignmentExcluded": 687.111166,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "0",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "3318.372476",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "7094.5163240",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "23.648387746666666666666666666666666667",
+          "reconstructed_current_quantity": "300",
+          "reconstructed_broker_basis": "10412.888834",
+          "broker_basis_minus_reconstruction": "-0.000034"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 10412.8888,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 300
+        }
+      }
     },
     {
       "ticker": "ASTS",
@@ -129,7 +457,88 @@
       "pl": -1072.1,
       "pct_stock": 2.95,
       "pct_nav": 2.65,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 43.05,
+        "displayBookTotal": 4305.1013,
+        "displayUnrealized": -1072.1,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 4305.1013,
+        "plaidOfficial": {
+          "shares": 100,
+          "bookCostTotal": 4305.1013,
+          "bookCostPerShare": 43.05
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": null,
+        "status": "partial",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 100,
+          "inputShares": 100,
+          "displayBook": 4305.1013,
+          "inputBook": 4305.1013,
+          "plaidQty": null,
+          "plaidShares": 100,
+          "plaidBook": 4305.1013,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 43.05,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "pending",
+        "strategyPrefix": null,
+        "strategySuffix": null,
+        "strategyFallback": "全历史待核实",
+        "feesMissing": [],
+        "assignmentExcluded": 194.8986624,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "0",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "0",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "4305.1013",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "43.051013",
+          "reconstructed_current_quantity": "100",
+          "reconstructed_broker_basis": "4305.1013376",
+          "broker_basis_minus_reconstruction": "-0.0000376"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 4305.1013,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 100
+        }
+      }
     },
     {
       "ticker": "HIMS",
@@ -155,7 +564,88 @@
           "price": 23,
           "trade_time_et": "2026-11-09 13:35:32 -0500"
         }
-      ]
+      ],
+      "costs": {
+        "brokerCostPerShare": 36.72,
+        "displayBookTotal": 3672.4018,
+        "displayUnrealized": -1072.4,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 3671.4017,
+        "plaidOfficial": {
+          "shares": 100,
+          "bookCostTotal": 3672.4018,
+          "bookCostPerShare": 36.72
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": null,
+        "status": "partial",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": false,
+          "displayShares": 100,
+          "inputShares": 100,
+          "displayBook": 3672.4018,
+          "inputBook": 3672.4018,
+          "plaidQty": 71,
+          "plaidShares": 100,
+          "plaidBook": 3672.4018,
+          "snapshotKind": "primary",
+          "pendingPlaid": true,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 105.52,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "pending",
+        "strategyPrefix": null,
+        "strategySuffix": null,
+        "strategyFallback": "全历史待核实",
+        "feesMissing": [],
+        "assignmentExcluded": 0,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "0",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "-6879.67275",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "10552.07455",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "105.5207455",
+          "reconstructed_current_quantity": "100",
+          "reconstructed_broker_basis": "3672.401779",
+          "broker_basis_minus_reconstruction": "0.0000210000000000000000000000000000"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 3672.4018,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 100
+        }
+      }
     },
     {
       "ticker": "SOXL",
@@ -169,7 +659,88 @@
       "pl": -341.3,
       "pct_stock": 0.42,
       "pct_nav": 0.38,
-      "daily_pl": null
+      "daily_pl": null,
+      "costs": {
+        "brokerCostPerShare": 80.1,
+        "displayBookTotal": 801,
+        "displayUnrealized": -341.3,
+        "bookSource": "plaid_holdings",
+        "rawOverlayBook": 801,
+        "plaidOfficial": {
+          "shares": 10,
+          "bookCostTotal": 801,
+          "bookCostPerShare": 80.1
+        },
+        "strategyCostPerShare": null,
+        "strategyApproximatePerShare": null,
+        "status": "partial",
+        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "coverage": {
+          "remainingStockBookCost": "present",
+          "historicalRealizedStockNetProfit": "missing",
+          "historicalRealizedOptionNetProfit": "missing",
+          "currentShares": "present",
+          "quantityJoin": "matched",
+          "asofJoin": "matched",
+          "fullHistoryComplete": false,
+          "sinceInceptionVerified": false,
+          "queriedHistoryFrom": "2025-01-01",
+          "queriedHistoryTo": "2026-11-09"
+        },
+        "join": {
+          "qtyMatched": true,
+          "bookMatched": true,
+          "displayShares": 10,
+          "inputShares": 10,
+          "displayBook": 801,
+          "inputBook": 801,
+          "plaidQty": null,
+          "plaidShares": 10,
+          "plaidBook": 801,
+          "snapshotKind": "primary",
+          "pendingPlaid": false,
+          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
+          "holdingsAsOf": "2026-11-10 05:45 CST",
+          "asofMatched": true,
+          "carryForward": false,
+          "holdingsConnectionUpdated": null
+        },
+        "observedPeriod": {
+          "strategyCostPerShare": 80.1,
+          "from": "2025-01-01",
+          "to": "2026-11-09",
+          "lifetime": false
+        },
+        "strategyDisplayMode": "pending",
+        "strategyPrefix": null,
+        "strategySuffix": null,
+        "strategyFallback": "全历史待核实",
+        "feesMissing": [],
+        "assignmentExcluded": 0,
+        "knownComponents": {
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "realized_stock_net_in_covered_period": "0",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "0",
+          "assigned_call_credit_included_once_in_option_pnl": "0",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "801.0000",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "80.1",
+          "reconstructed_current_quantity": "10",
+          "reconstructed_broker_basis": "801.00003",
+          "broker_basis_minus_reconstruction": "-0.000030"
+        },
+        "gaps": [
+          "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
+          "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        ],
+        "holdingsSyncWarning": null,
+        "methodology": "economic-attribution-v1",
+        "components": {
+          "remainingStockBookCost": 801,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": null,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": null,
+          "currentShares": 10
+        }
+      }
     }
   ],
   "stock_total": 109448.1,
@@ -397,5 +968,36 @@
     "short_put_mv": -13985.57,
     "covered_mv": 0,
     "long_put_mv": 52.5
+  },
+  "equity_costs": {
+    "schema_version": 1,
+    "methodology": "economic-attribution-v1",
+    "asof": "2026-11-10T20:39:35.646977+08:00",
+    "holdings_connection_updated": null,
+    "currency": "USD",
+    "coverage": {
+      "status": "partial",
+      "held": 7,
+      "verified": 0,
+      "provisional": 0,
+      "approximate": 2,
+      "partial": 5,
+      "missing": 0,
+      "qty0": 0,
+      "qty_mismatch": 0,
+      "asof_mismatch": 0
+    },
+    "notes": [
+      "Economic attribution, not tax basis. Unknown is null, not 0.",
+      "Lifetime strategy_cost_per_share stays null unless inception/pre-2025 history is confirmed.",
+      "known_components period figures are observed-window estimates, not lifetime strategy cost.",
+      "Open option premium is excluded. Assigned premium already in broker book is excluded.",
+      "Daily holdings refresh reattaches last audited costs when qty and remaining book still match; coverage dates are not restamped to today.",
+      "New trades (qty or remaining-book change) need a new audited cost-inputs record. Do not bump old asof to today to bypass.",
+      "HIMS official Plaid 100-share book 3672.4018 joins on qty; overlay 3671.4017 is not the displayed row book.",
+      "RKLB 35.60 is covered-period audited history (not since inception). Embedded put 1846.12243 is not subtracted again.",
+      "Table book/unrealized use displayBookTotal (joined Plaid or overlay), not a mixed source.",
+      "Do not claim whole-account full-history verified while pre-2025 evidence is still open."
+    ]
   }
 }

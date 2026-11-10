@@ -15,6 +15,90 @@
     const o = (d && d.options) || {};
     return [].concat(o.short_puts || [], o.covered_calls || [], o.long_puts || []);
   }
+  function sc() {
+    return window.PP_STRATEGY_COST;
+  }
+  function costPairText(costs) {
+    return sc() ? sc().formatCostPair(costs) : '(\u2014, \u2014)';
+  }
+  function strategyStatusLabel(costs) {
+    const status = costs && costs.status;
+    const key = sc() ? sc().displayStatusKey(status) : 'costStatusMissing';
+    let label = t(key);
+    if (costs && (status === 'approximate' || (sc() && sc().isApproxMode(costs.strategyDisplayMode, status)))) {
+      label = (costs.feesMissing && costs.feesMissing.length) ? t('costMissingFee') : t('costAuditedHistory');
+    }
+    return label;
+  }
+  function strategyDetailText(c) {
+    c = c || {};
+    if (c.strategyApproximatePerShare != null
+      && (sc() && sc().isApproxMode(c.strategyDisplayMode, c.status))) {
+      const suffix = (c.feesMissing && c.feesMissing.length) ? t('costMissingFee') : t('costAuditedHistory');
+      return Number(c.strategyApproximatePerShare).toFixed(2) + ' ' + suffix;
+    }
+    if (c.strategyCostPerShare != null) {
+      return Number(c.strategyCostPerShare).toFixed(2);
+    }
+    return '\u2014 ' + t('costUnverified');
+  }
+  function costDetailLines(e) {
+    const c = (e && e.costs) || {};
+    const broker = c.brokerCostPerShare == null ? '\u2014' : Number(c.brokerCostPerShare).toFixed(2);
+    const lines = [
+      (e && e.ticker ? e.ticker : '') + ' \u00b7 ' + fmt.pct(e && e.pct_stock, 1) + ' \u00b7 ' + fmt.money(e && e.mv),
+      t('costCurrent') + ': ' + broker,
+      t('costHistorical') + ': ' + strategyDetailText(c),
+      t('costMethodNote')
+    ];
+    if (c.coverage && (c.coverage.queriedHistoryFrom || c.coverage.queriedHistoryTo)) {
+      lines.push(t('costCoverage', {
+        from: c.coverage.queriedHistoryFrom || '\u2014',
+        to: c.coverage.queriedHistoryTo || '\u2014'
+      }));
+    }
+    if (c.bookSource === 'confirmed_post_plaid_fill_bridge' || c.bookSource === 'fill_bridge') {
+      lines.push(t('bookSourceBridge') + ': ' + (c.displayBookTotal == null ? '\u2014' : fmt.money(c.displayBookTotal)));
+      if (c.plaidOfficial && c.plaidOfficial.bookCostTotal != null) {
+        lines.push(t('costPlaidOfficial', {
+          shares: c.plaidOfficial.shares,
+          book: fmt.money(c.plaidOfficial.bookCostTotal)
+        }));
+      }
+    }
+    if (c.status === 'qty_mismatch' && c.join) {
+      lines.push(t('costMismatchTip', {
+        display: c.join.displayShares,
+        input: c.join.inputShares
+      }));
+    }
+    if (c.status === 'asof_mismatch') lines.push(t('costAsofTip'));
+    if (c.observedPeriod && c.observedPeriod.strategyCostPerShare != null
+      && c.status !== 'verified' && c.status !== 'approximate') {
+      lines.push(t('costPeriodEstimate', {
+        from: c.observedPeriod.from || '\u2014',
+        to: c.observedPeriod.to || '\u2014',
+        n: Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
+      }));
+    }
+    const known = c.knownComponents || {};
+    const optSub = sc() && sc().parseDecimal(
+      known.realized_option_net_excluding_embedded_puts_in_covered_period
+      || known.realized_option_net_in_covered_period
+      || known.realized_option_pnl_subtotal_excluding_detected_assignment_candidates
+    );
+    if (optSub != null && c.status !== 'verified' && c.status !== 'approximate') {
+      lines.push(t('costKnownOptNote', { n: optSub.toFixed(2) }));
+    }
+    if (c.holdingsSyncWarning) lines.push(c.holdingsSyncWarning);
+    (c.gaps || []).forEach((g) => {
+      if (g) lines.push(String(g));
+    });
+    return lines;
+  }
+  function costAria(e) {
+    return costDetailLines(e).join('. ');
+  }
   let donutChart = null;
   let snapshot = null;
   const fmt = {
@@ -185,23 +269,30 @@
     const H = 360;
     el.style.height = H + 'px';
     const items = d.equities.map(e => ({
-      ticker: e.ticker, value: e.mv, pct: e.pct_stock, color: e.color
+      ticker: e.ticker, value: e.mv, pct: e.pct_stock, color: e.color, equity: e
     })).sort((a, b) => b.value - a.value);
     const cells = squarify(items, 0, 0, W, H);
     el.innerHTML = cells.map(c => {
-      const tip = `${esc(c.ticker)} \u00b7 ${fmt.pct(c.pct, 1)} \u00b7 ${fmt.money(c.value)}`;
+      const e = c.equity || {};
+      const pair = costPairText(e.costs);
+      const tip = esc(costDetailLines(e).join('\n')).replace(/\n/g, '&#10;');
+      const aria = esc(costAria(e));
       const pctStr = fmt.pct(c.pct, 1);
-      // Short strips: one horizontal line so ticker + % + $ all fit.
+      const costHtml = `<span class="t-cost">${esc(pair)}</span>`;
+      const sr = `<span class="sr-only">${aria}</span>`;
+      // Short strips: one horizontal line so ticker + % + $ + costs all fit.
       const bar = c.h < 52;
       if (bar) {
         const fs = Math.max(9, Math.min(13, Math.floor(c.h * 0.42)));
         const padY = Math.max(1, Math.floor((c.h - fs) / 2));
         const mv = c.w >= 160 ? fmt.money0(c.value) : fmt.moneyCompact(c.value);
-        return `<div class="tcell" title="${tip}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
+        const showPair = c.w >= 72;
+        return `<div class="tcell" tabindex="0" title="${tip}" aria-label="${aria}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
           <div class="tcell-inner tcell-bar" style="padding:${padY}px 8px;gap:6px">
             <span class="t-ticker" style="font-size:${fs}px">${esc(c.ticker)}</span>
             <span class="t-pct" style="font-size:${fs}px">${pctStr}</span>
-            <span class="t-mv" style="font-size:${Math.max(8, fs - 1)}px">${mv}</span>
+            <span class="t-mv" style="font-size:${Math.max(8, fs - 1)}px">${mv}${showPair ? ' ' + costHtml : ''}</span>
+            ${sr}
           </div>
         </div>`;
       }
@@ -213,23 +304,97 @@
       const ps = Math.max(10, Math.min(tiny ? 14 : 22, Math.floor(fs * 0.72)));
       const showMv = c.w >= 70 && c.h >= 56;
       const mv = tiny ? fmt.moneyCompact(c.value) : fmt.money0(c.value);
-      return `<div class="tcell" title="${tip}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
+      const showPair = c.w >= 56 && c.h >= 36;
+      const mvLine = showMv
+        ? `<div class="t-mv" style="font-size:${Math.max(9, ps - 1)}px">${mv}${showPair ? ' ' + costHtml : ''}</div>`
+        : (showPair ? `<div class="t-mv" style="font-size:9px">${costHtml}</div>` : '');
+      return `<div class="tcell" tabindex="0" title="${tip}" aria-label="${aria}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
         <div class="tcell-inner" style="padding:${pad}">
           <div class="t-ticker" style="font-size:${fs}px">${esc(c.ticker)}</div>
           <div class="t-pct" style="font-size:${ps}px">${pctStr}</div>
-          ${showMv ? `<div class="t-mv" style="font-size:${Math.max(9, ps - 1)}px">${mv}</div>` : ''}
+          ${mvLine}
+          ${sr}
         </div>
       </div>`;
     }).join('');
+    const legend = document.getElementById('cost-legend');
+    if (legend) legend.textContent = t('costPairLegend');
+    const diag = document.getElementById('cost-diag');
+    if (diag) {
+      const rklb = (d.equities || []).find((e) => e.ticker === 'RKLB');
+      const pair = rklb ? costPairText(rklb.costs) : '(\u2014, \u2014)';
+      const asof = (d.equity_costs && d.equity_costs.asof) || d.asof || '';
+      diag.textContent = 'RKLB ' + pair + ' \u00b7 inputs ' + asof;
+    }
+    renderCostRoster(d);
   }
 
+  function renderCostRoster(d) {
+    const el = document.getElementById('cost-roster');
+    if (!el) return;
+    const note = document.getElementById('cost-roster-note');
+    if (note) note.textContent = t('costRosterNote');
+    const rows = (d.equities || []).map((e) => {
+      const c = e.costs || {};
+      const cur = c.brokerCostPerShare == null ? '\u2014' : Number(c.brokerCostPerShare).toFixed(2);
+      const hist = strategyDetailText(c);
+      const pair = costPairText(c);
+      const cov = (c.coverage && (c.coverage.queriedHistoryFrom || c.coverage.queriedHistoryTo))
+        ? t('costCoverage', {
+          from: c.coverage.queriedHistoryFrom || '\u2014',
+          to: c.coverage.queriedHistoryTo || '\u2014'
+        })
+        : '\u2014';
+      let period = '\u2014';
+      if (c.observedPeriod && c.observedPeriod.strategyCostPerShare != null
+        && c.status !== 'verified' && c.status !== 'approximate') {
+        period = t('costPeriodEstimate', {
+          from: c.observedPeriod.from || '\u2014',
+          to: c.observedPeriod.to || '\u2014',
+          n: Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
+        });
+      }
+      return `<tr>
+        <td>${esc(e.ticker)}</td>
+        <td class="r">${esc(cur)}</td>
+        <td class="r">${esc(hist)}</td>
+        <td class="r"><span class="t-cost">${esc(pair)}</span></td>
+        <td>${esc(bookSourceLabel(e))}</td>
+        <td>${esc(cov)}</td>
+        <td>${esc(period)}</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = `<thead><tr>
+      <th>${esc(t('thTicker'))}</th>
+      <th class="r">${esc(t('costCurrent'))}</th>
+      <th class="r">${esc(t('costHistorical'))}</th>
+      <th class="r">${esc(t('thCostShare'))}</th>
+      <th>${esc(t('thBookSource'))}</th>
+      <th>${esc(t('thCoverage'))}</th>
+      <th>${esc(t('thPeriodEst'))}</th>
+    </tr></thead><tbody>${rows}</tbody>`;
+  }
+
+  function bookSourceLabel(e) {
+    const src = sc() ? sc().rowBookSource(e) : '';
+    if (src === 'confirmed_post_plaid_fill_bridge' || src === 'fill_bridge') return t('bookSourceBridge');
+    if (src === 'qty_mismatch') return t('costStatusQtyMismatch');
+    return t('bookSourcePlaid');
+  }
   function renderHoldingsTable(d) {
     const tb = document.querySelector('#holdings-table tbody');
+    const bookOf = (e) => (sc() ? sc().rowBookTotal(e) : e.cost);
+    const plOf = (e) => (sc() ? sc().rowUnrealized(e) : e.pl);
     const rows = d.equities.map(e => {
-      const plCls = e.pl < 0 ? 'neg' : 'pos';
+      const book = bookOf(e);
+      const pl = plOf(e);
+      const plCls = pl < 0 ? 'neg' : 'pos';
       const pending = isPendingPlaid(e);
       const rowCls = pending ? ' class="pending-plaid"' : '';
       const rowTitle = pending ? ` title="${esc(t('pendingPlaidTip'))}"` : '';
+      const pair = costPairText(e.costs);
+      const costTip = esc(costDetailLines(e).join('\n')).replace(/\n/g, '&#10;');
+      const st = strategyStatusLabel(e.costs);
       return `<tr${rowCls}${rowTitle}>
         <td>${esc(e.ticker)}</td>
         <td class="r">${fmt.num(e.qty, 0)}</td>
@@ -237,19 +402,22 @@
         <td class="r">${fmt.money(e.mv)}</td>
         <td class="r">${fmt.pct(e.pct_stock)}</td>
         <td class="r">${fmt.pct(e.pct_nav)}</td>
-        <td class="r">${fmt.money(e.cost)}</td>
-        <td class="r ${plCls}">${fmt.money(e.pl)}</td>
+        <td class="r" title="${costTip}">${fmt.money(book)} <span class="cost-status">${esc(bookSourceLabel(e))}</span></td>
+        <td class="r" title="${costTip}"><span class="t-cost">${esc(pair)}</span> <span class="cost-status">${esc(st)}</span></td>
+        <td class="r ${plCls}">${fmt.money(pl)}</td>
         <td class="r na">N/A</td>
         <td>${esc(dataLabel('sector', e.sector))}</td>
       </tr>`;
     });
-    const sumPl = d.equities.reduce((s, e) => s + e.pl, 0);
+    const sumPl = d.equities.reduce((s, e) => s + (plOf(e) || 0), 0);
+    const sumBook = d.equities.reduce((s, e) => s + (bookOf(e) || 0), 0);
     rows.push(`<tr>
       <td>${t('total')}</td><td></td><td></td>
       <td class="r">${fmt.money(d.stock_total)}</td>
       <td class="r">100.00%</td>
       <td class="r">${fmt.pct(d.stock_pct)}</td>
-      <td class="r">${fmt.money(d.equities.reduce((s, e) => s + e.cost, 0))}</td>
+      <td class="r">${fmt.money(sumBook)}</td>
+      <td></td>
       <td class="r ${sumPl < 0 ? 'neg' : 'pos'}">${fmt.money(sumPl)}</td>
       <td class="r na">N/A</td><td></td>
     </tr>`);
@@ -375,8 +543,19 @@
   }
 
   async function main() {
-    const res = await fetch('data.json', { cache: 'no-store' });
-    snapshot = await res.json();
+    const dataRes = await fetch('data.json', { cache: 'no-store' });
+    snapshot = await dataRes.json();
+    let inputs = null;
+    try {
+      const costRes = await fetch('cost-inputs.json', { cache: 'no-store' });
+      if (costRes.ok) inputs = await costRes.json();
+    } catch (err) {
+      inputs = null;
+    }
+    if (inputs && sc()) sc().applyCostsToSnapshot(snapshot, inputs);
+    else if (sc() && !(snapshot.equities || []).some((e) => e.costs)) {
+      sc().applyCostsToSnapshot(snapshot, { records: [] });
+    }
     renderAll(snapshot);
     window.PP_I18N.onChange(() => { if (snapshot) renderAll(snapshot); });
     let resizeTimer;
