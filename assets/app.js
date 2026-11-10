@@ -25,8 +25,8 @@
     const status = costs && costs.status;
     const key = sc() ? sc().displayStatusKey(status) : 'costStatusMissing';
     let label = t(key);
-    if (costs && costs.strategySuffix && (status === 'approximate' || costs.strategyDisplayMode === 'approximate_known_components')) {
-      label = costs.strategySuffix;
+    if (costs && (status === 'approximate' || costs.strategyDisplayMode === 'approximate_known_components')) {
+      label = t('costMissingFee');
     }
     return label;
   }
@@ -35,7 +35,7 @@
     if (c.strategyApproximatePerShare != null
       && (c.strategyDisplayMode === 'approximate_known_components' || c.status === 'approximate')) {
       return '\u2248' + Number(c.strategyApproximatePerShare).toFixed(2)
-        + (c.strategySuffix ? ' ' + c.strategySuffix : '');
+        + ' ' + t('costMissingFee');
     }
     if (c.strategyCostPerShare != null) {
       const n = Number(c.strategyCostPerShare).toFixed(2);
