@@ -5,7 +5,7 @@ Two numbers on each equity treemap tile, immediately after market value:
 1. **当前成本 / Current cost** — broker remaining book cost per share. Live snapshot book / qty, or a matching alternative snapshot (HIMS 100-share bridge). **Not** last price.
 2. **历史成本 / Historical cost** — strategy effective cost per share. Economic attribution, **not** tax basis.
 
-The same formula applies to **every** held equity once that ticker’s **lifetime** unembedded realized history is confirmed. This dataset does **not** claim whole-account history since inception. Pre-2025 evidence is still open. Six names stay **待核实** on the main strategy figure.
+The same formula applies to every held equity. SPCX and RKLB show an **audited-history** main 历史成本 for the covered Flex window (2025-01-01 through 2026-11-09) with coverage in the tooltip. That is **not** `since_inception_verified`. ECHO, APLD, ASTS, HIMS, and SOXL stay **待核实** on the main strategy figure.
 
 ## Formula
 
@@ -53,21 +53,19 @@ Queried Flex executions **2025-01-01 through 2026-11-09**. First returned accoun
 
 | Ticker | Display qty | 当前成本 | Main 历史成本 | Status |
 | --- | ---: | --- | --- | --- |
-| SPCX | 440 | 134.43 | 121.25 (status: audited history; not since inception) | `approximate` |
-| RKLB | 600 | 79.56 | — 待核实 | `partial` |
+| SPCX | 440 | 134.43 | 121.25 (audited history; not since inception) | `approximate` |
+| RKLB | 600 | 79.56 | 35.60 (audited history; not since inception) | `approximate` |
 | ECHO | 80 | 117.41 | — 待核实 | `partial` |
 | APLD | 300 | 34.71 | — 待核实 | `partial` |
 | ASTS | 100 | 43.05 | — 待核实 | `partial` |
-| HIMS | 100 (Plaid 71 kept) | 36.72 (100-share bridge) | — 待核实 | `partial` |
+| HIMS | 100 | 36.72 (official Plaid 3672.4018) | — 待核实 | `partial` |
 | SOXL | 10 | 80.10 | — 待核实 | `partial` |
 
 SPCX: stock 527.2546373 + option 5275.0625634; last close commission verified 0.7653; assignment 161.6220216 excluded; total 53347.8514993 / 440 = 121.24511704 → display **121.25** (no leading ≈; provenance is the audited-history status/tooltip, not a since-inception claim).
 
-Re-traced 2026-11-10: current cost for the six non-SPCX names matches joined remaining basis / qty (not last price, not a mixed ticker). Lifetime `unembedded_realized_*` is still **null** in the audit JSON, so main 历史成本 stays **—**. Observed-period conditionals stay labeled and are not promoted.
+HIMS: Official Plaid is now **100 / 3672.4018** (joined on qty 100 and as-of date). Overlay `e.cost` 3671.4017 is retained as raw snapshot and is not the displayed row book. Qty 100 and MV $2,600 are unchanged. Current **36.72**. Unrealized **2600 − 3672.4018 = −1072.40**. Historical still **— 待核实**. Option period subtotal **−6879.67275** keeps its sign.
 
-HIMS: Official Plaid remains **71 / 3004.4017** in separately labeled `plaidOfficial` fields. Confirmed 29-share buy commission 1.000087. The displayed 100-share row uses the fill-bridge book **3672.401787** (36.72401787/share → **36.72**) and unrealized **2600 − 3672.401787 = −1072.40**. Qty 100 and MV $2,600 are unchanged. The table **must not** call that bridge “Cost (Plaid)” or show the older fee-excluded overlay 3671.4017 as the row book. Option period subtotal **−6879.67275** keeps its sign and is not the lifetime strategy cost.
-
-RKLB period stock net 15068.98268 and embedded assignment 1846.12243 stay in JSON metadata; they are not the main 历史成本.
+RKLB: `(47736.8781 − 15068.98268 − 11306.7092296) / 600 = 35.601976984` → display **35.60**. Embedded put 1846.12243 already in remaining book — not subtracted again. Assigned-call credit 418.94388 is inside the option net once. Monthly-statement 150-share unmatched row was **not** mixed into Flex execution totals. `since_inception_verified` remains false.
 
 ## Persistence
 

@@ -91,6 +91,9 @@
       lines.push(t('costKnownOptNote', { n: optSub.toFixed(2) }));
     }
     if (c.holdingsSyncWarning) lines.push(c.holdingsSyncWarning);
+    (c.gaps || []).forEach((g) => {
+      if (g) lines.push(String(g));
+    });
     return lines;
   }
   function costAria(e) {

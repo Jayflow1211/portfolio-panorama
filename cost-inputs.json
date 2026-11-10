@@ -1,12 +1,12 @@
 {
-  "schema_version": "2.0",
-  "asof": "2026-11-10T14:27:43.853303+08:00",
+  "schema_version": "2.1",
+  "asof": "2026-11-10T20:39:35.646977+08:00",
   "timezone": "Asia/Shanghai",
   "currency": "USD",
   "formula": "strategy_cost_per_share = (book_cost_total - unembedded_realized_stock_pnl - unembedded_realized_option_pnl) / shares",
   "definition": "Economic allocation of historical realized gains/losses to remaining shares; not tax basis. Only amounts not already embedded in remaining broker basis may be subtracted. Negative realized P&L raises effective cost; negative cost is not floored.",
   "decimal_representation": "Decimal strings; no null-to-zero. Main lifetime fields null unless separately audited. Covered-period conditional values are not lifetime strategy cost.",
-  "public_data_scope": "This JSON contains only necessary aggregates and generic provenance; audit CSVs must NOT be added to repository/public site.",
+  "public_data_scope": "Only this JSON is suitable for code handoff. Other files in this audit folder contain detailed private reconciliation and must not be published.",
   "new_findings": [
     "Read-only full-range Flex exports recovered 2025 histories and November9 fees",
     "Official SATS/ECHO identity resolves previously omitted long-option loss",
@@ -18,14 +18,14 @@
       "ticker": "SPCX",
       "shares": "440.0000000000",
       "book_cost_total": "59150.1687",
-      "book_cost_per_share": "134.4322015909090909090909091",
+      "book_cost_per_share": "134.43220159090909090909090909090909091",
       "unembedded_realized_stock_pnl": "527.2546373",
       "unembedded_realized_option_pnl": "5275.0625634",
       "assignment_adjustment_excluded": "161.6220216",
       "strategy_cost_total": "53347.8514993",
       "strategy_cost_per_share": "121.24511704386363636363636363636363636",
       "status": "approximate",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -39,7 +39,8 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -57,7 +58,7 @@
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "121.24511704386363636363636363636363636",
         "reconstructed_current_quantity": "440",
         "reconstructed_broker_basis": "59150.1686984",
-        "broker_basis_minus_reconstruction": "0.0000016",
+        "broker_basis_minus_reconstruction": "0.000001600000000000000000000000000",
         "last_close_commission_verified": "0.7653",
         "previous_missing_fee_now_resolved": true
       },
@@ -76,6 +77,14 @@
         "strategy_approximate_per_share": "121.24511704386363636363636363636363636",
         "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "0.000001600000000000000000000000000",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     },
     {
@@ -88,8 +97,8 @@
       "assignment_adjustment_excluded": "1846.12243",
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
-      "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "status": "approximate",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -103,7 +112,8 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -117,23 +127,35 @@
         "realized_stock_net_in_covered_period": "15068.98268",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "11306.7092296",
         "assigned_call_credit_included_once_in_option_pnl": "418.94388",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "21361.1861904",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.601976984",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "21361.186190400000000000000000000000000",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.60197698400000000000000",
         "reconstructed_current_quantity": "600",
         "reconstructed_broker_basis": "47736.87806",
-        "broker_basis_minus_reconstruction": "0.00004"
+        "broker_basis_minus_reconstruction": "0.000040"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
-        "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips."
+        "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
+        "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula."
       ],
       "display": {
         "book_cost_label": "当前成本（账面/股）",
         "strategy_cost_label": "历史成本（策略有效/股）",
-        "strategy_display_mode": "pending",
-        "strategy_fallback_text": "全历史待核实",
+        "strategy_display_mode": "approximate_audited_history",
+        "strategy_fallback_text": null,
         "do_not_coerce_null_to_zero": true,
-        "validate_shares_before_join": true
+        "validate_shares_before_join": true,
+        "strategy_approximate_per_share": "35.60197698400000000000000",
+        "strategy_prefix": null,
+        "strategy_suffix": "已审计历史口径"
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "0.000040",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     },
     {
@@ -147,7 +169,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -164,7 +186,8 @@
         "reported_holdings_valuation_timestamp": null,
         "verified_symbol_aliases": [
           "SATS"
-        ]
+        ],
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -183,7 +206,7 @@
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "136.417976415",
         "reconstructed_current_quantity": "80",
         "reconstructed_broker_basis": "9393.00024",
-        "broker_basis_minus_reconstruction": "-0.00004"
+        "broker_basis_minus_reconstruction": "-0.000040"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
@@ -196,20 +219,28 @@
         "strategy_fallback_text": "全历史待核实",
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "-0.000040",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     },
     {
       "ticker": "APLD",
       "shares": "300.0000000000",
       "book_cost_total": "10412.8888",
-      "book_cost_per_share": "34.70962933333333333333333333",
+      "book_cost_per_share": "34.709629333333333333333333333333333333",
       "unembedded_realized_stock_pnl": null,
       "unembedded_realized_option_pnl": null,
       "assignment_adjustment_excluded": "687.111166",
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -223,7 +254,8 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -237,7 +269,7 @@
         "realized_stock_net_in_covered_period": "0",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "3318.372476",
         "assigned_call_credit_included_once_in_option_pnl": "0",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "7094.516324",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "7094.5163240",
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "23.648387746666666666666666666666666667",
         "reconstructed_current_quantity": "300",
         "reconstructed_broker_basis": "10412.888834",
@@ -254,6 +286,14 @@
         "strategy_fallback_text": "全历史待核实",
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "-0.000034",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     },
     {
@@ -267,7 +307,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -281,7 +321,8 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -312,20 +353,28 @@
         "strategy_fallback_text": "全历史待核实",
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "-0.0000376",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     },
     {
       "ticker": "HIMS",
-      "shares": "71.0000000000",
-      "book_cost_total": "3004.4017",
-      "book_cost_per_share": "42.31551690140845070422535211",
+      "shares": "100.0000000000",
+      "book_cost_total": "3672.4018",
+      "book_cost_per_share": "36.724018",
       "unembedded_realized_stock_pnl": null,
       "unembedded_realized_option_pnl": null,
       "assignment_adjustment_excluded": "0",
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -339,25 +388,27 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
         "Plaid institutional holdings snapshot",
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
-        "Read-only month-sheet and archived-workbook cross-check"
+        "Read-only month-sheet and archived-workbook cross-check",
+        "Fresh institutional holdings now independently confirms 100-share quantity and basis; previous bridge no longer needed"
       ],
       "known_components": {
         "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
         "realized_stock_net_in_covered_period": "0",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "-6879.67275",
         "assigned_call_credit_included_once_in_option_pnl": "0",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "9884.07445",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "139.21231619718309859154929577464788732",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "10552.07455",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "105.5207455",
         "reconstructed_current_quantity": "100",
         "reconstructed_broker_basis": "3672.401779",
-        "broker_basis_minus_reconstruction": null
+        "broker_basis_minus_reconstruction": "0.0000210000000000000000000000000000"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
@@ -371,36 +422,14 @@
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true
       },
-      "holdings_sync_warning": "Plaid71 is retained unchanged. A separately confirmed and fee-verified 100-share bridge exists; never mix its quantity with 71-share basis.",
-      "alternative_snapshots": [
-        {
-          "snapshot_kind": "confirmed_post_plaid_fill_bridge",
-          "shares": "100",
-          "book_cost_total": "3672.401787",
-          "book_cost_per_share": "36.72401787",
-          "unembedded_realized_stock_pnl": null,
-          "unembedded_realized_option_pnl": null,
-          "assignment_adjustment_excluded": "0",
-          "strategy_cost_total": null,
-          "strategy_cost_per_share": null,
-          "status": "partial",
-          "asof": "2026-11-10T14:27:43.853303+08:00",
-          "fees_missing": [],
-          "known_components": {
-            "realized_stock_net_in_covered_period": "0",
-            "realized_option_net_in_covered_period": "-6879.67275",
-            "strategy_cost_total_if_no_earlier_unembedded_pnl": "10552.074537",
-            "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "105.52074537",
-            "reconstructed_broker_basis": "3672.401779",
-            "book_basis_bridge_residual": "0.000008"
-          },
-          "coverage": "Confirmed executions through 2026-11-09; bridged quantity and cost, not a new institution-reported snapshot",
-          "provenance": [
-            "Prior Plaid institutional stock basis",
-            "Subsequent official Flex stock net cash including all reported commission, verified against the official fill confirmation"
-          ]
-        }
-      ]
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "0.0000210000000000000000000000000000",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
+      }
     },
     {
       "ticker": "SOXL",
@@ -413,7 +442,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T14:27:43.853303+08:00",
+      "asof": "2026-11-10T20:39:35.646977+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -427,7 +456,8 @@
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
-        "reported_holdings_valuation_timestamp": null
+        "reported_holdings_valuation_timestamp": null,
+        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -441,11 +471,11 @@
         "realized_stock_net_in_covered_period": "0",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "0",
         "assigned_call_credit_included_once_in_option_pnl": "0",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "801",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "801.0000",
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "80.1",
         "reconstructed_current_quantity": "10",
         "reconstructed_broker_basis": "801.00003",
-        "broker_basis_minus_reconstruction": "-0.00003"
+        "broker_basis_minus_reconstruction": "-0.000030"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
@@ -458,7 +488,16 @@
         "strategy_fallback_text": "全历史待核实",
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true
+      },
+      "book_cost_verification": {
+        "status": "verified",
+        "matches_institution_snapshot": true,
+        "matches_original_statement_or_assignment_bridge": true,
+        "difference_vs_unrounded_fill_reconstruction": "-0.000030",
+        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "holdings_valuation_timestamp_provided": false
       }
     }
-  ]
+  ],
+  "book_cost_status": "All seven institutional remaining-stock bases verified against matching current quantities and original execution/statement bridges."
 }

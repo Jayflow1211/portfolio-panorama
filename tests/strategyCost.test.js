@@ -463,7 +463,7 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(byTicker.SPCX.price, 134.27);
     assert.notEqual(spcx.brokerCostPerShare, byTicker.SPCX.price);
 
-    const pending = ['RKLB', 'ECHO', 'APLD', 'ASTS', 'SOXL'];
+    const pending = ['ECHO', 'APLD', 'ASTS', 'HIMS', 'SOXL'];
     pending.forEach((t) => {
       const c = byTicker[t].costs;
       assert.ok(sc.isFiniteNumber(c.brokerCostPerShare), t + ' broker');
@@ -485,8 +485,20 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     const rklb = byTicker.RKLB.costs;
     assert.equal(sc.parseDecimal(rklb.knownComponents.realized_stock_net_in_covered_period), 15068.98268);
     assert.equal(rklb.assignmentExcluded, 1846.12243);
-    assert.notEqual(sc.displayedStrategyPerShare(rklb), 35.60);
-    assert.notEqual(rklb.strategyCostPerShare, 35.60);
+    assert.equal(rklb.strategyCostPerShare, null);
+    assert.equal(rklb.strategyApproximatePerShare, 35.60);
+    assert.equal(sc.displayedStrategyPerShare(rklb), 35.60);
+    assert.equal(sc.formatCostPair(rklb), '(79.56, 35.60)');
+    assert.doesNotMatch(sc.formatCostPair(rklb), /\u2248/);
+    assert.equal(rklb.status, 'approximate');
+    assert.equal(rklb.coverage.sinceInceptionVerified, false);
+    assert.equal(rklb.coverage.fullHistoryComplete, false);
+    assert.equal(rklb.observedPeriod.lifetime, false);
+    assert.equal(
+      sc.round2((47736.8781 - 15068.98268 - 11306.7092296) / 600),
+      35.60
+    );
+    assert.match((rklb.gaps || []).join(' '), /150-share/);
 
     const hims = byTicker.HIMS;
     assert.equal(hims.qty, 100);
@@ -496,19 +508,18 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(hims.costs.status, 'partial');
     assert.equal(hims.costs.brokerCostPerShare, 36.72);
     assert.equal(hims.costs.strategyCostPerShare, null);
-    assert.equal(hims.costs.join.snapshotKind, 'confirmed_post_plaid_fill_bridge');
-    assert.equal(hims.costs.join.plaidShares, 71);
-    assert.equal(sc.rowBookTotal(hims), 3672.401787);
+    assert.equal(hims.costs.join.snapshotKind, 'primary');
+    assert.equal(hims.costs.join.plaidShares, 100);
+    assert.equal(sc.rowBookTotal(hims), 3672.4018);
     assert.equal(sc.rowUnrealized(hims), -1072.4);
-    assert.equal(sc.rowBookSource(hims), 'confirmed_post_plaid_fill_bridge');
+    assert.equal(sc.rowBookSource(hims), 'plaid_holdings');
     assert.equal(hims.costs.brokerCostPerShare, sc.round2(sc.rowBookTotal(hims) / hims.qty));
     assert.equal(sc.rowUnrealized(hims), sc.round2(hims.mv - sc.rowBookTotal(hims)));
     assert.notEqual(sc.rowBookTotal(hims), hims.cost);
     assert.notEqual(sc.rowUnrealized(hims), hims.pl);
-    assert.notEqual(sc.rowBookSource(hims), 'plaid_holdings');
     const tableBookSum = data.equities.reduce((s, e) => s + sc.rowBookTotal(e), 0);
     const overlaySum = data.equities.reduce((s, e) => s + e.cost, 0);
-    assert.ok(Math.abs(tableBookSum - overlaySum - (3672.401787 - 3671.4017)) < 1e-6);
+    assert.ok(Math.abs(tableBookSum - overlaySum - (3672.4018 - 3671.4017)) < 1e-6);
     assert.equal(
       sc.parseDecimal(hims.costs.knownComponents.realized_option_net_in_covered_period
         || hims.costs.knownComponents.realized_option_net_excluding_embedded_puts_in_covered_period),
@@ -516,9 +527,9 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     );
 
     assert.equal(data.equity_costs.coverage.held, 7);
-    assert.equal(data.equity_costs.coverage.approximate, 1);
+    assert.equal(data.equity_costs.coverage.approximate, 2);
     assert.equal(data.equity_costs.coverage.qty_mismatch, 0);
-    assert.equal(data.equity_costs.coverage.partial, 6);
+    assert.equal(data.equity_costs.coverage.partial, 5);
     assert.equal(data.equity_costs.coverage.verified, 0);
     assert.notEqual(data.equity_costs.coverage.status, 'verified');
   });
@@ -538,9 +549,11 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     const costs = data.equities.find((e) => e.ticker === 'RKLB').costs;
     assert.equal(costs.strategyCostPerShare, null);
     assert.notEqual(costs.strategyCostPerShare, wouldBeWrong);
+    assert.equal(costs.strategyApproximatePerShare, 35.60);
+    assert.equal(costs.coverage.sinceInceptionVerified, false);
   });
 
-  it('HIMS table book, red pair, and unrealized use the same 100-share bridge (not Plaid 71 or overlay 3671.40)', () => {
+  it('HIMS official Plaid 100-share book 3672.4018 (not overlay 3671.40, not 71-share)', () => {
     const data = loadJson('data.json');
     const inputs = loadJson('cost-inputs.json');
     sc.applyCostsToSnapshot(data, inputs);
@@ -549,24 +562,20 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.equal(hims.qty, 100);
     assert.equal(hims.mv, 2600);
     assert.match(pair, /^\(36\.72, /);
-    assert.equal(sc.rowBookTotal(hims), 3672.401787);
+    assert.equal(sc.rowBookTotal(hims), 3672.4018);
     assert.equal(sc.round2(sc.rowBookTotal(hims) / hims.qty), 36.72);
     assert.equal(hims.costs.brokerCostPerShare, 36.72);
-    assert.equal(sc.rowUnrealized(hims), sc.round2(2600 - 3672.401787));
+    assert.equal(sc.rowUnrealized(hims), sc.round2(2600 - 3672.4018));
     assert.equal(sc.rowUnrealized(hims), -1072.4);
-    assert.equal(sc.rowBookSource(hims), 'confirmed_post_plaid_fill_bridge');
-    assert.notEqual(sc.rowBookSource(hims), 'plaid_holdings');
-    assert.equal(hims.costs.plaidOfficial.shares, 71);
-    assert.equal(hims.costs.plaidOfficial.bookCostTotal, 3004.4017);
+    assert.equal(sc.rowBookSource(hims), 'plaid_holdings');
+    assert.equal(hims.costs.plaidOfficial.shares, 100);
+    assert.equal(hims.costs.plaidOfficial.bookCostTotal, 3672.4018);
     assert.equal(hims.cost, 3671.4017);
     assert.notEqual(sc.rowBookTotal(hims), 3671.4017);
     assert.notEqual(sc.rowBookTotal(hims), 3004.4017);
     assert.notEqual(sc.rowUnrealized(hims), -1071.4);
-    const others = data.equities.filter((e) => e.ticker !== 'HIMS');
-    others.forEach((e) => {
-      assert.equal(sc.rowBookSource(e), 'plaid_holdings');
-      assert.equal(sc.rowBookTotal(e), e.cost);
-    });
+    assert.equal(hims.costs.join.qtyMatched, true);
+    assert.equal(hims.costs.join.asofMatched, true);
   });
 
   it('six non-SPCX current costs match joined remaining basis (not last price, not mixed ticker/qty)', () => {
@@ -579,7 +588,7 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
       ECHO: 9393.0002,
       APLD: 10412.8888,
       ASTS: 4305.1013,
-      HIMS: 3672.401787,
+      HIMS: 3672.4018,
       SOXL: 801
     };
     ['RKLB', 'ECHO', 'APLD', 'ASTS', 'HIMS', 'SOXL'].forEach((t) => {
@@ -591,23 +600,24 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
       assert.equal(c.join.displayShares, e.qty);
       assert.notEqual(c.brokerCostPerShare, e.price, t + ' current is not last price');
       assert.equal(c.strategyCostPerShare, null, t + ' lifetime unembedded still null');
-      assert.equal(c.strategyApproximatePerShare, null, t + ' must not promote period to approx');
-      assert.equal(sc.displayedStrategyPerShare(c), null);
-      assert.match(sc.formatCostPair(c), /^\([\d.]+, \u2014\)$/);
-      const book = t === 'HIMS' ? 3672.401787 : sc.parseDecimal(r.book_cost_total);
+      if (t !== 'RKLB') {
+        assert.equal(c.strategyApproximatePerShare, null, t + ' must not promote period to approx');
+        assert.equal(sc.displayedStrategyPerShare(c), null);
+        assert.match(sc.formatCostPair(c), /^\([\d.]+, \u2014\)$/);
+      }
+      const book = sc.parseDecimal(r.book_cost_total);
       assert.equal(book, expectBook[t]);
       assert.equal(c.brokerCostPerShare, sc.round2(book / e.qty));
       assert.equal(sc.rowBookTotal(e), book);
       if (c.observedPeriod) {
         assert.equal(c.observedPeriod.lifetime, false);
-        assert.notEqual(sc.displayedStrategyPerShare(c), c.observedPeriod.strategyCostPerShare);
       }
     });
     const hims = data.equities.find((e) => e.ticker === 'HIMS');
     assert.equal(hims.qty, 100);
     assert.equal(hims.mv, 2600);
-    assert.equal(hims.costs.bookSource, 'confirmed_post_plaid_fill_bridge');
-    assert.equal(hims.costs.plaidOfficial.shares, 71);
+    assert.equal(hims.costs.bookSource, 'plaid_holdings');
+    assert.equal(hims.costs.plaidOfficial.shares, 100);
     assert.notEqual(hims.costs.brokerCostPerShare, sc.round2(3004.4017 / 71));
     const echo = data.equities.find((e) => e.ticker === 'ECHO').costs;
     assert.ok(echo.observedPeriod.strategyCostPerShare > echo.brokerCostPerShare);
@@ -617,13 +627,13 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
     assert.notEqual(rklb.costs.brokerCostPerShare, 53.07);
   });
 
-  it('held-ticker completion matrix: current cost shown for all; lifetime strategy only SPCX; six remain pending', () => {
+  it('held-ticker completion matrix: current cost shown for all; SPCX+RKLB audited-history; five remain pending', () => {
     const data = loadJson('data.json');
     const inputs = loadJson('cost-inputs.json');
     sc.applyCostsToSnapshot(data, inputs);
     const expected = {
       SPCX: { qty: 440, mv: 59078.8, broker: 134.43, hist: 121.25, status: 'approximate', pair: '(134.43, 121.25)' },
-      RKLB: { qty: 600, mv: 31842, broker: 79.56, hist: null, status: 'partial', pair: '(79.56, \u2014)' },
+      RKLB: { qty: 600, mv: 31842, broker: 79.56, hist: 35.60, status: 'approximate', pair: '(79.56, 35.60)' },
       ECHO: { qty: 80, mv: 7569.6, broker: 117.41, hist: null, status: 'partial', pair: '(117.41, \u2014)' },
       APLD: { qty: 300, mv: 4665, broker: 34.71, hist: null, status: 'partial', pair: '(34.71, \u2014)' },
       ASTS: { qty: 100, mv: 3233, broker: 43.05, hist: null, status: 'partial', pair: '(43.05, \u2014)' },
@@ -647,14 +657,19 @@ describe('live snapshot + cost-inputs (honest gaps, no fabricated profits)', () 
       assert.equal(e.costs.join.qtyMatched, true);
     });
     const hims = data.equities.find((e) => e.ticker === 'HIMS');
-    assert.equal(sc.rowBookTotal(hims), 3672.401787);
-    const periodStillPending = ['RKLB', 'ECHO', 'APLD', 'ASTS', 'HIMS', 'SOXL'];
+    assert.equal(sc.rowBookTotal(hims), 3672.4018);
+    const periodStillPending = ['ECHO', 'APLD', 'ASTS', 'HIMS', 'SOXL'];
     periodStillPending.forEach((t) => {
       const e = data.equities.find((row) => row.ticker === t);
       assert.ok(e.costs.observedPeriod);
       assert.equal(e.costs.observedPeriod.lifetime, false);
       assert.notEqual(sc.displayedStrategyPerShare(e.costs), e.costs.observedPeriod.strategyCostPerShare);
     });
+    const rklb = data.equities.find((e) => e.ticker === 'RKLB');
+    assert.ok(rklb.costs.observedPeriod);
+    assert.equal(rklb.costs.observedPeriod.lifetime, false);
+    assert.equal(rklb.costs.observedPeriod.from, '2025-01-01');
+    assert.equal(rklb.costs.observedPeriod.to, '2026-11-09');
   });
 
   it('cost-inputs.json has no account PII / raw trades / credentials', () => {
