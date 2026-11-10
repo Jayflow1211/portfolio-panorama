@@ -146,6 +146,17 @@
       .note { margin-top: 8px; font-size: 11px; color: var(--dim); }
       .cost-legend { margin-top: 8px; font-size: 11px; color: var(--dim); line-height: 1.55; }
       .cost-legend .t-cost { text-shadow: none; }
+      .cost-roster { width: 100%; border-collapse: collapse; font-size: 11px; margin-top: 8px; }
+      .cost-roster th {
+            text-align: left; color: var(--dim); font-weight: 500; padding: 5px 6px;
+            border-bottom: 1px solid var(--border); white-space: nowrap;
+      }
+      .cost-roster td {
+            padding: 5px 6px; border-bottom: 1px solid #161a22; font-variant-numeric: tabular-nums;
+            vertical-align: top;
+      }
+      .cost-roster .r { text-align: right; }
+      .cost-roster .t-cost { text-shadow: none; }
       .holdings-table .t-cost { text-shadow: none; }
       .cost-status { color: var(--dim); font-size: 10px; font-weight: 500; }
 
@@ -294,6 +305,8 @@
         <div class="treemap" id="treemap"></div>
         <div class="note" data-i18n="treemapNote">Interactive squarify treemap · data = Finance equity MV · red pair = per-share cost (current, historical) · day P/L = N/A (not in Plaid)</div>
         <div class="cost-legend" id="cost-legend"></div>
+        <div class="note" id="cost-roster-note" data-i18n="costRosterNote">Small tiles may clip the red pair. The table below lists current cost, historical cost, and coverage per ticker. Observed-period estimates are not lifetime strategy cost.</div>
+        <table class="cost-roster" id="cost-roster"></table>
         <table class="holdings-table" id="holdings-table">
               <thead>
                         <tr>

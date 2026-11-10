@@ -283,7 +283,7 @@
         const fs = Math.max(9, Math.min(13, Math.floor(c.h * 0.42)));
         const padY = Math.max(1, Math.floor((c.h - fs) / 2));
         const mv = c.w >= 160 ? fmt.money0(c.value) : fmt.moneyCompact(c.value);
-        const showPair = c.w >= 120;
+        const showPair = c.w >= 72;
         return `<div class="tcell" tabindex="0" title="${tip}" aria-label="${aria}" style="left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h}px;background:${c.color}">
           <div class="tcell-inner tcell-bar" style="padding:${padY}px 8px;gap:6px">
             <span class="t-ticker" style="font-size:${fs}px">${esc(c.ticker)}</span>
@@ -301,7 +301,7 @@
       const ps = Math.max(10, Math.min(tiny ? 14 : 22, Math.floor(fs * 0.72)));
       const showMv = c.w >= 70 && c.h >= 56;
       const mv = tiny ? fmt.moneyCompact(c.value) : fmt.money0(c.value);
-      const showPair = c.w >= 88 && c.h >= 48;
+      const showPair = c.w >= 56 && c.h >= 36;
       const mvLine = showMv
         ? `<div class="t-mv" style="font-size:${Math.max(9, ps - 1)}px">${mv}${showPair ? ' ' + costHtml : ''}</div>`
         : (showPair ? `<div class="t-mv" style="font-size:9px">${costHtml}</div>` : '');
@@ -316,6 +316,53 @@
     }).join('');
     const legend = document.getElementById('cost-legend');
     if (legend) legend.textContent = t('costPairLegend');
+    renderCostRoster(d);
+  }
+
+  function renderCostRoster(d) {
+    const el = document.getElementById('cost-roster');
+    if (!el) return;
+    const note = document.getElementById('cost-roster-note');
+    if (note) note.textContent = t('costRosterNote');
+    const rows = (d.equities || []).map((e) => {
+      const c = e.costs || {};
+      const cur = c.brokerCostPerShare == null ? '\u2014' : Number(c.brokerCostPerShare).toFixed(2);
+      const hist = strategyDetailText(c);
+      const pair = costPairText(c);
+      const cov = (c.coverage && (c.coverage.queriedHistoryFrom || c.coverage.queriedHistoryTo))
+        ? t('costCoverage', {
+          from: c.coverage.queriedHistoryFrom || '\u2014',
+          to: c.coverage.queriedHistoryTo || '\u2014'
+        })
+        : '\u2014';
+      let period = '\u2014';
+      if (c.observedPeriod && c.observedPeriod.strategyCostPerShare != null
+        && c.status !== 'verified' && c.status !== 'approximate') {
+        period = t('costPeriodEstimate', {
+          from: c.observedPeriod.from || '\u2014',
+          to: c.observedPeriod.to || '\u2014',
+          n: Number(c.observedPeriod.strategyCostPerShare).toFixed(2)
+        });
+      }
+      return `<tr>
+        <td>${esc(e.ticker)}</td>
+        <td class="r">${esc(cur)}</td>
+        <td class="r">${esc(hist)}</td>
+        <td class="r"><span class="t-cost">${esc(pair)}</span></td>
+        <td>${esc(bookSourceLabel(e))}</td>
+        <td>${esc(cov)}</td>
+        <td>${esc(period)}</td>
+      </tr>`;
+    }).join('');
+    el.innerHTML = `<thead><tr>
+      <th>${esc(t('thTicker'))}</th>
+      <th class="r">${esc(t('costCurrent'))}</th>
+      <th class="r">${esc(t('costHistorical'))}</th>
+      <th class="r">${esc(t('thCostShare'))}</th>
+      <th>${esc(t('thBookSource'))}</th>
+      <th>${esc(t('thCoverage'))}</th>
+      <th>${esc(t('thPeriodEst'))}</th>
+    </tr></thead><tbody>${rows}</tbody>`;
   }
 
   function bookSourceLabel(e) {

@@ -63,6 +63,8 @@ Queried Flex executions **2025-01-01 through 2026-11-09**. First returned accoun
 
 SPCX: stock 527.2546373 + option 5275.0625634; last close commission verified 0.7653; assignment 161.6220216 excluded; total 53347.8514993 / 440 = 121.24511704 → display **121.25** (no leading ≈; provenance is the audited-history status/tooltip, not a since-inception claim).
 
+Re-traced 2026-11-10: current cost for the six non-SPCX names matches joined remaining basis / qty (not last price, not a mixed ticker). Lifetime `unembedded_realized_*` is still **null** in the audit JSON, so main 历史成本 stays **—**. Observed-period conditionals stay labeled and are not promoted.
+
 HIMS: Official Plaid remains **71 / 3004.4017** in separately labeled `plaidOfficial` fields. Confirmed 29-share buy commission 1.000087. The displayed 100-share row uses the fill-bridge book **3672.401787** (36.72401787/share → **36.72**) and unrealized **2600 − 3672.401787 = −1072.40**. Qty 100 and MV $2,600 are unchanged. The table **must not** call that bridge “Cost (Plaid)” or show the older fee-excluded overlay 3671.4017 as the row book. Option period subtotal **−6879.67275** keeps its sign and is not the lifetime strategy cost.
 
 RKLB period stock net 15068.98268 and embedded assignment 1846.12243 stay in JSON metadata; they are not the main 历史成本.
