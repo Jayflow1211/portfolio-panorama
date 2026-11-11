@@ -1,61 +1,61 @@
 {
-  "asof": "2026-11-11 05:44 CST",
+  "asof": "2026-11-12 05:38 CST",
   "account": {
     "name": "Xianjie Shen",
     "masked": "U****6865",
     "status": "ready"
   },
-  "source": "plaid+month_tab+rank+USOptions sheet premiums",
-  "nav": 134192.68,
-  "stock": 117483,
-  "opt": -10423.91,
-  "cash": 27107.49,
-  "other": 26.1,
-  "realized": 37353.85,
-  "risk": 100175,
-  "equity_unrealized": -17988.44,
-  "open_short_contracts": 12,
+  "source": "plaid+month_tab+rank+pending_fills+USOptions sheet premiums",
+  "nav": 137526.21,
+  "stock": 114041.4,
+  "opt": -8765.05,
+  "cash": 32948.46,
+  "other": -698.6,
+  "realized": 37702.85,
+  "risk": 81125,
+  "equity_unrealized": -16052.75,
+  "open_short_contracts": 10,
   "equity_count": 7,
-  "stock_pct": 87.55,
-  "opt_pct": -7.77,
-  "cash_pct": 20.2,
-  "other_pct": 0.02,
-  "risk_pct": 74.65,
+  "stock_pct": 82.92,
+  "opt_pct": -6.37,
+  "cash_pct": 23.96,
+  "other_pct": -0.51,
+  "risk_pct": 58.99,
   "daily_pl": null,
   "note_daily_pl": "Plaid/Finance holdings do not expose daily P/L; column left N/A",
   "allocation_abs": {
-    "sum": 155040.5,
+    "sum": 156453.51,
     "slices": [
       {
         "key": "cash",
         "label": "现金",
-        "value": 27107.49,
-        "signed": 27107.49,
-        "pct_nav": 20.2,
+        "value": 32948.46,
+        "signed": 32948.46,
+        "pct_nav": 23.96,
         "color": "#22c55e"
       },
       {
         "key": "stock",
         "label": "股票",
-        "value": 117483,
-        "signed": 117483,
-        "pct_nav": 87.55,
+        "value": 114041.4,
+        "signed": 114041.4,
+        "pct_nav": 82.92,
         "color": "#38bdf8"
       },
       {
         "key": "opt",
         "label": "期权",
-        "value": 10423.91,
-        "signed": -10423.91,
-        "pct_nav": -7.77,
+        "value": 8765.05,
+        "signed": -8765.05,
+        "pct_nav": -6.37,
         "color": "#c084fc"
       },
       {
         "key": "other",
         "label": "其他",
-        "value": 26.1,
-        "signed": 26.1,
-        "pct_nav": 0.02,
+        "value": 698.6,
+        "signed": -698.6,
+        "pct_nav": -0.51,
         "color": "#64748b"
       }
     ]
@@ -64,65 +64,84 @@
     {
       "ticker": "SPCX",
       "name": "SpaceX Class A",
-      "qty": 440,
-      "price": 142.07,
-      "mv": 62510.8,
-      "cost": 59150.1687,
+      "qty": 400,
+      "price": 143.09,
+      "mv": 57236,
+      "cost": 53772.8806,
       "sector": "AI基建",
       "color": "#c084fc",
-      "pl": 3360.63,
-      "pct_stock": 53.21,
-      "pct_nav": 46.58,
+      "pl": 3463.12,
+      "pct_stock": 50.19,
+      "pct_nav": 41.62,
       "daily_pl": null,
+      "pending_plaid": true,
+      "plaid_qty": 440,
+      "qty_source": "Plaid+IB confirm",
+      "pending_fills": [
+        {
+          "mrn": null,
+          "side": "SOLD",
+          "qty": 20,
+          "price": 145.549,
+          "trade_time_et": "2026-11-11 00:43:04 -0500"
+        },
+        {
+          "mrn": null,
+          "side": "SOLD",
+          "qty": 20,
+          "price": 146.5,
+          "trade_time_et": "2026-11-11 05:01:26 -0500"
+        }
+      ],
       "costs": {
         "brokerCostPerShare": 134.43,
-        "displayBookTotal": 59150.1687,
-        "displayUnrealized": 3360.63,
+        "displayBookTotal": 53772.8806,
+        "displayUnrealized": 3463.12,
         "bookSource": "plaid_holdings",
-        "rawOverlayBook": 59150.1687,
+        "rawOverlayBook": 53772.8806,
         "plaidOfficial": {
-          "shares": 440,
-          "bookCostTotal": 59150.1687,
+          "shares": 400,
+          "bookCostTotal": 53772.8806,
           "bookCostPerShare": 134.43
         },
-        "strategyCostPerShare": 121.25,
-        "strategyApproximatePerShare": 121.25,
+        "strategyCostPerShare": 118.44,
+        "strategyApproximatePerShare": 118.44,
         "status": "approximate",
-        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "asof": "2026-11-12T05:38:00+08:00",
         "coverage": {
           "remainingStockBookCost": "present",
           "historicalRealizedStockNetProfit": "present",
           "historicalRealizedOptionNetProfit": "present",
           "currentShares": "present",
           "quantityJoin": "matched",
-          "asofJoin": "carried",
+          "asofJoin": "matched",
           "fullHistoryComplete": false,
           "sinceInceptionVerified": false,
           "queriedHistoryFrom": "2025-01-01",
-          "queriedHistoryTo": "2026-11-09"
+          "queriedHistoryTo": "2026-11-11"
         },
         "join": {
           "qtyMatched": true,
           "bookMatched": true,
-          "displayShares": 440,
-          "inputShares": 440,
-          "displayBook": 59150.1687,
-          "inputBook": 59150.1687,
-          "plaidQty": null,
-          "plaidShares": 440,
-          "plaidBook": 59150.1687,
+          "displayShares": 400,
+          "inputShares": 400,
+          "displayBook": 53772.8806,
+          "inputBook": 53772.8806,
+          "plaidQty": 440,
+          "plaidShares": 400,
+          "plaidBook": 53772.8806,
           "snapshotKind": "primary",
-          "pendingPlaid": false,
-          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
-          "asofMatched": false,
-          "carryForward": true,
+          "pendingPlaid": true,
+          "inputAsOf": "2026-11-12T05:38:00+08:00",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
+          "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
-          "strategyCostPerShare": 121.25,
+          "strategyCostPerShare": 118.44,
           "from": "2025-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-11",
           "lifetime": false
         },
         "strategyDisplayMode": "approximate_audited_history",
@@ -132,30 +151,33 @@
         "feesMissing": [],
         "assignmentExcluded": 161.6220216,
         "knownComponents": {
-          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
-          "realized_stock_net_in_covered_period": "527.2546373",
-          "realized_option_net_excluding_embedded_puts_in_covered_period": "5275.0625634",
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet increments (Flex 1605999 toDate=20261110, stale for the session); not asserted since inception",
+          "realized_stock_net_in_covered_period": "990.9465373",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "5405.0625634",
           "assigned_call_credit_included_once_in_option_pnl": "0",
-          "strategy_cost_total_if_no_earlier_unembedded_pnl": "53347.8514993",
-          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "121.24511704386363636363636363636363636",
-          "reconstructed_current_quantity": "440",
-          "reconstructed_broker_basis": "59150.1686984",
-          "broker_basis_minus_reconstruction": "0.000001600000000000000000000000000",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "47376.8714993",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "118.44217874825",
+          "reconstructed_current_quantity": "400",
+          "reconstructed_broker_basis": "53772.8806",
+          "broker_basis_minus_reconstruction": "0",
           "last_close_commission_verified": "0.7653",
-          "previous_missing_fee_now_resolved": true
+          "previous_missing_fee_now_resolved": true,
+          "nov11_stock_sale_profit_before_fees": "463.6919",
+          "nov11_option_close_pnl": "130"
         },
         "gaps": [
           "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
           "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
-          "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit."
+          "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit.",
+          "2026-11-11: sold 40 shares (20@145.549, 20@146.5) from IB confirms; Plaid holdings still 440 (conn 2026-11-11T10:50:35Z pre-open). Remaining book 53772.8806 uses average-cost 59150.1687×400/440. Sale profit 463.6919 = proceeds 5840.98 − allocated book 5377.2881; commissions unknown, so this profit may be slightly overstated. BOT 1 SPCX Nov20'26 140P @4.2 booked P=$130 added to unembedded option net (not in remaining stock book). Flex Query 1605999 toDate=20261110 did not cover the session; these increments are confirm/sheet only, not a new Flex audit. Account-inception caveat still explicit."
         ],
         "holdingsSyncWarning": null,
         "methodology": "economic-attribution-v1",
         "components": {
-          "remainingStockBookCost": 59150.1687,
-          "historicalRealizedStockNetProfitNotAlreadyEmbedded": 527.2546373,
-          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": 5275.0625634,
-          "currentShares": 440
+          "remainingStockBookCost": 53772.8806,
+          "historicalRealizedStockNetProfitNotAlreadyEmbedded": 990.9465373,
+          "historicalRealizedOptionNetProfitNotAlreadyEmbedded": 5405.0625634,
+          "currentShares": 400
         }
       }
     },
@@ -163,19 +185,19 @@
       "ticker": "RKLB",
       "name": "Rocket Lab",
       "qty": 600,
-      "price": 58.86,
-      "mv": 35316,
+      "price": 62.71,
+      "mv": 37626,
       "cost": 47736.8781,
       "sector": "太空",
       "color": "#2563eb",
-      "pl": -12420.88,
-      "pct_stock": 30.06,
-      "pct_nav": 26.32,
+      "pl": -10110.88,
+      "pct_stock": 32.99,
+      "pct_nav": 27.36,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 79.56,
         "displayBookTotal": 47736.8781,
-        "displayUnrealized": -12420.88,
+        "displayUnrealized": -10110.88,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 47736.8781,
         "plaidOfficial": {
@@ -184,20 +206,20 @@
           "bookCostPerShare": 79.56
         },
         "strategyCostPerShare": null,
-        "strategyApproximatePerShare": 35.6,
+        "strategyApproximatePerShare": 35.24,
         "status": "approximate",
-        "asof": "2026-11-10T20:39:35.646977+08:00",
+        "asof": "2026-11-12T05:38:00+08:00",
         "coverage": {
           "remainingStockBookCost": "present",
           "historicalRealizedStockNetProfit": "missing",
           "historicalRealizedOptionNetProfit": "missing",
           "currentShares": "present",
           "quantityJoin": "matched",
-          "asofJoin": "carried",
+          "asofJoin": "matched",
           "fullHistoryComplete": false,
           "sinceInceptionVerified": false,
           "queriedHistoryFrom": "2025-01-01",
-          "queriedHistoryTo": "2026-11-09"
+          "queriedHistoryTo": "2026-11-11"
         },
         "join": {
           "qtyMatched": true,
@@ -211,16 +233,16 @@
           "plaidBook": 47736.8781,
           "snapshotKind": "primary",
           "pendingPlaid": false,
-          "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
-          "asofMatched": false,
-          "carryForward": true,
+          "inputAsOf": "2026-11-12T05:38:00+08:00",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
+          "asofMatched": true,
+          "carryForward": false,
           "holdingsConnectionUpdated": null
         },
         "observedPeriod": {
-          "strategyCostPerShare": 35.6,
+          "strategyCostPerShare": 35.24,
           "from": "2025-01-01",
-          "to": "2026-11-09",
+          "to": "2026-11-11",
           "lifetime": false
         },
         "strategyDisplayMode": "approximate_audited_history",
@@ -230,20 +252,22 @@
         "feesMissing": [],
         "assignmentExcluded": 1846.12243,
         "knownComponents": {
-          "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+          "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet close BOT 1 RKLB Nov20'26 60P @1.81 P=$219 (Flex stale for the session); not asserted since inception",
           "realized_stock_net_in_covered_period": "15068.98268",
-          "realized_option_net_excluding_embedded_puts_in_covered_period": "11306.7092296",
+          "realized_option_net_excluding_embedded_puts_in_covered_period": "11525.7092296",
           "assigned_call_credit_included_once_in_option_pnl": "418.94388",
-          "strategy_cost_total_if_no_earlier_unembedded_pnl": "21361.186190400000000000000000000000000",
-          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.60197698400000000000000",
+          "strategy_cost_total_if_no_earlier_unembedded_pnl": "21142.1861904",
+          "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.236976984",
           "reconstructed_current_quantity": "600",
           "reconstructed_broker_basis": "47736.87806",
-          "broker_basis_minus_reconstruction": "0.000040"
+          "broker_basis_minus_reconstruction": "0.000040",
+          "nov11_option_close_pnl": "219"
         },
         "gaps": [
           "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
           "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
-          "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula."
+          "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula.",
+          "2026-11-11: BOT 1 RKLB Nov20'26 60P @1.81 booked P=$219 added to observed-period option net (not in remaining stock book; qty/book still 600 / 47736.8781; top-level lifetime unembedded fields stay null). Flex Query 1605999 toDate=20261110 did not cover the session; increment is confirm/sheet only. Account-inception caveat still explicit."
         ],
         "holdingsSyncWarning": null,
         "methodology": "economic-attribution-v1",
@@ -259,19 +283,19 @@
       "ticker": "ECHO",
       "name": "EchoStar",
       "qty": 80,
-      "price": 101.19,
-      "mv": 8095.2,
+      "price": 104.16,
+      "mv": 8332.8,
       "cost": 9393.0002,
       "sector": "太空",
       "color": "#60a5fa",
-      "pl": -1297.8,
-      "pct_stock": 6.89,
-      "pct_nav": 6.03,
+      "pl": -1060.2,
+      "pct_stock": 7.31,
+      "pct_nav": 6.06,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 117.41,
         "displayBookTotal": 9393.0002,
-        "displayUnrealized": -1297.8,
+        "displayUnrealized": -1060.2,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 9393.0002,
         "plaidOfficial": {
@@ -308,7 +332,7 @@
           "snapshotKind": "primary",
           "pendingPlaid": false,
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
           "asofMatched": false,
           "carryForward": true,
           "holdingsConnectionUpdated": null
@@ -354,19 +378,19 @@
       "ticker": "APLD",
       "name": "Applied Digital",
       "qty": 300,
-      "price": 16.72,
-      "mv": 5016,
+      "price": 16.68,
+      "mv": 5004,
       "cost": 10412.8888,
       "sector": "AI基建",
       "color": "#9333ea",
-      "pl": -5396.89,
-      "pct_stock": 4.27,
-      "pct_nav": 3.74,
+      "pl": -5408.89,
+      "pct_stock": 4.39,
+      "pct_nav": 3.64,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 34.71,
         "displayBookTotal": 10412.8888,
-        "displayUnrealized": -5396.89,
+        "displayUnrealized": -5408.89,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 10412.8888,
         "plaidOfficial": {
@@ -403,7 +427,7 @@
           "snapshotKind": "primary",
           "pendingPlaid": false,
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
           "asofMatched": false,
           "carryForward": true,
           "holdingsConnectionUpdated": null
@@ -449,19 +473,19 @@
       "ticker": "ASTS",
       "name": "AST SpaceMobile Inc",
       "qty": 100,
-      "price": 36.89,
-      "mv": 3689,
+      "price": 33.69,
+      "mv": 3369,
       "cost": 4305.1013,
       "sector": "其他",
       "color": "#64748b",
-      "pl": -616.1,
-      "pct_stock": 3.14,
-      "pct_nav": 2.75,
+      "pl": -936.1,
+      "pct_stock": 2.95,
+      "pct_nav": 2.45,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 43.05,
         "displayBookTotal": 4305.1013,
-        "displayUnrealized": -616.1,
+        "displayUnrealized": -936.1,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 4305.1013,
         "plaidOfficial": {
@@ -498,7 +522,7 @@
           "snapshotKind": "primary",
           "pendingPlaid": false,
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
           "asofMatched": false,
           "carryForward": true,
           "holdingsConnectionUpdated": null
@@ -544,19 +568,19 @@
       "ticker": "HIMS",
       "name": "Hims & Hers",
       "qty": 100,
-      "price": 22.94,
-      "mv": 2294,
+      "price": 19.13,
+      "mv": 1913,
       "cost": 3672.4018,
       "sector": "医疗",
       "color": "#22c55e",
-      "pl": -1378.4,
-      "pct_stock": 1.95,
-      "pct_nav": 1.71,
+      "pl": -1759.4,
+      "pct_stock": 1.68,
+      "pct_nav": 1.39,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 36.72,
         "displayBookTotal": 3672.4018,
-        "displayUnrealized": -1378.4,
+        "displayUnrealized": -1759.4,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 3672.4018,
         "plaidOfficial": {
@@ -593,7 +617,7 @@
           "snapshotKind": "primary",
           "pendingPlaid": false,
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
           "asofMatched": false,
           "carryForward": true,
           "holdingsConnectionUpdated": null
@@ -639,19 +663,19 @@
       "ticker": "SOXL",
       "name": "Direxion Shares ETF Trust",
       "qty": 10,
-      "price": 56.2,
-      "mv": 562,
+      "price": 56.06,
+      "mv": 560.6,
       "cost": 801,
       "sector": "其他",
       "color": "#64748b",
-      "pl": -239,
-      "pct_stock": 0.48,
-      "pct_nav": 0.42,
+      "pl": -240.4,
+      "pct_stock": 0.49,
+      "pct_nav": 0.41,
       "daily_pl": null,
       "costs": {
         "brokerCostPerShare": 80.1,
         "displayBookTotal": 801,
-        "displayUnrealized": -239,
+        "displayUnrealized": -240.4,
         "bookSource": "plaid_holdings",
         "rawOverlayBook": 801,
         "plaidOfficial": {
@@ -688,7 +712,7 @@
           "snapshotKind": "primary",
           "pendingPlaid": false,
           "inputAsOf": "2026-11-10T20:39:35.646977+08:00",
-          "holdingsAsOf": "2026-11-11 05:44 CST",
+          "holdingsAsOf": "2026-11-12 05:38 CST",
           "asofMatched": false,
           "carryForward": true,
           "holdingsConnectionUpdated": null
@@ -731,79 +755,79 @@
       }
     }
   ],
-  "stock_total": 117483,
+  "stock_total": 114041.4,
   "sectors": [
     {
       "name": "太空",
-      "amount": 43411.2,
-      "pct_stock": 36.95,
+      "amount": 45958.8,
+      "pct_stock": 40.3,
       "color": "#2563eb",
       "holdings": [
         {
           "ticker": "RKLB",
-          "amount": 35316,
-          "pct_stock": 30.06,
-          "pct_sector": 81.35
+          "amount": 37626,
+          "pct_stock": 32.99,
+          "pct_sector": 81.87
         },
         {
           "ticker": "ECHO",
-          "amount": 8095.2,
-          "pct_stock": 6.89,
-          "pct_sector": 18.65
+          "amount": 8332.8,
+          "pct_stock": 7.31,
+          "pct_sector": 18.13
         }
       ]
     },
     {
       "name": "AI基建",
-      "amount": 67526.8,
-      "pct_stock": 57.48,
+      "amount": 62240,
+      "pct_stock": 54.58,
       "color": "#9333ea",
       "holdings": [
         {
           "ticker": "SPCX",
-          "amount": 62510.8,
-          "pct_stock": 53.21,
-          "pct_sector": 92.57
+          "amount": 57236,
+          "pct_stock": 50.19,
+          "pct_sector": 91.96
         },
         {
           "ticker": "APLD",
-          "amount": 5016,
-          "pct_stock": 4.27,
-          "pct_sector": 7.43
+          "amount": 5004,
+          "pct_stock": 4.39,
+          "pct_sector": 8.04
         }
       ]
     },
     {
       "name": "医疗",
-      "amount": 2294,
-      "pct_stock": 1.95,
+      "amount": 1913,
+      "pct_stock": 1.68,
       "color": "#22c55e",
       "holdings": [
         {
           "ticker": "HIMS",
-          "amount": 2294,
-          "pct_stock": 1.95,
+          "amount": 1913,
+          "pct_stock": 1.68,
           "pct_sector": 100
         }
       ]
     },
     {
       "name": "其他",
-      "amount": 4251,
-      "pct_stock": 3.62,
+      "amount": 3929.6,
+      "pct_stock": 3.45,
       "color": "#64748b",
       "holdings": [
         {
           "ticker": "ASTS",
-          "amount": 3689,
-          "pct_stock": 3.14,
-          "pct_sector": 86.78
+          "amount": 3369,
+          "pct_stock": 2.95,
+          "pct_sector": 85.73
         },
         {
           "ticker": "SOXL",
-          "amount": 562,
-          "pct_stock": 0.48,
-          "pct_sector": 13.22
+          "amount": 560.6,
+          "pct_stock": 0.49,
+          "pct_sector": 14.27
         }
       ]
     }
@@ -816,7 +840,7 @@
         "strike": 135,
         "expiry": "2028-01-21",
         "contracts": 1,
-        "mv": -2585.8,
+        "mv": -2550,
         "cost": -2548.9142,
         "plaid_cost": -2548.9142,
         "cost_source": "Finance holdings cost_basis",
@@ -829,14 +853,14 @@
         "type": "卖出看跌",
         "strike": 140,
         "expiry": "2026-11-20",
-        "contracts": 4,
-        "mv": -2162.24,
-        "cost": -2096.7115,
-        "plaid_cost": -2096.7115,
+        "contracts": 3,
+        "mv": -1472.16,
+        "cost": -1572.5336,
+        "plaid_cost": -1572.5336,
         "cost_source": "Finance holdings cost_basis",
-        "premium": 5.25,
-        "premium_total": 2100,
-        "premium_source": "USOptions「10月」H×100×K weighted 2@5+1@5.5+1@5.5"
+        "premium": 5.1667,
+        "premium_total": 1550,
+        "premium_source": "USOptions「10月」H×100×K weighted 2@5+1@5.5; 1@5.5 closed 2026-11-11"
       },
       {
         "ticker": "RKLB",
@@ -844,7 +868,7 @@
         "strike": 55,
         "expiry": "2028-01-21",
         "contracts": 1,
-        "mv": -1513.81,
+        "mv": -1386.41,
         "cost": -1503.4217,
         "plaid_cost": -1503.4217,
         "cost_source": "Finance holdings cost_basis",
@@ -858,7 +882,7 @@
         "strike": 50,
         "expiry": "2028-01-21",
         "contracts": 1,
-        "mv": -1235.41,
+        "mv": -1137.48,
         "cost": -1299.1899,
         "plaid_cost": -1299.1899,
         "cost_source": "Finance holdings cost_basis",
@@ -867,12 +891,26 @@
         "premium_source": "USOptions「10月」H×100×K"
       },
       {
+        "ticker": "SPCX",
+        "type": "卖出看跌",
+        "strike": 100,
+        "expiry": "2027-10-15",
+        "contracts": 1,
+        "mv": -922.5,
+        "cost": -1319.1275,
+        "plaid_cost": -1319.1275,
+        "cost_source": "Finance holdings cost_basis",
+        "premium": 13.2,
+        "premium_total": 1320,
+        "premium_source": "USOptions「11月」H×100×K"
+      },
+      {
         "ticker": "RKLB",
         "type": "卖出看跌",
         "strike": 45,
         "expiry": "2028-01-21",
         "contracts": 1,
-        "mv": -957.97,
+        "mv": -889.4,
         "cost": -1098.935,
         "plaid_cost": -1098.935,
         "cost_source": "Finance holdings cost_basis",
@@ -883,44 +921,16 @@
       {
         "ticker": "SPCX",
         "type": "卖出看跌",
-        "strike": 100,
-        "expiry": "2027-10-15",
-        "contracts": 1,
-        "mv": -935.01,
-        "cost": -1319.1275,
-        "plaid_cost": -1319.1275,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 13.2,
-        "premium_total": 1320,
-        "premium_source": "USOptions「11月」H×100×K"
-      },
-      {
-        "ticker": "SPCX",
-        "type": "卖出看跌",
         "strike": 110,
         "expiry": "2027-03-19",
         "contracts": 1,
-        "mv": -572.5,
+        "mv": -570,
         "cost": -1049.1331,
         "plaid_cost": -1049.1331,
         "cost_source": "Finance holdings cost_basis",
         "premium": 10.5,
         "premium_total": 1050,
         "premium_source": "USOptions「11月」H×100×K"
-      },
-      {
-        "ticker": "RKLB",
-        "type": "卖出看跌",
-        "strike": 60,
-        "expiry": "2026-11-20",
-        "contracts": 1,
-        "mv": -504.17,
-        "cost": -398.9495,
-        "plaid_cost": -398.9495,
-        "cost_source": "Finance holdings cost_basis",
-        "premium": 4,
-        "premium_total": 400,
-        "premium_source": "USOptions「10月」H×100×K"
       }
     ],
     "covered_calls": [
@@ -930,7 +940,7 @@
         "strike": 44,
         "expiry": "2026-11-13",
         "contracts": 1,
-        "mv": -63.4,
+        "mv": -4.6,
         "cost": -49.4936,
         "plaid_cost": -49.4936,
         "cost_source": "Finance holdings cost_basis",
@@ -946,21 +956,21 @@
         "strike": 13,
         "expiry": "2027-01-15",
         "contracts": 5,
-        "mv": 106.4,
+        "mv": 167.5,
         "cost": 1828.4938,
         "plaid_cost": 1828.4938,
         "cost_source": "Finance holdings cost_basis"
       }
     ],
-    "short_put_contracts": 11,
-    "short_put_mv": -10466.91,
-    "covered_mv": -63.4,
-    "long_put_mv": 106.4
+    "short_put_contracts": 9,
+    "short_put_mv": -8927.95,
+    "covered_mv": -4.6,
+    "long_put_mv": 167.5
   },
   "equity_costs": {
     "schema_version": 1,
     "methodology": "economic-attribution-v1",
-    "asof": "2026-11-10T20:39:35.646977+08:00",
+    "asof": "2026-11-12T05:38:00+08:00",
     "holdings_connection_updated": null,
     "currency": "USD",
     "coverage": {

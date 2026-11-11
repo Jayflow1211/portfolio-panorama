@@ -1,6 +1,6 @@
 {
   "schema_version": "2.1",
-  "asof": "2026-11-10T20:39:35.646977+08:00",
+  "asof": "2026-11-12T05:38:00+08:00",
   "timezone": "Asia/Shanghai",
   "currency": "USD",
   "formula": "strategy_cost_per_share = (book_cost_total - unembedded_realized_stock_pnl - unembedded_realized_option_pnl) / shares",
@@ -16,56 +16,60 @@
   "records": [
     {
       "ticker": "SPCX",
-      "shares": "440.0000000000",
-      "book_cost_total": "59150.1687",
-      "book_cost_per_share": "134.43220159090909090909090909090909091",
-      "unembedded_realized_stock_pnl": "527.2546373",
-      "unembedded_realized_option_pnl": "5275.0625634",
+      "shares": "400.0000000000",
+      "book_cost_total": "53772.8806",
+      "book_cost_per_share": "134.4322015",
+      "unembedded_realized_stock_pnl": "990.9465373",
+      "unembedded_realized_option_pnl": "5405.0625634",
       "assignment_adjustment_excluded": "161.6220216",
-      "strategy_cost_total": "53347.8514993",
-      "strategy_cost_per_share": "121.24511704386363636363636363636363636",
+      "strategy_cost_total": "47376.8714993",
+      "strategy_cost_per_share": "118.44217874825",
       "status": "approximate",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-12T05:38:00+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
-        "queried_history_to": "2026-11-09",
+        "queried_history_to": "2026-11-11",
         "first_returned_account_trade": "2025-02-24",
         "ticker_first_observed_trade": "20260612",
-        "ticker_last_observed_trade": "20261109",
+        "ticker_last_observed_trade": "20261111",
         "all_returned_trade_records_processed": true,
-        "all_requested_period_stock_and_option_closes_matched": true,
+        "all_requested_period_stock_and_option_closes_matched": false,
         "source_reports_have_transfers_and_corporate_actions": false,
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-11T18:50:35.270383+08:00"
       },
       "fees_missing": [],
       "provenance": [
         "Plaid institutional holdings snapshot",
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
-        "Read-only month-sheet and archived-workbook cross-check"
+        "Read-only month-sheet and archived-workbook cross-check",
+        "2026-11-11 IB Trading Assistant confirms (personal Gmail) for two SPCX stock sells and one SPCX 140P close; USOptions 10月 booked close"
       ],
       "known_components": {
-        "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
-        "realized_stock_net_in_covered_period": "527.2546373",
-        "realized_option_net_excluding_embedded_puts_in_covered_period": "5275.0625634",
+        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet increments (Flex 1605999 toDate=20261110, stale for the session); not asserted since inception",
+        "realized_stock_net_in_covered_period": "990.9465373",
+        "realized_option_net_excluding_embedded_puts_in_covered_period": "5405.0625634",
         "assigned_call_credit_included_once_in_option_pnl": "0",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "53347.8514993",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "121.24511704386363636363636363636363636",
-        "reconstructed_current_quantity": "440",
-        "reconstructed_broker_basis": "59150.1686984",
-        "broker_basis_minus_reconstruction": "0.000001600000000000000000000000000",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "47376.8714993",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "118.44217874825",
+        "reconstructed_current_quantity": "400",
+        "reconstructed_broker_basis": "53772.8806",
+        "broker_basis_minus_reconstruction": "0",
         "last_close_commission_verified": "0.7653",
-        "previous_missing_fee_now_resolved": true
+        "previous_missing_fee_now_resolved": true,
+        "nov11_stock_sale_profit_before_fees": "463.6919",
+        "nov11_option_close_pnl": "130"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
         "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
-        "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit."
+        "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit.",
+        "2026-11-11: sold 40 shares (20@145.549, 20@146.5) from IB confirms; Plaid holdings still 440 (conn 2026-11-11T10:50:35Z pre-open). Remaining book 53772.8806 uses average-cost 59150.1687×400/440. Sale profit 463.6919 = proceeds 5840.98 − allocated book 5377.2881; commissions unknown, so this profit may be slightly overstated. BOT 1 SPCX Nov20'26 140P @4.2 booked P=$130 added to unembedded option net (not in remaining stock book). Flex Query 1605999 toDate=20261110 did not cover the session; these increments are confirm/sheet only, not a new Flex audit. Account-inception caveat still explicit."
       ],
       "display": {
         "book_cost_label": "当前成本（账面/股）",
@@ -74,16 +78,16 @@
         "strategy_fallback_text": null,
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true,
-        "strategy_approximate_per_share": "121.24511704386363636363636363636363636",
+        "strategy_approximate_per_share": "118.44217874825",
         "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
       },
       "book_cost_verification": {
         "status": "verified",
-        "matches_institution_snapshot": true,
+        "matches_institution_snapshot": false,
         "matches_original_statement_or_assignment_bridge": true,
         "difference_vs_unrounded_fill_reconstruction": "0.000001600000000000000000000000000",
-        "meaning": "Total remaining position acquisition basis, already net of embedded put assignment credits; divided by matching shares",
+        "meaning": "Remaining book after pending 40-share average-cost reduction on official Plaid 59150.1687/440; institution snapshot still shows 440 until Plaid absorbs the sells",
         "holdings_valuation_timestamp_provided": false
       }
     },
@@ -98,45 +102,48 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "approximate",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-12T05:38:00+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
-        "queried_history_to": "2026-11-09",
+        "queried_history_to": "2026-11-11",
         "first_returned_account_trade": "2025-02-24",
         "ticker_first_observed_trade": "20250808",
-        "ticker_last_observed_trade": "20261109",
+        "ticker_last_observed_trade": "20261111",
         "all_returned_trade_records_processed": true,
-        "all_requested_period_stock_and_option_closes_matched": true,
+        "all_requested_period_stock_and_option_closes_matched": false,
         "source_reports_have_transfers_and_corporate_actions": false,
         "full_history_complete": false,
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-11T18:50:35.270383+08:00"
       },
       "fees_missing": [],
       "provenance": [
         "Plaid institutional holdings snapshot",
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
-        "Read-only month-sheet and archived-workbook cross-check"
+        "Read-only month-sheet and archived-workbook cross-check",
+        "2026-11-11 IB Trading Assistant confirm (personal Gmail) BOUGHT 1 RKLB Nov20'26 60 PUT @1.81; USOptions 10月 booked close P=$219"
       ],
       "known_components": {
-        "scope": "Returned executions 2025-01-01 through 2026-11-09 only; not asserted since inception",
+        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet close BOT 1 RKLB Nov20'26 60P @1.81 P=$219 (Flex stale for the session); not asserted since inception",
         "realized_stock_net_in_covered_period": "15068.98268",
-        "realized_option_net_excluding_embedded_puts_in_covered_period": "11306.7092296",
+        "realized_option_net_excluding_embedded_puts_in_covered_period": "11525.7092296",
         "assigned_call_credit_included_once_in_option_pnl": "418.94388",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "21361.186190400000000000000000000000000",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.60197698400000000000000",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "21142.1861904",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.236976984",
         "reconstructed_current_quantity": "600",
         "reconstructed_broker_basis": "47736.87806",
-        "broker_basis_minus_reconstruction": "0.000040"
+        "broker_basis_minus_reconstruction": "0.000040",
+        "nov11_option_close_pnl": "219"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
         "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
-        "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula."
+        "Monthly statement has one 150-share row that did not match original executions; that unmatched row was not mixed into the Flex execution totals used for this formula.",
+        "2026-11-11: BOT 1 RKLB Nov20'26 60P @1.81 booked P=$219 added to observed-period option net (not in remaining stock book; qty/book still 600 / 47736.8781; top-level lifetime unembedded fields stay null). Flex Query 1605999 toDate=20261110 did not cover the session; increment is confirm/sheet only. Account-inception caveat still explicit."
       ],
       "display": {
         "book_cost_label": "当前成本（账面/股）",
@@ -145,7 +152,7 @@
         "strategy_fallback_text": null,
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true,
-        "strategy_approximate_per_share": "35.60197698400000000000000",
+        "strategy_approximate_per_share": "35.236976984",
         "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
       },
@@ -499,5 +506,5 @@
       }
     }
   ],
-  "book_cost_status": "All seven institutional remaining-stock bases verified against matching current quantities and original execution/statement bridges."
+  "book_cost_status": "Six official Plaid remaining-stock bases still match current display quantities. SPCX display is 400 / 53772.8806 after pending IB-confirm sells (official Plaid still 440 / 59150.1687 until absorbed)."
 }
