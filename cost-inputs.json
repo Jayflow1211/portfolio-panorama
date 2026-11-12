@@ -1,6 +1,6 @@
 {
   "schema_version": "2.1",
-  "asof": "2026-11-12T05:38:00+08:00",
+  "asof": "2026-11-13T05:42:03+08:00",
   "timezone": "Asia/Shanghai",
   "currency": "USD",
   "formula": "strategy_cost_per_share = (book_cost_total - unembedded_realized_stock_pnl - unembedded_realized_option_pnl) / shares",
@@ -17,15 +17,15 @@
     {
       "ticker": "SPCX",
       "shares": "400.0000000000",
-      "book_cost_total": "53772.8806",
-      "book_cost_per_share": "134.4322015",
-      "unembedded_realized_stock_pnl": "990.9465373",
+      "book_cost_total": "53446.3786",
+      "book_cost_per_share": "133.6159465",
+      "unembedded_realized_stock_pnl": "664.4445373",
       "unembedded_realized_option_pnl": "5405.0625634",
       "assignment_adjustment_excluded": "161.6220216",
       "strategy_cost_total": "47376.8714993",
       "strategy_cost_per_share": "118.44217874825",
       "status": "approximate",
-      "asof": "2026-11-12T05:38:00+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -40,7 +40,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-11T18:50:35.270383+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -48,28 +48,30 @@
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
         "Read-only month-sheet and archived-workbook cross-check",
-        "2026-11-11 IB Trading Assistant confirms (personal Gmail) for two SPCX stock sells and one SPCX 140P close; USOptions 10月 booked close"
+        "2026-11-11 IB Trading Assistant confirms (personal Gmail) for two SPCX stock sells and one SPCX 140P close; USOptions 10月 booked close",
+        "Plaid official holdings 2026-11-12 snapshot (SPCX 400 / 53446.3786 after absorbed Nov 11 sells)"
       ],
       "known_components": {
-        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet increments (Flex 1605999 toDate=20261110, stale for the session); not asserted since inception",
-        "realized_stock_net_in_covered_period": "990.9465373",
+        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet increments, with remaining book now taken from official Plaid 53446.3786/400 after the Nov 11 sells were absorbed (Flex 1605999 toDate=20261111, stale for 2026-11-12); not asserted since inception",
+        "realized_stock_net_in_covered_period": "664.4445373",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "5405.0625634",
         "assigned_call_credit_included_once_in_option_pnl": "0",
         "strategy_cost_total_if_no_earlier_unembedded_pnl": "47376.8714993",
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "118.44217874825",
         "reconstructed_current_quantity": "400",
-        "reconstructed_broker_basis": "53772.8806",
+        "reconstructed_broker_basis": "53446.3786",
         "broker_basis_minus_reconstruction": "0",
         "last_close_commission_verified": "0.7653",
         "previous_missing_fee_now_resolved": true,
-        "nov11_stock_sale_profit_before_fees": "463.6919",
-        "nov11_option_close_pnl": "130"
+        "nov11_stock_sale_profit_before_fees": "137.1899",
+        "nov11_option_close_pnl": "130",
+        "nov11_stock_sale_profit_previous_average_cost_estimate": "463.6919"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
         "Trade-only Flex exports omit transfer/corporate-action history; current quantity and remaining-basis bridge reconcile, but no claim about invisible earlier roundtrips.",
         "Existing SPCX audit preserved and refined to unrounded original Flex cash. June stock sale date is June15 in monthly statement vs June16 in Flex; matching amount/quantity, counted once. Account-inception caveat still explicit.",
-        "2026-11-11: sold 40 shares (20@145.549, 20@146.5) from IB confirms; Plaid holdings still 440 (conn 2026-11-11T10:50:35Z pre-open). Remaining book 53772.8806 uses average-cost 59150.1687×400/440. Sale profit 463.6919 = proceeds 5840.98 − allocated book 5377.2881; commissions unknown, so this profit may be slightly overstated. BOT 1 SPCX Nov20'26 140P @4.2 booked P=$130 added to unembedded option net (not in remaining stock book). Flex Query 1605999 toDate=20261110 did not cover the session; these increments are confirm/sheet only, not a new Flex audit. Account-inception caveat still explicit."
+        "2026-11-12: Plaid absorbed the Nov 11 sale of 40 shares (official remaining 400 / 53446.3786; conn 2026-11-12T07:51:57Z pre-open). Prior pending estimate used average-cost remaining 53772.8806 and sale profit 463.6919 = confirm proceeds 5840.98 − 59150.1687×40/440. Official remaining book is 326.5020 lower, so allocated sold-share basis is 5703.7901 and confirm-proceeds profit is 137.1899. Unembedded stock PnL restated 990.9465373 → 664.4445373 (difference 326.5020 equals the book decline); strategy cost total stays 47376.8714993 / 118.44217874825 so the official book drop is not subtracted twice. Option unembedded 5405.0625634 (includes Nov 11 BOT 1 140P P=$130) unchanged. No new 2026-11-12 option closes. Flex Query 1605999 toDate=20261111 does not cover 2026-11-12; not a new full Flex audit. Account-inception caveat still explicit."
       ],
       "display": {
         "book_cost_label": "当前成本（账面/股）",
@@ -84,10 +86,10 @@
       },
       "book_cost_verification": {
         "status": "verified",
-        "matches_institution_snapshot": false,
+        "matches_institution_snapshot": true,
         "matches_original_statement_or_assignment_bridge": true,
-        "difference_vs_unrounded_fill_reconstruction": "0.000001600000000000000000000000000",
-        "meaning": "Remaining book after pending 40-share average-cost reduction on official Plaid 59150.1687/440; institution snapshot still shows 440 until Plaid absorbs the sells",
+        "difference_vs_unrounded_fill_reconstruction": "0",
+        "meaning": "Official Plaid remaining book after absorbed 40-share sale; strategy unembedded stock PnL restated so official vs average-cost book difference is not double-counted",
         "holdings_valuation_timestamp_provided": false
       }
     },
@@ -102,7 +104,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "approximate",
-      "asof": "2026-11-12T05:38:00+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -117,7 +119,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-11T18:50:35.270383+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -176,7 +178,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -194,7 +196,7 @@
         "verified_symbol_aliases": [
           "SATS"
         ],
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -247,7 +249,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -262,7 +264,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -314,7 +316,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -329,7 +331,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -381,7 +383,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -396,7 +398,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -449,7 +451,7 @@
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-10T20:39:35.646977+08:00",
+      "asof": "2026-11-13T05:42:03+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
@@ -464,7 +466,7 @@
         "since_inception_verified": false,
         "remaining_basis_embedding_verified": true,
         "reported_holdings_valuation_timestamp": null,
-        "holdings_connection_updated_asia_shanghai": "2026-11-10T15:38:22.428219+08:00"
+        "holdings_connection_updated_asia_shanghai": "2026-11-12T15:51:57.689166+08:00"
       },
       "fees_missing": [],
       "provenance": [
@@ -506,5 +508,5 @@
       }
     }
   ],
-  "book_cost_status": "Six official Plaid remaining-stock bases still match current display quantities. SPCX display is 400 / 53772.8806 after pending IB-confirm sells (official Plaid still 440 / 59150.1687 until absorbed)."
+  "book_cost_status": "Seven official Plaid remaining-stock bases match current display quantities, including SPCX 400 / 53446.3786 after absorbed Nov 11 sells. NVDA short 50 is a pending IB-confirm overlay (not in this Plaid snapshot) and has no audited strategy cost yet."
 }
