@@ -48,9 +48,9 @@
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
         "Read-only month-sheet and archived-workbook cross-check",
-        "2026-11-11 IB Trading Assistant confirms (personal Gmail) for two SPCX stock sells and one SPCX 140P close; USOptions 10月 booked close",
+        "2026-11-11 IB trade confirmations for two SPCX stock sells and one SPCX 140P close; USOptions 10月 booked close",
         "Plaid official holdings 2026-11-12 snapshot (SPCX 400 / 53446.3786 after absorbed Nov 11 sells)",
-        "2026-11-17 USOptions month tabs + IB Trading Assistant confirms (personal Gmail); three SPCX put closes, sheet P=$1030, commissions unknown"
+        "2026-11-17 USOptions month tabs + IB trade confirmations; three SPCX put closes, sheet P=$1030, commissions unknown"
       ],
       "known_components": {
         "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet increments, with remaining book now taken from official Plaid 53446.3786/400 after the Nov 11 sells were absorbed (Flex 1605999 toDate=20261111, stale for 2026-11-12); not asserted since inception; plus 2026-11-17 sheet/mail realized SPCX option closes P=$1030 (BOT 1 Mar19'27 110P @5.2 vs H=10.5 P=$530; BOT 2 Nov20'26 140P @3.5 vs H=5.0 P=$300; BOT 1 Nov20'26 140P @3.5 vs H=5.5 P=$200). Commissions on these three closes unknown, not invented. Premiums not embedded in remaining Plaid book 53446.3786/400, so subtracted once.",
@@ -128,7 +128,7 @@
         "Original IB Flex execution export, two nonoverlapping date ranges",
         "IB official monthly activity statements February-October 2026",
         "Read-only month-sheet and archived-workbook cross-check",
-        "2026-11-11 IB Trading Assistant confirm (personal Gmail) BOUGHT 1 RKLB Nov20'26 60 PUT @1.81; USOptions 10月 booked close P=$219"
+        "2026-11-11 IB trade confirmation BOUGHT 1 RKLB Nov20'26 60 PUT @1.81; USOptions 10月 booked close P=$219"
       ],
       "known_components": {
         "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet close BOT 1 RKLB Nov20'26 60P @1.81 P=$219 (Flex stale for the session); not asserted since inception",
@@ -509,5 +509,5 @@
       }
     }
   ],
-  "book_cost_status": "Seven official Plaid remaining-stock bases match current display quantities, including SPCX 400 / 53446.3786 after absorbed Nov 11 sells. NVDA short 50 is a pending IB-confirm overlay (not in this Plaid snapshot) and has no audited strategy cost yet."
+  "book_cost_status": "Seven official Plaid remaining-stock bases match current display quantities, including SPCX 400 / 53446.3786 after absorbed Nov 11 sells. Official Plaid already absorbed the 2026-11-16 NVDA 50-share cover; NVDA is not in the current holdings and has no audited strategy cost."
 }
