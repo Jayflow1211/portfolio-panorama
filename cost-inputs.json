@@ -1,6 +1,6 @@
 {
   "schema_version": "2.1",
-  "asof": "2026-11-20T05:35:49+08:00",
+  "asof": "2026-11-21T05:36:20+08:00",
   "timezone": "Asia/Shanghai",
   "currency": "USD",
   "formula": "strategy_cost_per_share = (book_cost_total - unembedded_realized_stock_pnl - unembedded_realized_option_pnl) / shares",
@@ -16,23 +16,23 @@
   "records": [
     {
       "ticker": "SPCX",
-      "shares": "370.0000000000",
-      "book_cost_total": "49437.900205",
-      "book_cost_per_share": "133.6159465",
+      "shares": "420.0000000000",
+      "book_cost_total": "56037.900205",
+      "book_cost_per_share": "133.4235719166666666666666667",
       "unembedded_realized_stock_pnl": "965.9661423",
       "unembedded_realized_option_pnl": "6525.0625634",
       "assignment_adjustment_excluded": "161.6220216",
-      "strategy_cost_total": "41946.8714993",
-      "strategy_cost_per_share": "113.3699229710810810810810811",
+      "strategy_cost_total": "48546.8714993",
+      "strategy_cost_per_share": "115.5877892840476190476190476",
       "status": "approximate",
-      "asof": "2026-11-19T05:42:20+08:00",
+      "asof": "2026-11-21T05:36:20+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
-        "queried_history_to": "2026-11-18",
+        "queried_history_to": "2026-11-20",
         "first_returned_account_trade": "2025-02-24",
         "ticker_first_observed_trade": "20260612",
-        "ticker_last_observed_trade": "20261118",
+        "ticker_last_observed_trade": "20261120",
         "all_returned_trade_records_processed": true,
         "all_requested_period_stock_and_option_closes_matched": false,
         "source_reports_have_transfers_and_corporate_actions": false,
@@ -57,14 +57,14 @@
         "2026-11-19: no new SPCX stock or realized option fills; official Plaid still unabsorbed on Wednesday sales/125P close; valuation uses Nasdaq official 2026-11-19 16:00 ET close 138.43. Strategy/book figures unchanged from the Wednesday pending average-cost remaining 370 / 49437.900205."
       ],
       "known_components": {
-        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus later IB confirm/sheet increments. Official Plaid remaining book is still 53446.3786/400 as of 2026-11-18T08:11:00Z (Tuesday absorbed; Wednesday not). For display, remaining 370 shares use average-cost book 53446.3786×370/400=49437.900205 after confirmed SOLD 20 @143 and SOLD 10 @145 (proceeds 4310, allocated sold-share basis 4008.478395, stock profit 301.521605; commissions unknown, not invented). This is a pending official-book estimate and may be restated when Plaid absorbs the sales, as on 2026-11-12. Plus 2026-11-17 sheet/mail realized SPCX option closes P=$1030 and 2026-11-18 BOT 1 SPCX Nov20'26 125P @0.1 vs H=1.0, sheet P=$90. Commissions on the Wednesday stock sales and 125P close unknown, not invented. Premiums not embedded in the official remaining Plaid book, so the $90 is subtracted once from the estimated remaining book.",
+        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus later IB confirm/sheet increments. Official Plaid remaining book is still 53446.3786/400 as of 2026-11-18T08:11:00Z (Tuesday absorbed; later fills not). For display, 420 shares use average-cost book 49437.900205+6600=56037.900205 after confirmed Wednesday SOLD 20 @143 and SOLD 10 @145 and Friday BOUGHT 50 (10@135, 10@134, 10@133, 10@130, 10@128; commissions unknown, not invented). This is a pending official-book estimate and may be restated when Plaid absorbs the trades. Covered-period realized stock 965.9661423 and option 6525.0625634 are unchanged (Friday SPCX Dec18 115P opens remain open; premium not treated as realized). Assignment credit 161.6220216 stays excluded from a second subtraction.",
         "realized_stock_net_in_covered_period": "965.9661423",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "6525.0625634",
         "assigned_call_credit_included_once_in_option_pnl": "0",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "41946.8714993",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "113.3699229710810810810810811",
-        "reconstructed_current_quantity": 370,
-        "reconstructed_broker_basis": "49437.900205",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "48546.8714993",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "115.5877892840476190476190476",
+        "reconstructed_current_quantity": 420,
+        "reconstructed_broker_basis": "56037.900205",
         "broker_basis_minus_reconstruction": "pending_official_plaid",
         "last_close_commission_verified": "0.7653",
         "previous_missing_fee_now_resolved": true,
@@ -73,7 +73,9 @@
         "nov11_stock_sale_profit_previous_average_cost_estimate": "463.6919",
         "nov18_stock_sale_proceeds": "4310",
         "nov18_stock_sale_profit_average_cost_estimate": "301.521605",
-        "nov18_option_close_pnl": 90
+        "nov18_option_close_pnl": 90,
+        "nov20_stock_buy_qty": 50,
+        "nov20_stock_buy_cash": "6600"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
@@ -88,7 +90,7 @@
         "strategy_fallback_text": null,
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true,
-        "strategy_approximate_per_share": "113.3699229710810810810810811",
+        "strategy_approximate_per_share": "115.5877892840476190476190476",
         "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
       },
@@ -96,30 +98,30 @@
         "status": "pending_official_book",
         "matches_institution_snapshot": false,
         "matches_original_statement_or_assignment_bridge": false,
-        "difference_vs_unrounded_fill_reconstruction": "0 vs average-cost remaining 49437.900205; official Plaid still 53446.3786/400",
+        "difference_vs_unrounded_fill_reconstruction": "official Plaid still 53446.3786/400; display 56037.900205/420 from confirmed fills, commissions unknown",
         "meaning": "Average-cost remaining book after confirmed but not-yet-absorbed Nov 18 sales of 30 shares; will restate from official Plaid remaining book when absorbed, without double-counting the book change",
         "holdings_valuation_timestamp_provided": false
       }
     },
     {
       "ticker": "RKLB",
-      "shares": "620.0000000000",
-      "book_cost_total": "48756.8781",
-      "book_cost_per_share": "78.64012596774193548387096774",
+      "shares": "650.0000000000",
+      "book_cost_total": "50223.6781",
+      "book_cost_per_share": "77.26719707692307692307692308",
       "unembedded_realized_stock_pnl": null,
       "unembedded_realized_option_pnl": null,
       "assignment_adjustment_excluded": "1846.12243",
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "approximate",
-      "asof": "2026-11-20T05:35:49+08:00",
+      "asof": "2026-11-21T05:36:20+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2025-01-01",
-        "queried_history_to": "2026-11-19",
+        "queried_history_to": "2026-11-20",
         "first_returned_account_trade": "2025-02-24",
         "ticker_first_observed_trade": "20250808",
-        "ticker_last_observed_trade": "20261119",
+        "ticker_last_observed_trade": "20261120",
         "all_returned_trade_records_processed": true,
         "all_requested_period_stock_and_option_closes_matched": false,
         "source_reports_have_transfers_and_corporate_actions": false,
@@ -141,19 +143,21 @@
         "Nasdaq official 2026-11-19 16:00 ET close for valuation (RKLB 50.99); display book 47736.8781+1020=48756.8781 for 620 shares pending official Plaid"
       ],
       "known_components": {
-        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet close BOT 1 RKLB Nov20'26 60P @1.81 P=$219, plus 2026-11-19 IB confirms BOUGHT 20 RKLB @51 (two fills of 10; commissions unknown, not invented). Official Plaid remaining book is still 47736.8781/600 as of 2026-11-18T08:11:00Z. For display, 620 shares use book 47736.8781+1020=48756.8781. This is a pending official-book estimate and may be restated when Plaid absorbs the buys. Covered-period realized stock 15068.98268 and option 11525.7092296 are unchanged (Thursday Dec18 50P @4 remains open; premium not treated as realized). Embedded assignment credit 1846.12243 stays excluded from a second subtraction.",
+        "scope": "Returned executions 2025-01-01 through 2026-11-09 (Flex) plus 2026-11-11 IB confirm/sheet close BOT 1 RKLB Nov20'26 60P @1.81 P=$219, plus 2026-11-19 IB confirms BOUGHT 20 RKLB @51, plus 2026-11-20 IB confirms BOUGHT 10@49 + 10@49.68 + 10@48 (commissions unknown, not invented). Official Plaid remaining book is still 47736.8781/600 as of 2026-11-18T08:11:00Z. For display, 650 shares use book 48756.8781+1466.80=50223.6781. This is a pending official-book estimate and may be restated when Plaid absorbs the buys. Covered-period realized stock 15068.98268 and option 11525.7092296 are unchanged (open Dec18 50P contracts remain open; premium not treated as realized). Embedded assignment credit 1846.12243 stays excluded from a second subtraction.",
         "realized_stock_net_in_covered_period": "15068.98268",
         "realized_option_net_excluding_embedded_puts_in_covered_period": "11525.7092296",
         "assigned_call_credit_included_once_in_option_pnl": "418.94388",
-        "strategy_cost_total_if_no_earlier_unembedded_pnl": "22162.1861904",
-        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "35.74546159741935483870967742",
-        "reconstructed_current_quantity": 620,
-        "reconstructed_broker_basis": "48756.8781",
+        "strategy_cost_total_if_no_earlier_unembedded_pnl": "23628.9861904",
+        "strategy_cost_per_share_if_no_earlier_unembedded_pnl": "36.35228644676923076923076923",
+        "reconstructed_current_quantity": 650,
+        "reconstructed_broker_basis": "50223.6781",
         "broker_basis_minus_reconstruction": "pending_official_plaid",
         "nov11_option_close_pnl": "219",
         "nov19_stock_buy_qty": 20,
         "nov19_stock_buy_price": 51,
-        "nov19_stock_buy_cash": "1020"
+        "nov19_stock_buy_cash": "1020",
+        "nov20_stock_buy_qty": 30,
+        "nov20_stock_buy_cash": "1466.80"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed; absence of returned older data is not proof of lifetime zero.",
@@ -169,7 +173,7 @@
         "strategy_fallback_text": null,
         "do_not_coerce_null_to_zero": true,
         "validate_shares_before_join": true,
-        "strategy_approximate_per_share": "35.74546159741935483870967742",
+        "strategy_approximate_per_share": "36.35228644676923076923076923",
         "strategy_prefix": null,
         "strategy_suffix": "已审计历史口径"
       },
@@ -524,23 +528,23 @@
     },
     {
       "ticker": "NVDA",
-      "shares": "40.0000000000",
-      "book_cost_total": "5970",
-      "book_cost_per_share": "149.25",
+      "shares": "50.0000000000",
+      "book_cost_total": "7390",
+      "book_cost_per_share": "147.8",
       "unembedded_realized_stock_pnl": null,
       "unembedded_realized_option_pnl": null,
       "assignment_adjustment_excluded": null,
       "strategy_cost_total": null,
       "strategy_cost_per_share": null,
       "status": "partial",
-      "asof": "2026-11-20T05:35:49+08:00",
+      "asof": "2026-11-21T05:36:20+08:00",
       "currency": "USD",
       "coverage": {
         "queried_history_from": "2026-11-19",
-        "queried_history_to": "2026-11-19",
+        "queried_history_to": "2026-11-20",
         "first_returned_account_trade": null,
         "ticker_first_observed_trade": "20261119",
-        "ticker_last_observed_trade": "20261119",
+        "ticker_last_observed_trade": "20261120",
         "all_returned_trade_records_processed": true,
         "all_requested_period_stock_and_option_closes_matched": false,
         "source_reports_have_transfers_and_corporate_actions": false,
@@ -551,7 +555,7 @@
         "holdings_connection_updated_asia_shanghai": "2026-11-18T16:11:00.705250+08:00"
       },
       "fees_missing": [
-        "commissions on 2026-11-19 NVDA buys unknown, not invented"
+        "commissions on 2026-11-19 and 2026-11-20 NVDA buys unknown, not invented"
       ],
       "provenance": [
         "2026-11-19 IB trade confirmations: BOUGHT 20 NVDA @150 (12:01:56 ET), BOUGHT 10 NVDA @149 (13:00:00 ET), BOUGHT 10 NVDA @148 (14:07:08 ET); not in official Plaid 2026-11-18T08:11:00Z snapshot",
@@ -560,16 +564,19 @@
         "Open short put SOLD 1 NVDA Nov20'26 145 PUT @1.1 is not treated as realized and is not subtracted from share cost"
       ],
       "known_components": {
-        "scope": "New 40-share lot established 2026-11-19 from IB confirms only. Official Plaid has no NVDA shares as of 2026-11-18T08:11:00Z. Broker book is the sum of confirmed fill notional 5970; commissions unknown, not invented. No audited Flex/statement reconstruction has been joined to this lot. Prior account NVDA option closes remain unallocated to these new shares so they are not subtracted here.",
+        "scope": "Lot established 2026-11-19 from IB confirms (20@150 + 10@149 + 10@148) and increased 2026-11-20 by BOUGHT 10 @142. Official Plaid has no NVDA shares as of 2026-11-18T08:11:00Z. Broker book is the sum of confirmed fill notional 7390; commissions unknown, not invented. No audited Flex/statement reconstruction has been joined to this lot. Prior account NVDA option closes, including Friday BOT 1 NVDA Nov20'26 145P @4.5 vs H=1.1 sheet P=-340, remain unallocated to these new shares so they are not subtracted here.",
         "realized_stock_net_in_covered_period": null,
         "realized_option_net_excluding_embedded_puts_in_covered_period": null,
         "assigned_call_credit_included_once_in_option_pnl": null,
         "strategy_cost_total_if_no_earlier_unembedded_pnl": null,
         "strategy_cost_per_share_if_no_earlier_unembedded_pnl": null,
-        "reconstructed_current_quantity": 40,
-        "reconstructed_broker_basis": "5970",
+        "reconstructed_current_quantity": 50,
+        "reconstructed_broker_basis": "7390",
         "broker_basis_minus_reconstruction": "pending_official_plaid",
-        "nov19_stock_buy_notional": "5970"
+        "nov19_stock_buy_notional": "5970",
+        "nov20_stock_buy_qty": 10,
+        "nov20_stock_buy_cash": "1420",
+        "nov20_option_close_pnl_unallocated": "-340"
       },
       "gaps": [
         "Account inception date and pre-2025 realized history not confirmed.",
@@ -588,7 +595,7 @@
         "status": "pending_official_book",
         "matches_institution_snapshot": false,
         "matches_original_statement_or_assignment_bridge": false,
-        "difference_vs_unrounded_fill_reconstruction": "official Plaid has 0 NVDA shares; display 5970/40 from confirmed fills, commissions unknown",
+        "difference_vs_unrounded_fill_reconstruction": "official Plaid has 0 NVDA shares; display 7390/50 from confirmed fills, commissions unknown",
         "meaning": "Pending official-book estimate for a new lot; will restate from official Plaid when absorbed, without inventing commissions or allocating earlier option P&L",
         "holdings_valuation_timestamp_provided": false
       }
